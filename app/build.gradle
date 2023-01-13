@@ -33,6 +33,9 @@ android {
     buildFeatures{
         viewBinding true
     }
+    android.dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -43,6 +46,10 @@ dependencies {
     //Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Jetpack navigation Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
