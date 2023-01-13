@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/">
+    app:startDestination="@+id/communityFragment">
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="umc.standard.todaygym.presentation.community.CommunityFragment"
+        android:label="CommunityFragment"
+        tools:layout="@layout/fragment_community"/>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.CalendarFragment"
+        android:label="CalendarFragment"
+        tools:layout="@layout/fragment_calendar"/>
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="umc.standard.todaygym.presentation.mypage.MypageFragment"
+        android:label="MypageFragment"
+        tools:layout="@layout/fragment_mypage"/>
 
 </navigation>
