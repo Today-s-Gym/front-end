@@ -3,4 +3,6 @@
     <string name="menu_community">커뮤니티</string>
     <string name="menu_calendar">캘린더</string>
     <string name="menu_mypage">마이페이지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
