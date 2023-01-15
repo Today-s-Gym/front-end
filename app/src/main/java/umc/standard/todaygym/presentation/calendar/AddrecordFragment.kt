@@ -17,6 +17,11 @@ class AddrecordFragment : Fragment() {
     ): View? {
         binding = FragmentAddrecordBinding.inflate(layoutInflater)
         return binding.root
+
+        // 1. 상단바 버튼 및 기록 날짜 기능 구현
+        // 2. 사용자 정보 값 대입
+        // 3. 사진 업로드 기능 넣기
+        // 4. 태그 추가 화면 넘어가기
     }
 
 }
