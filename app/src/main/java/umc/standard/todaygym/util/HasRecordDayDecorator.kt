@@ -1,6 +1,8 @@
 package umc.standard.todaygym.util
 
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.text.style.StyleSpan
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import com.prolificinteractive.materialcalendarview.CalendarDay

@@ -1,26 +1,21 @@
 package umc.standard.todaygym.presentation.calendar
 
-import android.content.Intent
-import android.opengl.Visibility
+
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.setFragmentResult
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import umc.standard.todaygym.MainActivity
 import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
 import umc.standard.todaygym.util.HasRecordDayDecorator
 import java.lang.String.format
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,6 +44,10 @@ class CalendarFragment: Fragment() {
         val sdf = SimpleDateFormat(pattern)
         val date = sdf.format(Calendar.getInstance().time)
         mycalendar.setTitleFormatter { format(date)}
+        // 오늘날짜로 변수 지정
+        selectedDate = CalendarDay.today()
+        // 오늘 이후 날짜 지정 불가
+
         // 기록이 있는 날짜 표시
         val calList = ArrayList<CalendarDay>()
         calList.add(CalendarDay.from(2022,12,5))
@@ -67,9 +66,7 @@ class CalendarFragment: Fragment() {
             add(Record(CalendarDay.from(2023, 1, 10), "하핫 4일차다","사진4","태그4"))
             add(Record(CalendarDay.from(2023, 1, 17),"하핫 5일차다","사진5","태그5"))
         }
-        // 오늘날짜로 변수 지정
-        selectedDate = mycalendar.currentDate
-        
+
         // 최초 오늘날짜 기록이 있는 경우 미리보기 구성 --> 적용이 안됨
         binding.apply {
             var judge = false
@@ -80,6 +77,7 @@ class CalendarFragment: Fragment() {
                     tvNorecord.visibility = View.INVISIBLE
                     tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
                     tvRecordcontent.text = record.content
+                    break
                     // 미리보기 사진은 나중에
                 }
             }
@@ -101,6 +99,7 @@ class CalendarFragment: Fragment() {
                         tvNorecord.visibility = View.INVISIBLE
                         tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
                         tvRecordcontent.text = record.content
+                        break
                         // 미리보기 사진은 나중에
                     }
                 }
@@ -111,21 +110,20 @@ class CalendarFragment: Fragment() {
             }
         }
 
-            /*
-            binding.apply {
-                val mActivity = activity as MainActivity
-                btnShowrecord.setOnClickListener {
-                    val bundle = bundleOf("calToShow" to "2023.01.01")
-                    setFragmentResult("recordDate", bundle)
-                    mActivity.onChangeFragment(0)
-                }
-                btnAddrecord.setOnClickListener {
-                    val bundle = bundleOf("calToAdd" to "2023.01.01")
-                    setFragmentResult("newRecordDate", bundle)
-                    mActivity.onChangeFragment(1)
-                }
-    
+        binding.apply {
+            val mActivity = activity as MainActivity
+            btnShowrecord.setOnClickListener {
+                val bundle = bundleOf("calToShow" to "2023.01.01")
+                setFragmentResult("recordDate", bundle)
+                mActivity.onChangeFragment(0)
             }
-             */
+            btnAddrecord.setOnClickListener {
+                val bundle = bundleOf("calToAdd" to "2023.01.01")
+                setFragmentResult("newRecordDate", bundle)
+                mActivity.onChangeFragment(1)
+            }
+
+        }
+
     }
 }

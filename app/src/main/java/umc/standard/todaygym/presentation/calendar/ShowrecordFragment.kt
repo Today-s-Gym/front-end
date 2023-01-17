@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import umc.standard.todaygym.R
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
 
@@ -19,5 +20,15 @@ class ShowrecordFragment : Fragment() {
         // 1. viewpager2 연결
         // 2. 상단바 버튼 기능 구현
         // 3. 사용자 정보 및 기록 정보들 값 넣기
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setFragmentResultListener("recordDate") { key, bundle ->
+            bundle.getString("calToShow")?.let {value ->
+                binding.tvRecorddate.text = value
+            }
+        }
     }
 }

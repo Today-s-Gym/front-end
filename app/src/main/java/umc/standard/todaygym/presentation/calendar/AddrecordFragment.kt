@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import umc.standard.todaygym.R
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
@@ -23,5 +24,13 @@ class AddrecordFragment : Fragment() {
         // 3. 사진 업로드 기능 넣기
         // 4. 태그 추가 화면 넘어가기
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        setFragmentResultListener("newRecordDate") { key, bundle ->
+            bundle.getString("calToAdd")?.let {value ->
+                binding.tvRecorddate.text = value
+            }
+        }
+    }
 }
