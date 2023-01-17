@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/communityFragment"
+        android:title="@string/menu_community"
+        android:icon="@drawable/menu_community"
+        />
+    <item
+        android:id="@+id/calendarFragment"
+        android:title="@string/menu_calendar"
+        android:icon="@drawable/menu_calendar"/>
+
+    <item
+        android:id="@+id/mypageFragment"
+        android:title="@string/menu_mypage"
+        android:icon="@drawable/menu_mypage"
+        />
+</menu>
