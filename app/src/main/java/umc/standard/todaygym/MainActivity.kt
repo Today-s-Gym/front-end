@@ -26,26 +26,4 @@ class MainActivity : AppCompatActivity() {
     private fun initNavigation() {
         NavigationUI.setupWithNavController(binding.navBar, findNavController(R.id.nav_host))
     }
-
-    fun onChangeFragment(index: Int) {
-        if (index == 0) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.nav_host, ShowrecordFragment())
-                .commitAllowingStateLoss()
-        }
-        else if(index == 1) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.nav_host, AddrecordFragment())
-                .commitAllowingStateLoss()
-        }
-        else if(index == 2) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.nav_host, AddtagFragment())
-                .commitAllowingStateLoss()
-        }
-    }
-
 }

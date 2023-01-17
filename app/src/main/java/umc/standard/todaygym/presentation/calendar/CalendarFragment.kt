@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import umc.standard.todaygym.MainActivity
+import umc.standard.todaygym.R
 import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
 import umc.standard.todaygym.util.HasRecordDayDecorator
@@ -75,6 +77,7 @@ class CalendarFragment: Fragment() {
                     judge = true
                     layoutPreview.visibility = View.VISIBLE
                     tvNorecord.visibility = View.INVISIBLE
+                    btnAddrecord.visibility = View.INVISIBLE
                     tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
                     tvRecordcontent.text = record.content
                     break
@@ -84,6 +87,7 @@ class CalendarFragment: Fragment() {
             if (!judge) {
                 layoutPreview.visibility = View.INVISIBLE
                 tvNorecord.visibility = View.VISIBLE
+                btnAddrecord.visibility = View.VISIBLE
             }
         }
 
@@ -97,6 +101,7 @@ class CalendarFragment: Fragment() {
                         judge = true
                         layoutPreview.visibility = View.VISIBLE
                         tvNorecord.visibility = View.INVISIBLE
+                        btnAddrecord.visibility = View.INVISIBLE
                         tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
                         tvRecordcontent.text = record.content
                         break
@@ -106,24 +111,25 @@ class CalendarFragment: Fragment() {
                 if (!judge) {
                     layoutPreview.visibility = View.INVISIBLE
                     tvNorecord.visibility = View.VISIBLE
+                    btnAddrecord.visibility = View.VISIBLE
                 }
             }
-        }
-
-        binding.apply {
-            val mActivity = activity as MainActivity
+            val bundle = Bundle()
+            // 기록 보기 화면으로 전환
             btnShowrecord.setOnClickListener {
-                val bundle = bundleOf("calToShow" to "2023.01.01")
-                setFragmentResult("recordDate", bundle)
-                mActivity.onChangeFragment(0)
+                bundle.putInt("recordYear",selectedDate.year)
+                bundle.putInt("recordMonth",selectedDate.month)
+                bundle.putInt("recordDay",selectedDate.day)
+                findNavController().navigate(R.id.showrecordFragment, bundle)
             }
+            // 기록 추가 또는 수정 화면으로 전환
             btnAddrecord.setOnClickListener {
-                val bundle = bundleOf("calToAdd" to "2023.01.01")
-                setFragmentResult("newRecordDate", bundle)
-                mActivity.onChangeFragment(1)
+                bundle.putInt("recordYear",selectedDate.year)
+                bundle.putInt("recordMonth",selectedDate.month)
+                bundle.putInt("recordDay",selectedDate.day)
+                bundle.putInt("check",0)
+                findNavController().navigate(R.id.addrecordFragment, bundle)
             }
-
         }
-
     }
 }

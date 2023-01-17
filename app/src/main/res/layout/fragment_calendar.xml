@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
             app:mcv_headerTextAppearance="@style/CalendarWidgetHeader"
-            app:mcv_leftArrow="@drawable/calendar_arrow_back_ios"
+            app:mcv_leftArrow="@drawable/calendar_arrow_back"
             app:mcv_rightArrow="@drawable/calendar_arrow_forward"
             app:mcv_selectionColor="#805080FC"
             app:mcv_selectionMode="single"
@@ -120,7 +120,7 @@
                 android:layout_height="22.17dp"
                 android:layout_marginLeft="20.92dp"
                 android:layout_marginTop="9.92dp"
-                android:src="@drawable/add"
+                android:src="@drawable/add_black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

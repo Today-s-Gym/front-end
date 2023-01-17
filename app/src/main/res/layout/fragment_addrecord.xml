@@ -117,7 +117,7 @@
                     <ImageView
                         android:layout_width="20.83dp"
                         android:layout_height="18.75dp"
-                        android:src="@drawable/camera"
+                        android:src="@drawable/photo_camera"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"

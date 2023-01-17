@@ -13,11 +13,29 @@
         android:id="@+id/calendarFragment"
         android:name="umc.standard.todaygym.presentation.calendar.CalendarFragment"
         android:label="CalendarFragment"
-        tools:layout="@layout/fragment_calendar"/>
+        tools:layout="@layout/fragment_calendar">
+    </fragment>
     <fragment
         android:id="@+id/mypageFragment"
         android:name="umc.standard.todaygym.presentation.mypage.MypageFragment"
         android:label="MypageFragment"
         tools:layout="@layout/fragment_mypage"/>
+    <fragment
+        android:id="@+id/showrecordFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.ShowrecordFragment"
+        android:label="fragment_showrecord"
+        tools:layout="@layout/fragment_showrecord" >
+    </fragment>
+    <fragment
+        android:id="@+id/addrecordFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.AddrecordFragment"
+        android:label="fragment_addrecord"
+        tools:layout="@layout/fragment_addrecord" >
+    </fragment>
+    <fragment
+        android:id="@+id/addtagFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.AddtagFragment"
+        android:label="fragment_addtag"
+        tools:layout="@layout/fragment_addtag" />
 
 </navigation>
