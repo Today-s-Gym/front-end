@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/view_post"
+        android:layout_width="318dp"
+        android:layout_height="284dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/border_post_glide">
+
+        <EditText
+            android:id="@+id/edit_title"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:background="@android:color/transparent"
+            android:textStyle="normal"
+            android:layout_marginTop="22dp"
+            android:textColor="@color/textBlack"
+            android:hint="제목을 입력해주세요."
+            android:layout_alignParentTop="true"
+            android:textColorHint="@color/textGray"/>
+
+        <ImageView
+            android:id="@+id/img_border1"
+            android:layout_width="288dp"
+            android:layout_height="1dp"
+            android:background="@color/textGray"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/edit_title"/>
+
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="288dp"
+            android:layout_height="193dp"
+            android:gravity="clip_horizontal"
+            android:hint="게시글 내용을 입력해주세요."
+            android:textColorHint="@color/textGray"
+            android:layout_marginTop="12dp"
+            android:textSize="14sp"
+            
+            android:layout_below="@+id/img_border1"
+            android:background="@android:color/transparent"
+            android:textColor="@color/textBlack"/>
+
+    </RelativeLayout>
+    
+    <ImageView
+        android:id="@+id/img_border2"
+        android:layout_width="318dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/view_post"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/viewBorder"
+        android:layout_marginTop="14dp"/>
+    
+    <ImageView
+        android:id="@+id/img_camera"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@+id/img_border2"
+        android:background="@drawable/border_post_glide"
+        app:layout_constraintStart_toStartOf="@id/img_border2"
+        android:layout_marginTop="18dp" />
+
+    <ImageView
+        android:id="@+id/img_border3"
+        android:layout_width="318dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/img_camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/viewBorder"
+        android:layout_marginTop="18dp"/>
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기록 추가"
+        app:layout_constraintTop_toTopOf="@id/img_border3"
+        app:layout_constraintStart_toStartOf="@id/img_border3"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/textBlack"
+        android:textSize="16sp"/>
+    <ImageButton
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/add"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@id/tv_add"
+        app:layout_constraintBottom_toBottomOf="@id/tv_add"
+        app:layout_constraintEnd_toEndOf="@id/img_border3"
+        android:layout_marginRight="5dp"/>
+
+    <ImageView
+        android:id="@+id/img_exrecord"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add"
+        app:layout_constraintStart_toStartOf="@+id/tv_add"
+        android:background="@drawable/border_exrecord"
+        android:layout_marginTop="18dp"
+        android:clipToOutline="true"
+        android:src="@drawable/kendo" />
+
+    <TextView
+        android:id="@+id/tv_exdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="2022/12/25"
+        android:textColor="@color/textBlack"
+        app:layout_constraintTop_toTopOf="@+id/img_exrecord"
+        app:layout_constraintStart_toEndOf="@+id/img_exrecord"
+        android:layout_marginTop="5.5dp"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_excontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textBlack"
+        android:textSize="14sp"
+        android:text="운동 기록 미리보기 여기"
+        app:layout_constraintTop_toBottomOf="@+id/tv_exdate"
+        app:layout_constraintStart_toStartOf="@+id/tv_exdate"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:layout_width="53dp"
+        android:layout_height="31.82dp"
+        app:layout_constraintTop_toTopOf="@id/img_exrecord"
+        app:layout_constraintBottom_toBottomOf="@id/img_exrecord"
+        app:layout_constraintEnd_toEndOf="@id/img_border3"
+        android:text="삭제"
+        android:background="@drawable/border_btn"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textColor="@color/textBlack"/>
+
+        
+
+
+</android.support.constraint.ConstraintLayout>

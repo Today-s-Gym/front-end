@@ -8,7 +8,16 @@
         android:id="@+id/communityFragment"
         android:name="umc.standard.todaygym.presentation.community.CommunityFragment"
         android:label="CommunityFragment"
-        tools:layout="@layout/fragment_community"/>
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_communityFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardFragment"
+        android:name="umc.standard.todaygym.presentation.community.BoardFragment"
+        android:label="BoardFragment"
+        tools:layout="@layout/fragment_board" />
     <fragment
         android:id="@+id/calendarFragment"
         android:name="umc.standard.todaygym.presentation.calendar.CalendarFragment"
