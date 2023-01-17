@@ -1,10 +1,10 @@
 package umc.standard.todaygym.data.mdoel
 
+import com.prolificinteractive.materialcalendarview.CalendarDay
+
 data class Record(
-    val year: Int,
-    val month: Int,
-    val day: Int,
+    val date: CalendarDay,
     var content: String,
-    var pictures: ArrayList<String>,
-    var tags: ArrayList<String>
+    var pictures: String, //ArrayList<String>,
+    var tags: String, // ArrayList<String>
 )
