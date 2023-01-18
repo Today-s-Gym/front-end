@@ -16,6 +16,7 @@ class AddExFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentAddExBinding.inflate(layoutInflater)
+
         return viewBinding.root
     }
 }
