@@ -5,13 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import umc.standard.todaygym.MainActivity
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
