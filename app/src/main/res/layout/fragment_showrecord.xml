@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.calendar.ShowrecordFragment">
+    tools:context=".presentation.calendar.ShowrecordFragment"
+    android:background="@color/white">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -76,13 +77,14 @@
                 app:layout_constraintTop_toTopOf="@id/iv_useravarta"
                 app:layout_constraintBottom_toTopOf="@id/tv_recorddate"
                 app:layout_constraintLeft_toRightOf="@id/iv_useravarta" />
+
             <TextView
                 android:id="@+id/tv_recorddate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2023.01.01"
-                android:textSize="15sp"
+                android:text="2023.12.31"
                 android:textColor="#9B9B9B"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_useravarta"
                 app:layout_constraintLeft_toLeftOf="@id/tv_usernickname" />
             <androidx.viewpager2.widget.ViewPager2

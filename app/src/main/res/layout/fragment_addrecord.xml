@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.calendar.AddrecordFragment">
+    tools:context=".presentation.calendar.AddrecordFragment"
+    android:background="@color/white">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,17 +25,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
             <TextView
                 android:id="@+id/tv_recorddate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2023.01.01"
+                android:text="2023.12.31"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_completerecord"
@@ -115,7 +117,7 @@
                     <ImageView
                         android:layout_width="20.83dp"
                         android:layout_height="18.75dp"
-                        android:src="@drawable/camera"
+                        android:src="@drawable/photo_camera"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
