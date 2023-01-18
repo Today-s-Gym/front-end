@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#8B9EFF</color>
     <color name="calendarDotColor">#5080FC</color>
+    <color name="textBlack">#000000</color>
+    <color name="textGray">#909090</color>
+    <color name="viewBorder">#D9D9D9</color>
+    <color name="postGrey">#EEEEEE</color>
+    <color name="btnColor">#E0E5FF</color>
 </resources>
