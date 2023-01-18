@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
 import umc.standard.todaygym.util.HasRecordDayDecorator
+import umc.standard.todaygym.util.MyTitleFormatter
 import java.lang.String.format
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,15 +41,13 @@ class CalendarFragment: Fragment() {
         // 최초 시작 시 오늘 날짜로 지정
         mycalendar.setDateSelected(CalendarDay.today(), true)
         // 캘린더 Title 연. 월 형식으로 변경
-        val pattern = "yyyy. MM"
-        val sdf = SimpleDateFormat(pattern)
-        val date = sdf.format(Calendar.getInstance().time)
-        mycalendar.setTitleFormatter { format(date)}
+        mycalendar.setTitleFormatter(MyTitleFormatter())
+
         // 오늘날짜로 변수 지정
         selectedDate = CalendarDay.today()
         // 오늘 이후 날짜 지정 불가
 
-        // 기록이 있는 날짜 표시
+        // 기록이 있는 날짜 표시(화면 넘어올 때마다 갱신해줘야함)
         val calList = ArrayList<CalendarDay>()
         calList.add(CalendarDay.from(2022,12,5))
         calList.add(CalendarDay.from(2023, 1, 4))
@@ -66,7 +66,7 @@ class CalendarFragment: Fragment() {
             add(Record(CalendarDay.from(2023, 1, 17),"하핫 5일차다","사진5","태그5"))
         }
 
-        // 최초 오늘날짜 기록이 있는 경우 미리보기 구성 --> 적용이 안됨
+        // 최초 오늘날짜 기록이 있는 경우 미리보기 구성
         binding.apply {
             var judge = false
             for (record in userRecords) {
