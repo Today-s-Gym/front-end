@@ -17,7 +17,17 @@
         android:id="@+id/boardFragment"
         android:name="umc.standard.todaygym.presentation.community.BoardFragment"
         android:label="BoardFragment"
-        tools:layout="@layout/fragment_board" />
+        tools:layout="@layout/fragment_board" >
+        <action
+            android:id="@+id/action_boardFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_boardFragment_to_postFragment2"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_boardFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="umc.standard.todaygym.presentation.calendar.CalendarFragment"
@@ -28,5 +38,21 @@
         android:name="umc.standard.todaygym.presentation.mypage.MypageFragment"
         android:label="MypageFragment"
         tools:layout="@layout/fragment_mypage"/>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="umc.standard.todaygym.presentation.community.PostFragment"
+        android:label="PostFragment" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="umc.standard.todaygym.presentation.community.AddPostFragment"
+        android:label="AddPostFragment" >
+        <action
+            android:id="@+id/action_addPostFragment_to_addExFragment"
+            app:destination="@id/addExFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addExFragment"
+        android:name="umc.standard.todaygym.presentation.community.AddExFragment"
+        android:label="AddExFragment" />
 
 </navigation>
