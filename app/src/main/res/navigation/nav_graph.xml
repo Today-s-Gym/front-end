@@ -19,25 +19,44 @@
         android:label="BoardFragment"
         tools:layout="@layout/fragment_board" >
         <action
-            android:id="@+id/action_boardFragment_to_postFragment"
-            app:destination="@id/postFragment" />
-        <action
-            android:id="@+id/action_boardFragment_to_postFragment2"
-            app:destination="@id/postFragment" />
-        <action
             android:id="@+id/action_boardFragment_to_addPostFragment"
             app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_boardFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="umc.standard.todaygym.presentation.calendar.CalendarFragment"
         android:label="CalendarFragment"
-        tools:layout="@layout/fragment_calendar"/>
+        tools:layout="@layout/fragment_calendar">
+    </fragment>
     <fragment
         android:id="@+id/mypageFragment"
         android:name="umc.standard.todaygym.presentation.mypage.MypageFragment"
         android:label="MypageFragment"
         tools:layout="@layout/fragment_mypage"/>
+    <fragment
+        android:id="@+id/showrecordFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.ShowrecordFragment"
+        android:label="fragment_showrecord"
+        tools:layout="@layout/fragment_showrecord" >
+    </fragment>
+    <fragment
+        android:id="@+id/addrecordFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.AddrecordFragment"
+        android:label="fragment_addrecord"
+        tools:layout="@layout/fragment_addrecord" >
+    </fragment>
+    <fragment
+        android:id="@+id/addtagFragment"
+        android:name="umc.standard.todaygym.presentation.calendar.AddtagFragment"
+        android:label="fragment_addtag"
+        tools:layout="@layout/fragment_addtag" />
+    <fragment
+        android:id="@+id/addExFragment"
+        android:name="umc.standard.todaygym.presentation.community.AddExFragment"
+        android:label="AddExFragment" />
     <fragment
         android:id="@+id/postFragment"
         android:name="umc.standard.todaygym.presentation.community.PostFragment"
@@ -50,9 +69,5 @@
             android:id="@+id/action_addPostFragment_to_addExFragment"
             app:destination="@id/addExFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addExFragment"
-        android:name="umc.standard.todaygym.presentation.community.AddExFragment"
-        android:label="AddExFragment" />
 
 </navigation>
