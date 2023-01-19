@@ -45,13 +45,13 @@
             android:textColorHint="@color/textGray"
             android:layout_marginTop="12dp"
             android:textSize="14sp"
-            
+
             android:layout_below="@+id/img_border1"
             android:background="@android:color/transparent"
             android:textColor="@color/textBlack"/>
 
     </RelativeLayout>
-    
+
     <ImageView
         android:id="@+id/img_border2"
         android:layout_width="318dp"
@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/viewBorder"
         android:layout_marginTop="14dp"/>
-    
+
     <ImageView
         android:id="@+id/img_camera"
         android:layout_width="80dp"
@@ -92,6 +92,7 @@
         android:textColor="@color/textBlack"
         android:textSize="16sp"/>
     <ImageButton
+        android:id="@+id/btn_exrecord"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:src="@drawable/add"
@@ -147,7 +148,7 @@
         android:textSize="13sp"
         android:textColor="@color/textBlack"/>
 
-        
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

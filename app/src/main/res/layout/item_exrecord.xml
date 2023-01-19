@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/img_exrecord"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/border_exrecord"
+        android:clipToOutline="true"
+        android:src="@drawable/kendo" />
+
+    <TextView
+        android:id="@+id/tv_exdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="2022/12/25"
+        android:textColor="@color/textBlack"
+        app:layout_constraintTop_toTopOf="@+id/img_exrecord"
+        app:layout_constraintStart_toEndOf="@+id/img_exrecord"
+        android:layout_marginTop="5.5dp"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_excontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textBlack"
+        android:textSize="14sp"
+        android:text="운동 기록 미리보기 여기"
+        app:layout_constraintTop_toBottomOf="@+id/tv_exdate"
+        app:layout_constraintStart_toStartOf="@+id/tv_exdate"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:layout_width="53dp"
+        android:layout_height="31.82dp"
+        app:layout_constraintTop_toTopOf="@id/img_exrecord"
+        app:layout_constraintBottom_toBottomOf="@id/img_exrecord"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="선택"
+        android:background="@drawable/border_btn"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textColor="@color/textBlack"/>
+
+
+    <ImageView
+        android:id="@+id/img_border1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/viewBorder"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/img_exrecord"
+        app:layout_constraintStart_toStartOf="@+id/img_exrecord"
+        app:layout_constraintEnd_toEndOf="@+id/img_exrecord" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
