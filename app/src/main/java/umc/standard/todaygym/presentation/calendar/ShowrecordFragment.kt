@@ -5,34 +5,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.marginTop
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
 
 class ShowrecordFragment : Fragment() {
     private lateinit var binding: FragmentShowrecordBinding
+    private lateinit var recordData: Record
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentShowrecordBinding.inflate(layoutInflater)
         return binding.root
-        // 1. viewpager2 연결
-        // 2. 상단바 버튼 기능 구현
-        // 3. 사용자 정보 및 기록 정보들 값 넣기
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recordDate = arrayListOf<Int>()
         binding.apply {
-            recordDate.add(arguments?.getInt("recordYear") as Int)
-            recordDate.add(arguments?.getInt("recordMonth") as Int)
-            recordDate.add(arguments?.getInt("recordDay") as Int)
+            // 서버에서 기록 정보 받기
+            recordData = Record(CalendarDay.from(arguments?.getInt("recordYear") as Int,
+                arguments?.getInt("recordMonth") as Int,
+                arguments?.getInt("recordDay") as Int),
+                "하핫 1일차다", arrayListOf(R.drawable.add_black, R.drawable.add_gray), arrayListOf("태그1","태그2","태그3"))
 
-            tvRecorddate.text = "${recordDate[0]}.${recordDate[1]}.${recordDate[2]}"
+            // 서버에서 사용자 정보 넣기
+            tvUsernickname.text = "벡스"
+            ivUseravarta.setImageResource(R.drawable.logo)
+
+            // 기록 날짜 넣기
+            tvRecorddate.text = "${recordData.date.year}.${recordData.date.month}.${recordData.date.day}"
+
+            // 날짜를 통해 데이터 받아오기
+            // 1. 사진 데이터 viewpager2에 적용하기
+            if(recordData.pictures.size != 0) {
+                loRecordpic.visibility = View.VISIBLE
+                initViewPager2()
+            }
+            else {
+                loRecordpic.visibility = View.GONE
+            }
+
+            // 2. 기록 내용 textview에 적용하기
+            tvRecordcontent.text = recordData.content
+            // 3. 태그 데이터 적용하기
+
+
+            // 상단바 기능 적용
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -42,12 +70,32 @@ class ShowrecordFragment : Fragment() {
             }
             btnModifyrecord.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putInt("recordYear",recordDate[0])
-                bundle.putInt("recordMonth",recordDate[1])
-                bundle.putInt("recordDay",recordDate[2])
+                bundle.putInt("recordYear",recordData.date.year)
+                bundle.putInt("recordMonth",recordData.date.month)
+                bundle.putInt("recordDay",recordData.date.day)
                 bundle.putInt("check",1)
                 findNavController().navigate(R.id.addrecordFragment, bundle)
             }
         }
+    }
+
+    private fun initViewPager2() {
+        binding.apply {
+            tvCurrentpic.text = "1/${recordData.pictures.size}"
+            vpRecordPic.apply {
+                adapter = RecordPictureAdapter(requireActivity(), recordData.pictures)
+                setPageTransformer(MarginPageTransformer(100))
+            }
+            viewChangeEvent()
+        }
+
+    }
+    private fun viewChangeEvent(){
+        binding.vpRecordPic.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.tvCurrentpic.text = "${position+1}/${recordData.pictures.size}"
+            }
+        })
     }
 }
