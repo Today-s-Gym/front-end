@@ -13,6 +13,9 @@ import umc.standard.todaygym.databinding.FragmentAddtagBinding
 class AddtagFragment : Fragment() {
 
     private lateinit var binding: FragmentAddtagBinding
+    // 수정이면 1 / 추가면 0
+    var check : Int = -1
+    var tagList = arrayListOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,16 +27,26 @@ class AddtagFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        check = arguments?.getInt("check") as Int
+
+        // 수정일 경우 기존 태그 값 받기
+        /*
+        if(check == 1) {
+            tagList = arguments?.getStringArrayList("tagData") as ArrayList<String>
+        }
+         */
         binding.apply {
             btnBack.setOnClickListener {
-                var tagList = arrayListOf<String>()
-                if(tvNewtag1.text.toString() != "") tagList.add(tvNewtag1.text.toString())
-                if(tvNewtag2.text.toString() != "") tagList.add(tvNewtag2.text.toString())
-                if(tvNewtag3.text.toString() != "") tagList.add(tvNewtag3.text.toString())
                 findNavController().apply {
                     previousBackStackEntry?.savedStateHandle?.set("tag", tagList)
                     popBackStack()
                 }
+            }
+            btnCompletetag.setOnClickListener {
+
+            }
+            btnMaketag.setOnClickListener {
+
             }
         }
     }

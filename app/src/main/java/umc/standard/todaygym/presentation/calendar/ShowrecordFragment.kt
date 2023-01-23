@@ -1,19 +1,18 @@
 package umc.standard.todaygym.presentation.calendar
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.TextView
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.marginTop
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import org.w3c.dom.Text
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
@@ -21,6 +20,7 @@ import umc.standard.todaygym.databinding.FragmentShowrecordBinding
 class ShowrecordFragment : Fragment() {
     private lateinit var binding: FragmentShowrecordBinding
     private lateinit var recordData: Record
+    private lateinit var dialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,7 @@ class ShowrecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            // 서버에서 기록 정보 받기
+            // 서버에서 기록 정보 받기!!!!!!!!!!!
             recordData = Record(CalendarDay.from(arguments?.getInt("recordYear") as Int,
                 arguments?.getInt("recordMonth") as Int,
                 arguments?.getInt("recordDay") as Int),
@@ -76,9 +76,14 @@ class ShowrecordFragment : Fragment() {
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+            // 다이얼로그 커스텀
+            dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.dialog_deleterecord)
+
             btnDeleterecord.setOnClickListener {
-                // 해당 기록 정보 서버에서 삭제하기
-                findNavController().popBackStack()
+                // 커스텀 다이얼로그 띄우기
+                showDialog(); // 아래 showDialog01() 함수 호출
             }
             btnModifyrecord.setOnClickListener {
                 val bundle = Bundle()
@@ -109,5 +114,23 @@ class ShowrecordFragment : Fragment() {
                 binding.tvCurrentpic.text = "${position+1}/${recordData.pictures.size}"
             }
         })
+    }
+
+    private fun showDialog() {
+        dialog.show() // 다이얼로그 띄우기
+
+        // 아니오 버튼
+        var noBtn : Button = dialog.findViewById(R.id.btn_no)
+        noBtn.setOnClickListener {
+            // 다이얼로그 닫기
+            dialog.dismiss()
+        }
+        var yesBtn : Button = dialog.findViewById(R.id.btn_yes)
+        yesBtn.setOnClickListener {
+            // 서버에서 해당 기록 삭제
+            // CalendarFragment로 이동
+            dialog.dismiss()
+            findNavController().popBackStack()
+        }
     }
 }
