@@ -1,20 +1,19 @@
 package umc.standard.todaygym.presentation.calendar
 
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.mdoel.Record
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
+
 
 class AddrecordFragment : Fragment() {
     private lateinit var binding: FragmentAddrecordBinding
@@ -42,11 +41,6 @@ class AddrecordFragment : Fragment() {
             check = arguments?.getInt("check") as Int
             tvRecorddate.text = "${recordData.date.year}.${recordData.date.month}.${recordData.date.day}"
 
-            // 뒤로가기 버튼 클릭 시 이전 화면으로
-            btnBack.setOnClickListener {
-                findNavController().popBackStack()
-            }
-
             // 서버에서 사용자 정보 넣기
             tvUsernickname.text = "벡스"
             ivUseravarta.setImageResource(R.drawable.logo)
@@ -64,31 +58,39 @@ class AddrecordFragment : Fragment() {
                 for(tag in recordData.tags) {
                     //addtag_layout의 뷰를 설정
                     var tagView = layoutInflater.inflate(R.layout.addtag_layout, null, false)
-                    //태그뷰의 widget설정
+
+                    // 태그뷰의 widget설정
                     var tagTextView : TextView = tagView.findViewById(R.id.tv_addtag)
-                    var tagWrap : LinearLayout = tagView.findViewById(R.id.lo_addtagWrap)
+                    // var tagWrap : LinearLayout = tagView.findViewById(R.id.lo_addtagWrap)
                     var tagDeleteBtn : ImageView = tagView.findViewById(R.id.btn_addtagdelete)
 
-                    //tagTextView에 listData의 getmTagArray의 텍스트를 입력
+                    // tagTextView에 listData의 getmTagArray의 텍스트를 입력
                     tagTextView.setText(tag)
 
-                    //태그를 하나씩 추가
-                    loAddtag.addView(tagView);
+                    // 태그를 하나씩 추가
+                    loAddtag.addView(tagView)
+                    // 태그 삭제 기능
+                    tagDeleteBtn.setOnClickListener{
+                        loAddtag.removeView(tagView)
+                        recordData.tags.remove(tag)
+                        Log.d("test","${recordData.tags}")
+                    }
                 }
             }
             else { // 추가화면일 경우
                 // 상단바 버튼 작성으로 변경
                 btnCompleterecord.text = "작성"
             }
+            // 뒤로가기 버튼 클릭 시 이전 화면으로
+            btnBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            // 완료 버튼 클릭 시 CalendarFragment로 전환
+            btnCompleterecord.setOnClickListener {
+                findNavController().popBackStack()
+            }
             btnAddtag.setOnClickListener {
-                val bundle = Bundle()
-                // 수정이면 기존 태그값 넘겨주기
-                /*
-                bundle.putInt("check", check)
-                bundle.putStringArrayList("tagData",recordData.tags)
-                */
-                findNavController().navigate(R.id.addtagFragment, bundle)
-
+                findNavController().navigate(R.id.addtagFragment)
             }
         }
 
