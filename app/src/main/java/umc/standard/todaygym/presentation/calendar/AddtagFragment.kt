@@ -13,6 +13,7 @@ import umc.standard.todaygym.databinding.FragmentAddtagBinding
 class AddtagFragment : Fragment() {
 
     private lateinit var binding: FragmentAddtagBinding
+    var tagList = arrayListOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,16 +25,19 @@ class AddtagFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
             btnBack.setOnClickListener {
-                var tagList = arrayListOf<String>()
-                if(tvNewtag1.text.toString() != "") tagList.add(tvNewtag1.text.toString())
-                if(tvNewtag2.text.toString() != "") tagList.add(tvNewtag2.text.toString())
-                if(tvNewtag3.text.toString() != "") tagList.add(tvNewtag3.text.toString())
+                findNavController().popBackStack()
+            }
+            btnCompletetag.setOnClickListener {
                 findNavController().apply {
                     previousBackStackEntry?.savedStateHandle?.set("tag", tagList)
                     popBackStack()
                 }
+            }
+            btnMaketag.setOnClickListener {
+
             }
         }
     }

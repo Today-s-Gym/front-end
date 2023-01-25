@@ -59,11 +59,20 @@ class CalendarFragment: Fragment() {
         }
         // 사용자 기록 정보 배열에 넣어주기
         userRecords.apply{
-            add(Record(CalendarDay.from(2022,12,5), "하핫 1일차다","사진1","태그1"))
-            add(Record(CalendarDay.from(2023, 1, 4), "하핫 2일차다","사진2","태그2"))
-            add(Record(CalendarDay.from(2023, 1, 5),"하핫 3일차다","사진3","태그3"))
-            add(Record(CalendarDay.from(2023, 1, 10), "하핫 4일차다","사진4","태그4"))
-            add(Record(CalendarDay.from(2023, 1, 17),"하핫 5일차다","사진5","태그5"))
+            val listPic = arrayListOf<Int>().apply {
+                add(1)
+                add(2)
+            }
+            val listTag = arrayListOf<String>().apply {
+                add("태그1")
+                add("태그2")
+            }
+            add(Record(CalendarDay.from(2022,12,5), "하핫 1일차다",listPic,listTag))
+            add(Record(CalendarDay.from(2023, 1, 4), "하핫 2일차다",listPic,listTag))
+            add(Record(CalendarDay.from(2023, 1, 5),"하핫 3일차다",listPic,listTag))
+            add(Record(CalendarDay.from(2023, 1, 10), "하핫 4일차다",listPic,listTag))
+            add(Record(CalendarDay.from(2023, 1, 17),"하핫 5일차다",listPic,listTag))
+
         }
 
         // 최초 오늘날짜 기록이 있는 경우 미리보기 구성
