@@ -10,11 +10,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_chat"
         android:layout_width="318dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_chat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_post"/>
+        />
+
+
+
 
     <EditText
         android:id="@+id/edit_chat"
@@ -40,6 +46,7 @@
         app:layout_constraintTop_toTopOf="@+id/edit_chat"
         app:layout_constraintBottom_toBottomOf="@+id/edit_chat"
         android:backgroundTint="@android:color/transparent"/>
+
 
 
 
