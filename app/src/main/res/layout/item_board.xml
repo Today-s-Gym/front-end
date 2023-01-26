@@ -127,7 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_exdate"
         app:layout_constraintStart_toStartOf="@+id/tv_exdate"
         android:layout_marginTop="2dp" />
-        
+
     <ImageView
         android:id="@+id/img_arrow"
         android:layout_width="wrap_content"

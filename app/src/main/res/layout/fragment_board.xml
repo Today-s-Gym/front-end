@@ -16,6 +16,7 @@
         tools:listitem="@layout/item_board"/>
 
     <ImageButton
+        android:id="@+id/btn_add"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:background="@drawable/border_account"
