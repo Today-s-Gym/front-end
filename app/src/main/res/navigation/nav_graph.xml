@@ -53,6 +53,7 @@
         android:name="umc.standard.todaygym.presentation.calendar.AddtagFragment"
         android:label="fragment_addtag"
         tools:layout="@layout/fragment_addtag" />
+
     <fragment
         android:id="@+id/addExFragment"
         android:name="umc.standard.todaygym.presentation.community.AddExFragment"
@@ -69,5 +70,6 @@
             android:id="@+id/action_addPostFragment_to_addExFragment"
             app:destination="@id/addExFragment" />
     </fragment>
+
 
 </navigation>

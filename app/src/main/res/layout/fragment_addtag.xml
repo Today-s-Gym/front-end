@@ -108,7 +108,8 @@
                 android:id="@+id/tv_newtag1"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/tag_style2"
+                android:background="@drawable/rectangle_radius15"
+                android:backgroundTint="#A7B5FF"
                 android:text="엑스 쵸크"
                 android:textSize="14sp"
                 android:textColor="@color/black"
@@ -116,32 +117,6 @@
                 android:paddingLeft="9.12dp"
                 android:paddingRight="9.12dp"
                 android:layout_marginRight="9dp"/>
-            <TextView
-                android:id="@+id/tv_newtag2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/tag_style2"
-                android:text="엑스 쵸크"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:paddingLeft="9.12dp"
-                android:paddingRight="9.12dp"
-                android:layout_marginRight="9dp"
-                android:visibility="gone"/>
-            <TextView
-                android:id="@+id/tv_newtag3"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/tag_style2"
-                android:text="엑스 쵸크"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:paddingLeft="9.12dp"
-                android:paddingRight="9.12dp"
-                android:layout_marginRight="9dp"
-                android:visibility="gone"/>
         </LinearLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lo_line"
@@ -167,7 +142,8 @@
                 android:id="@+id/tv_recenttag1"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/tag_style1"
+                android:background="@drawable/rectangle_radius15"
+                android:backgroundTint="#E0E5FF"
                 android:text="암바"
                 android:textSize="14sp"
                 android:textColor="@color/black"
@@ -179,7 +155,8 @@
                 android:id="@+id/tv_recenttag2"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/tag_style1"
+                android:background="@drawable/rectangle_radius15"
+                android:backgroundTint="#E0E5FF"
                 android:text="델리하바"
                 android:textSize="14sp"
                 android:textColor="@color/black"
@@ -187,19 +164,6 @@
                 android:paddingLeft="9.12dp"
                 android:paddingRight="9.12dp"
                 android:layout_marginRight="9dp"/>
-            <TextView
-                android:id="@+id/tv_recenttag3"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/tag_style1"
-                android:text="암바"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:paddingLeft="9.12dp"
-                android:paddingRight="9.12dp"
-                android:layout_marginRight="9dp"
-                android:visibility="gone"/>
         </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </FrameLayout>

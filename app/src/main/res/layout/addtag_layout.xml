@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/lo_addtagWrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="7dp">
+        <TextView
+            android:id="@+id/tv_addtag"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/rectangle_radius15"
+            android:backgroundTint="#E0E5FF"
+            android:text="엑스 쵸크"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:paddingLeft="9.12dp"
+            android:paddingRight="9.12dp"
+            android:layout_marginTop="13dp"/>
+        <ImageView
+            android:id="@+id/btn_addtagdelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_deletetag"
+            android:layout_marginLeft="-13dp"/>
+    </LinearLayout>
+</LinearLayout>
