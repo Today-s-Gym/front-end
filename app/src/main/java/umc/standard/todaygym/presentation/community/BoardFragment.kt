@@ -28,12 +28,12 @@ class BoardFragment: Fragment() {
 
         val dataList: ArrayList<BoardData> = arrayListOf()
         dataList.apply {
-            add(BoardData("세인","인생","짱나"))
-            add(BoardData("세인","인생hihi","짱나bu"))
-            add(BoardData("세인","인생아니아니안이ㅏ낭ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ","짱ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ나"))
-            add(BoardData("미웡","",""))
-            add(BoardData("미웡","","d"))
-            add(BoardData("미웡","l",""))
+            add(BoardData("세인","title","내용"))
+            add(BoardData("세인","제목과","내용"))
+            add(BoardData("세인","제목 길이 설정 안해도 되겠지","들여쓰기 해놔야하나"))
+            add(BoardData("으","",""))
+            add(BoardData("으","","d"))
+            add(BoardData("으","l",""))
         }
 
         val dataRVAdapter = BoardRVAdapter(dataList)

@@ -23,8 +23,11 @@ class PostFragment: Fragment() {
         val dataList: ArrayList<PostData> = arrayListOf()
         dataList.apply {
             add(PostData("멍","냥"))
-            add(PostData("세인","인생이란"))
-            add(PostData("잉","구려"))
+            add(PostData("세인","아아아"))
+            add(PostData("잉","하"))
+            add(PostData("멍","냥"))
+            add(PostData("세인","아아아"))
+            add(PostData("잉","하"))
         }
 
         val dataRVAdapter = PostRVAdapter(dataList)

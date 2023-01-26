@@ -41,7 +41,7 @@
         android:layout_width="16.48dp"
         android:layout_height="15dp"
         android:layout_marginRight="13.5dp"
-        android:src="@drawable/vector"
+        android:src="@drawable/push"
         app:layout_constraintEnd_toEndOf="@+id/edit_chat"
         app:layout_constraintTop_toTopOf="@+id/edit_chat"
         app:layout_constraintBottom_toBottomOf="@+id/edit_chat"
