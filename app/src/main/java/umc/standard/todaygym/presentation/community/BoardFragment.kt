@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import umc.standard.todaygym.R
@@ -21,6 +22,13 @@ class BoardFragment: Fragment() {
     ): View? {
         viewBinding = FragmentBoardBinding.inflate(layoutInflater)
 
+        viewBinding.recyclerPost.setOnClickListener {
+            findNavController().navigate(R.id.action_boardFragment_to_postFragment)
+        }
+
+        viewBinding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)
+        }
 
         viewBinding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)

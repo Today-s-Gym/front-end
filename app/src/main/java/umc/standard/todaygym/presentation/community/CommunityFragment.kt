@@ -5,6 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+
 import androidx.navigation.fragment.findNavController
 import umc.standard.todaygym.R
 import umc.standard.todaygym.databinding.FragmentCommunityBinding
@@ -24,4 +29,6 @@ class CommunityFragment: Fragment() {
 
         return bindng.root
     }
+
+
 }

@@ -70,4 +70,22 @@
             app:destination="@id/addExFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/addExFragment"
+        android:name="umc.standard.todaygym.presentation.community.AddExFragment"
+        android:label="AddExFragment" />
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="umc.standard.todaygym.presentation.community.PostFragment"
+        android:label="PostFragment" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="umc.standard.todaygym.presentation.community.AddPostFragment"
+        android:label="AddPostFragment" >
+        <action
+            android:id="@+id/action_addPostFragment_to_addExFragment"
+            app:destination="@id/addExFragment" />
+    </fragment>
+
+
 </navigation>
