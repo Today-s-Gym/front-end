@@ -14,4 +14,7 @@
     <color name="viewBorder">#D9D9D9</color>
     <color name="postGrey">#EEEEEE</color>
     <color name="btnColor">#E0E5FF</color>
+    <color name="btngrey">#AEAEAE</color>
+    <color name="btnblue">#8B9EFF</color>
+
 </resources>

@@ -39,13 +39,14 @@
         app:layout_constraintTop_toBottomOf="@id/tv_nickname"/>
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/img_edit"
+        android:layout_width="20dp"
+        android:layout_height="13.33dp"
         android:src="@drawable/more_vert"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/img_account"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="8.33dp"/>
+        />
 
 
 

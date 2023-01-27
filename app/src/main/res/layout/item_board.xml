@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/health"/>
+        />
 
     <TextView
         android:id="@+id/tv_nickname"
@@ -43,13 +43,14 @@
         app:layout_constraintStart_toStartOf="@+id/tv_nickname"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/img_edit"
+        android:layout_width="20dp"
+        android:layout_height="13.33dp"
         android:src="@drawable/more_vert"
         app:layout_constraintTop_toTopOf="@+id/img_account"
         app:layout_constraintBottom_toBottomOf="@+id/img_account"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="13.48dp" />
+        android:layout_marginRight="5.17dp" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/img_viewpager"
@@ -102,8 +103,7 @@
         app:layout_constraintStart_toStartOf="@+id/btn_exrecord"
         android:background="@drawable/border_exrecord"
         android:layout_marginTop="9dp"
-        android:clipToOutline="true"
-        android:src="@drawable/kendo" />
+        android:clipToOutline="true" />
 
     <TextView
         android:id="@+id/tv_exdate"
@@ -133,6 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/arrow_forward_ios"
+        android:clipToOutline="true"
         app:layout_constraintTop_toTopOf="@+id/btn_exrecord"
         app:layout_constraintBottom_toBottomOf="@+id/btn_exrecord"
         app:layout_constraintEnd_toEndOf="parent"
