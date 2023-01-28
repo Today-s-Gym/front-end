@@ -12,6 +12,7 @@ import umc.standard.todaygym.databinding.FragmentAddPostBinding
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,6 +24,13 @@ class AddPostFragment: Fragment() {
             findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
         }
 
+
         return viewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 }
