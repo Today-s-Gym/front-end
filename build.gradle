@@ -4,6 +4,7 @@ buildscript {
         nav_version = '2.5.1'
         glide_version = "4.14.2"
         retrofit_version = "2.9.0"
+        okhttp_version = "4.9.1"
     }
 
 }
