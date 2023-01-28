@@ -37,8 +37,13 @@
         <item name="bottomSheetStyle">@style/BottomSheet</item>
         <item name="android:colorBackground">@color/white</item>
     </style>
-
     <style name="BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <!-- tablayout에 적용되는 스타일   -->
+    <style name="tabTextSizeBold" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
