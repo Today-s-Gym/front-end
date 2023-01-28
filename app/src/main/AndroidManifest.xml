@@ -40,6 +40,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".presentation.signup.SignupActivity">
+
+        </activity>
     </application>
 
 </manifest>

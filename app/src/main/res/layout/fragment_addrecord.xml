@@ -46,7 +46,8 @@
                     android:layout_width="56dp"
                     android:layout_height="31dp"
                     android:layout_marginRight="21dp"
-                    android:background="@drawable/btn_style2"
+                    android:background="@drawable/rectangle_radius40"
+                    android:backgroundTint="#E0E5FF"
                     android:text="작성"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -97,7 +98,7 @@
                     app:layout_constraintRight_toRightOf="parent"/>
 
                 <LinearLayout
-                    android:id="@+id/lo_recordcamera"
+                    android:id="@+id/lo_addpic"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:background="@drawable/outline_box"
@@ -126,76 +127,6 @@
                             app:layout_constraintRight_toRightOf="parent"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/lo_recordpic1"
-                        android:layout_width="87dp"
-                        android:layout_height="87dp"
-                        android:layout_marginRight="11dp">
-                        <ImageView
-                            android:id="@+id/iv_recordpic1"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/rectangle_radius20"
-                            android:backgroundTint="#F0F0F0"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/btn_delpic1"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/close"
-                            android:background="@drawable/rectangle_radius10"
-                            android:backgroundTint="#D9D9D9"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/lo_recordpic2"
-                        android:layout_width="87dp"
-                        android:layout_height="87dp"
-                        android:visibility="gone"
-                        android:layout_marginRight="11dp">
-                        <ImageView
-                            android:id="@+id/iv_recordpic2"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/rectangle_radius20"
-                            android:backgroundTint="#F0F0F0"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/btn_delpic2"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/close"
-                            android:background="@drawable/rectangle_radius10"
-                            android:backgroundTint="#D9D9D9"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/lo_recordpic3"
-                        android:layout_width="87dp"
-                        android:layout_height="87dp"
-                        android:visibility="gone">
-                        <ImageView
-                            android:id="@+id/iv_recordpic3"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/rectangle_radius20"
-                            android:backgroundTint="#F0F0F0"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/btn_delpic3"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/close"
-                            android:background="@drawable/rectangle_radius10"
-                            android:backgroundTint="#D9D9D9"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
                 <TextView
@@ -205,8 +136,8 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="19dp"
-                    app:layout_constraintTop_toBottomOf="@id/lo_recordcamera"
-                    app:layout_constraintLeft_toLeftOf="@id/lo_recordcamera"/>
+                    app:layout_constraintTop_toBottomOf="@id/lo_addpic"
+                    app:layout_constraintLeft_toLeftOf="@id/lo_addpic"/>
                 <ImageView
                     android:id="@+id/btn_addtag"
                     android:layout_width="14dp"
@@ -214,8 +145,8 @@
                     android:src="@drawable/add_gray"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="5dp"
-                    app:layout_constraintTop_toBottomOf="@id/lo_recordcamera"
-                    app:layout_constraintRight_toRightOf="@id/lo_recordcamera"/>
+                    app:layout_constraintTop_toBottomOf="@id/lo_addpic"
+                    app:layout_constraintRight_toRightOf="@id/lo_addpic"/>
 
                 <umc.standard.todaygym.presentation.calendar.TagLayout
                     android:id="@+id/lo_addtag"
@@ -226,7 +157,7 @@
                     app:layout_constraintEnd_toEndOf="parent">
 
                 </umc.standard.todaygym.presentation.calendar.TagLayout>
--
+                -
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

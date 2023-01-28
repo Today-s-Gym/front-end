@@ -113,7 +113,8 @@
                 android:layout_width="128dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/btn_style1"
+                android:background="@drawable/rectangle_radius30"
+                android:backgroundTint="#8B9EFF"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_preview">
@@ -141,8 +142,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </ScrollView>
 
 </FrameLayout>
-
