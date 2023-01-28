@@ -46,6 +46,9 @@ dependencies {
     //Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version"
 
     // Jetpack navigation Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
