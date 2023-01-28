@@ -41,7 +41,8 @@
                 android:id="@+id/btn_completetag"
                 android:layout_width="56dp"
                 android:layout_height="31dp"
-                android:background="@drawable/btn_style2"
+                android:background="@drawable/rectangle_radius40"
+                android:backgroundTint="#E0E5FF"
                 android:text="저장"
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -71,13 +72,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="9dp"
                 android:background="@drawable/edittext_tag"
-                android:hint="태그 이름을 입력하세요"
+                android:hint="태그 이름을 입력하세요(20자 이내)"
                 android:paddingLeft="9.89dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:textColor="@color/black"
                 android:textColorHint="#69000000"
                 android:textSize="14sp"
+                android:maxLength="20"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/btn_maketag"
@@ -88,7 +91,8 @@
                 android:id="@+id/btn_maketag"
                 android:layout_width="39dp"
                 android:layout_height="31.82dp"
-                android:background="@drawable/btn_style3"
+                android:background="@drawable/rectangle_radius50"
+                android:backgroundTint="#D9D9D9"
                 android:padding="0dp"
                 android:text="생성"
                 android:textColor="@color/black"
@@ -98,26 +102,12 @@
                 app:layout_constraintTop_toTopOf="@id/et_maketag"
                 tools:ignore="TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <LinearLayout
+        <umc.standard.todaygym.presentation.calendar.TagLayout
             android:id="@+id/lo_newtag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18.92dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv_newtag1"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/rectangle_radius15"
-                android:backgroundTint="#A7B5FF"
-                android:text="엑스 쵸크"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:paddingLeft="9.12dp"
-                android:paddingRight="9.12dp"
-                android:layout_marginRight="9dp"/>
-        </LinearLayout>
+            android:layout_marginTop="10dp">
+        </umc.standard.todaygym.presentation.calendar.TagLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lo_line"
             android:layout_width="match_parent"
@@ -132,38 +122,12 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginTop="13dp"/>
-        <LinearLayout
+        <umc.standard.todaygym.presentation.calendar.TagLayout
             android:id="@+id/lo_recenttag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="8dp">
-            <TextView
-                android:id="@+id/tv_recenttag1"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/rectangle_radius15"
-                android:backgroundTint="#E0E5FF"
-                android:text="암바"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:paddingLeft="9.12dp"
-                android:paddingRight="9.12dp"
-                android:layout_marginRight="9dp"/>
-            <TextView
-                android:id="@+id/tv_recenttag2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/rectangle_radius15"
-                android:backgroundTint="#E0E5FF"
-                android:text="델리하바"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:paddingLeft="9.12dp"
-                android:paddingRight="9.12dp"
-                android:layout_marginRight="9dp"/>
-        </LinearLayout>
+        </umc.standard.todaygym.presentation.calendar.TagLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </FrameLayout>

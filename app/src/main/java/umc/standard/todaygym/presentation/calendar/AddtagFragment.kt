@@ -131,6 +131,11 @@ class AddtagFragment : Fragment() {
                 tagList.remove(tagTextView.text.toString())
                 loNewtag.removeView(tagView)
             }
+            /* 색 변경 실패...
+            tagTextView.setOnClickListener {
+                tagTextView.setBackgroundResource(R.drawable.tag1)
+            }
+             */
         }
     }
 
