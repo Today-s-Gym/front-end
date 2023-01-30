@@ -10,11 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.Record
+import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
 import umc.standard.todaygym.util.HasRecordDayDecorator
 import umc.standard.todaygym.util.MyTitleFormatter
-import java.util.Calendar
 import kotlin.collections.ArrayList
 
 class CalendarFragment: Fragment() {

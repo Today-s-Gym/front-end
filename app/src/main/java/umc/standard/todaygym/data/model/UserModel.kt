@@ -1,4 +1,4 @@
-package umc.standard.todaygym.data.mdoel
+package umc.standard.todaygym.data.model
 import com.google.gson.annotations.SerializedName
 
 //singIn, signUp 관련 data 클래스

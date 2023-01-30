@@ -9,6 +9,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+        android:name=".util.SharePreferences"
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,16 +24,25 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".presentation.onboarding.SplashActivity"
+            android:exported="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+    </activity>
         <activity
             android:name=".util.CameraActivity"
             android:exported="false">

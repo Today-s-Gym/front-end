@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import de.hdodenhof.circleimageview.CircleImageView
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.Record
+import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
 
 

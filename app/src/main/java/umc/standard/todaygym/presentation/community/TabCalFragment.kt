@@ -1,21 +1,16 @@
 package umc.standard.todaygym.presentation.community
 
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.Record
-import umc.standard.todaygym.databinding.FragmentCalendarBinding
+import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.databinding.FragmentTabCalBinding
-import umc.standard.todaygym.presentation.calendar.CalendarFragment
 import umc.standard.todaygym.util.HasRecordDayDecorator
 import umc.standard.todaygym.util.MyTitleFormatter
 

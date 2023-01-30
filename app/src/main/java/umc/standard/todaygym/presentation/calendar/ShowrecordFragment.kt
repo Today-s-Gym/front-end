@@ -14,7 +14,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.Record
+import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
 
 class ShowrecordFragment : Fragment() {
