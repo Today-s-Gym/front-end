@@ -1,13 +1,13 @@
 package umc.standard.todaygym.presentation.community
 
 import android.os.Bundle
-import android.provider.ContactsContract.RawContacts.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.load.data.DataRewinder
+import umc.standard.todaygym.data.mdoel.PostData
 import umc.standard.todaygym.databinding.FragmentPostBinding
 
 class PostFragment: Fragment() {
@@ -19,6 +19,10 @@ class PostFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentPostBinding.inflate(layoutInflater)
+
+        viewBinding.imgBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         val dataList: ArrayList<PostData> = arrayListOf()
         dataList.apply {

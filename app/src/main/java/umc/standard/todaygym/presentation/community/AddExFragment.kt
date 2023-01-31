@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import umc.standard.todaygym.databinding.FragmentAddExBinding
 
@@ -17,6 +18,10 @@ class AddExFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentAddExBinding.inflate(layoutInflater)
+
+        viewBinding.imgBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         val tabAdapter = TabAdapter(this)
         viewBinding.viewpager.adapter = tabAdapter

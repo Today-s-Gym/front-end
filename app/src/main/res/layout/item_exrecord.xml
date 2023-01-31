@@ -12,8 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/border_exrecord"
-        android:clipToOutline="true"
-        android:src="@drawable/kendo" />
+        android:clipToOutline="true" />
 
     <TextView
         android:id="@+id/tv_exdate"

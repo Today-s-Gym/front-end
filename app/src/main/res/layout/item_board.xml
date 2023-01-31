@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_post"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,6 +34,7 @@
         android:layout_marginLeft="6dp"/>
 
     <TextView
+        android:id="@+id/tv_createAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="몇 초 전"
@@ -73,7 +75,7 @@
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/img_account"
         app:layout_constraintTop_toBottomOf="@+id/img_viewpager"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="9dp" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -89,7 +91,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
 
     <androidx.constraintlayout.widget.Group
-
         android:id="@+id/group_exrecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:text="2022/12/25"
+        android:text="2022-12-25"
         android:textColor="@color/textBlack"
         app:layout_constraintTop_toTopOf="@+id/btn_exrecord"
         app:layout_constraintStart_toEndOf="@+id/img_exrecord"
@@ -183,7 +184,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
-        android:textSize="13sp"
+        android:visibility="gone"
+        android:textSize="14sp"
         android:textColor="@color/textGray"
         app:layout_constraintBottom_toBottomOf="@id/img_heart"
         app:layout_constraintStart_toEndOf="@+id/img_chat"
@@ -198,6 +200,19 @@
         android:src="@drawable/favorite"
         app:layout_constraintStart_toEndOf="@id/tv_chat"
         app:layout_constraintTop_toTopOf="@+id/img_chat" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:textSize="14sp"
+        android:textColor="@color/textGray"
+        app:layout_constraintBottom_toBottomOf="@id/img_heart"
+        app:layout_constraintStart_toEndOf="@+id/img_heart"
+        android:layout_marginLeft="4.67dp"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

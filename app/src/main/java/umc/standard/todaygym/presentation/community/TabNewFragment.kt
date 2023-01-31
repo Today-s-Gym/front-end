@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import umc.standard.todaygym.data.mdoel.BoardData
+import umc.standard.todaygym.data.mdoel.PostData
 import umc.standard.todaygym.databinding.FragmentTabNewBinding
 
 class TabNewFragment: Fragment() {
@@ -16,11 +18,11 @@ class TabNewFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentTabNewBinding.inflate(layoutInflater)
-        val dataList: ArrayList<BoardData> = arrayListOf()
+        val dataList: ArrayList<PostData> = arrayListOf()
         dataList.apply {
-            add(BoardData("k","dkddk","dkdkdkdk"))
-            add(BoardData("k","dkddk","오늘의 기록"))
-            add(BoardData("k","dkddk","ㅇㅇ"))
+            add(PostData("닉네임","안녕안녕"))
+            add(PostData("하잉","안녕안녕"))
+            add(PostData("운동기록","운동기록"))
         }
 
         val dataRVAdapter = TabRVAdapter(dataList)
