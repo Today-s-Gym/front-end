@@ -16,4 +16,5 @@ class TabAdapter(fragmentActivity: AddExFragment): FragmentStateAdapter(fragment
     }
 
 
+
 }
