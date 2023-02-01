@@ -5,28 +5,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.model.BoardData
 import umc.standard.todaygym.databinding.ItemBoardBinding
 
 
-class BoardRVAdapter(private val dataList: ArrayList<BoardData>):RecyclerView.Adapter<BoardRVAdapter.DataViewHolder>() {
+class BoardRVAdapter(private val dataList: ArrayList<BoardData.Result>):RecyclerView.Adapter<BoardRVAdapter.DataViewHolder>() {
 
     inner class DataViewHolder(private val viewBinding: ItemBoardBinding):RecyclerView.ViewHolder(viewBinding.root){
-     fun bind(data: BoardData){
-         viewBinding.tvNickname.text = data.nickname
-         viewBinding.tvTitle.text = data.title
-         viewBinding.tvContent.text = data.desc
+     fun bind(data: BoardData.Result){
 
-         if(data.title.isEmpty()){
+         viewBinding.tvTitle.text = data.title
+         viewBinding.tvContent.text = data.content
+         viewBinding.tvCreateAt.text = data.createdAt
+         if(data.likeCounts != 0){
+             viewBinding.tvHeart.visibility = View.VISIBLE
+             viewBinding.tvHeart.text = data.likeCounts.toString()
+         }
+         if(data.commentCounts != 0) {
+             viewBinding.tvChat.visibility = View.VISIBLE
+             viewBinding.tvChat.text = data.commentCounts.toString()
+         }
+         viewBinding.tvNickname.text = data.writerNickName
+         viewBinding.tvExdate.text = data.recordCreatedAt
+         viewBinding.tvExcontent.text = data.recordContent
+
+
+         if(data.postPhotoList.isEmpty()){
              viewBinding.imgViewpager.visibility = View.GONE
          }
-         if(data.desc.isEmpty()){
+         if(data.recordId == 0){
              viewBinding.groupExrecord.visibility = View.GONE
          }
+//         if(data.liked){
+//             viewBinding.imgHeart.src =
+//         }
 
-        viewBinding.imgChat.setOnClickListener {
+
+        viewBinding.viewPost.setOnClickListener {
             Navigation.createNavigateOnClickListener(R.id.action_boardFragment_to_postFragment).onClick(viewBinding.imgChat)
         }
      }

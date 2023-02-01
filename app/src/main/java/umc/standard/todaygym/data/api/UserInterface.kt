@@ -10,7 +10,7 @@ import umc.standard.todaygym.data.model.SignUpResponse
 
 interface UserInterface {
     @POST("/oauth/kakao")
-    fun kakaoLogIn(@Query(value="code",encoded = true) kakaoToken:String ):Call<SignUpResponse>
+    fun kakaoLogIn(@Query(value="token",encoded = true) kakaoToken:String ):Call<SignUpResponse>
 
     @POST("/auth/login")
     fun logIn(@Body userSignUp: SignRequest): Call<JsonElement>

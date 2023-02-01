@@ -2,8 +2,6 @@ package umc.standard.todaygym.presentation.onboarding
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils.indexOf
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
@@ -17,7 +15,6 @@ import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.ActivitySignupTypeBinding
 import umc.standard.todaygym.util.APIPreferences
 import umc.standard.todaygym.util.SharePreferences
-import umc.standard.todaygym.util.SharePreferences.Companion.prefs
 
 class SignUpTypeActivity:AppCompatActivity(){
 
@@ -28,7 +25,7 @@ class SignUpTypeActivity:AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivitySignupTypeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val categoryInterface: CategoryInterface? = RetrofitClient.getClient(base_url = BASE_URL)?.create(CategoryInterface::class.java)
+        val categoryInterface: CategoryInterface? = RetrofitClient.getClient()?.create(CategoryInterface::class.java)
         val call = categoryInterface?.CategoryRequest()
         call?.enqueue(object: Callback<CategoryResponse>{
             override fun onResponse(

@@ -50,11 +50,11 @@ class TabCalFragment:Fragment()  {
                 add("태그1")
                 add("태그2")
             }
-            add(Record(CalendarDay.from(2023, 1, 1), "하핫 1일차다", listPic, listTag))
-            add(Record(CalendarDay.from(2023, 1, 4), "하핫 2일차다", listPic, listTag))
-            add(Record(CalendarDay.from(2023, 1, 5), "하핫 3일차다", listPic, listTag))
-            add(Record(CalendarDay.from(2023, 1, 10), "하핫 4일차다", listPic, listTag))
-            add(Record(CalendarDay.from(2023, 1, 17), "하핫 5일차다", listPic, listTag))
+//            add(Record(CalendarDay.from(2023, 1, 1), "하핫 1일차다", listPic, listTag))
+//            add(Record(CalendarDay.from(2023, 1, 4), "하핫 2일차다", listPic, listTag))
+//            add(Record(CalendarDay.from(2023, 1, 5), "하핫 3일차다", listPic, listTag))
+//            add(Record(CalendarDay.from(2023, 1, 10), "하핫 4일차다", listPic, listTag))
+//            add(Record(CalendarDay.from(2023, 1, 17), "하핫 5일차다", listPic, listTag))
         }
 
         // 2. 캘린더 최초 설정

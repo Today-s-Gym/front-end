@@ -10,21 +10,21 @@ import okio.IOException
 
 // 헤더에 자동으로 jwt 값을 넣어주는 함수
 // 제가 테스트는 안해봐서 제대로 작동이 안될까봐 일단 주석처리해두었습니다
-class ReceivedCookiesInterceptor : Interceptor {
-    @Throws(IOException::class)
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val originalResponse: Response = chain.proceed(chain.request())
-        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
-            val cookies: HashSet<String> = HashSet()
-            for (header in originalResponse.headers("Set-Cookie")) {
-                cookies.add(header)
-            }
-            // Preference에 cookies를 넣어주는 작업을 수행
-            prefs.putSharedPreference(APIPreferences.SHARED_PREFERENCE_NAME_COOKIE,cookies);
-        }
-        return originalResponse
-    }
-}
+//class ReceivedCookiesInterceptor : Interceptor {
+//    @Throws(IOException::class)
+//    override fun intercept(chain: Interceptor.Chain): Response {
+//        val originalResponse: Response = chain.proceed(chain.request())
+//        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+//            val cookies: HashSet<String> = HashSet()
+//            for (header in originalResponse.headers("Set-Cookie")) {
+//                cookies.add(header)
+//            }
+//            // Preference에 cookies를 넣어주는 작업을 수행
+//            prefs.putSharedPreference(APIPreferences.SHARED_PREFERENCE_NAME_COOKIE,cookies);
+//        }
+//        return originalResponse
+//    }
+//}
 class AddCookiesInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

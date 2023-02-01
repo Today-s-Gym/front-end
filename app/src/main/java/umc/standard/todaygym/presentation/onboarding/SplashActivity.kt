@@ -3,9 +3,9 @@ package umc.standard.todaygym.presentation.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Constraints.TAG
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -14,32 +14,36 @@ import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import umc.standard.todaygym.MainActivity
+import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.UserInterface
 import umc.standard.todaygym.data.model.SignUpResponse
 import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.ActivitySplashBinding
+import umc.standard.todaygym.util.APIPreferences.SHARED_PREFERENCE_NAME_COOKIE
+import umc.standard.todaygym.util.SharePreferences.Companion.prefs
 
 class SplashActivity:AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     lateinit var kakaoCallback: (OAuthToken?, Throwable?) -> Unit
     // 카카오계정으로 로그인 공통 callback 구성
 // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
+    val dialog : BottomSheetDialog = BottomSheetDialog(this)
     val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            val userInterface: UserInterface? = RetrofitClient.getClient(BASE_URL)?.create(UserInterface::class.java)
+            val userInterface: UserInterface? = RetrofitClient.getClient()?.create(UserInterface::class.java)
             val call = userInterface?.kakaoLogIn(kakaoToken = token.accessToken)
             call?.enqueue(object : Callback<SignUpResponse> {
                 override fun onResponse(
                     call: Call<SignUpResponse>,
                     response: Response<SignUpResponse>
                 ) {
-                    Log.d("성공공",response.code().toString())
-                    Log.d("성공!",response.body()?.result?.accessToken.toString());
+                    Log.d("성공!", response.body()?.result?.accessToken.toString());
+                    prefs.putSharedPreference(SHARED_PREFERENCE_NAME_COOKIE, response.body()?.result?.accessToken)
+                    dialog.setContentView(R.layout.bottomsheet_check_permission)
 
                 }
 

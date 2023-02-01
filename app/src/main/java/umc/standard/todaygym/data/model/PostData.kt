@@ -1,4 +1,4 @@
-package umc.standard.todaygym.presentation.community
+package umc.standard.todaygym.data.mdoel
 
 data class PostData(
     val nickname: String,

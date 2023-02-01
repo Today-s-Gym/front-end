@@ -7,14 +7,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
 import umc.standard.todaygym.util.AddCookiesInterceptor
-import umc.standard.todaygym.util.ReceivedCookiesInterceptor
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     //retrofit 객체 생성
     private var retrofitClient: Retrofit?=null
     val TAG = "retrofit"
-    fun getClient(base_url:String): Retrofit?{
+    fun getClient(): Retrofit?{
         Log.d(TAG,"retrofitClient - getClient() called")
 
         //api 통신상태를 상세하게 로깅 찍을수있는 httpclient
@@ -24,7 +23,7 @@ object RetrofitClient {
                     level = HttpLoggingInterceptor.Level.BODY
                 })
                 .addInterceptor(AddCookiesInterceptor())
-                .addInterceptor(ReceivedCookiesInterceptor())
+//                .addInterceptor(ReceivedCookiesInterceptor())
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100,TimeUnit.SECONDS)
                 .writeTimeout(100,TimeUnit.SECONDS)
@@ -36,7 +35,7 @@ object RetrofitClient {
             //생성해준다
             Log.d(TAG,"retrofitClient - init start")
             retrofitClient = Retrofit.Builder()
-                .baseUrl(base_url)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build()
