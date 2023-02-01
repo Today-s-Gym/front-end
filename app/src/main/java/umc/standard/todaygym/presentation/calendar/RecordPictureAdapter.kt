@@ -7,11 +7,12 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.standard.todaygym.R
 
 class RecordPictureAdapter(
     private val fragmentActivity: FragmentActivity,
-    private val imageList: MutableList<Int>
+    private val imageList: MutableList<String>
 ) : RecyclerView.Adapter<RecordPictureAdapter.PagerViewHolder>(){
 
     // View 를 담을 ViewHolder class 를 정의 한다.
@@ -31,7 +32,8 @@ class RecordPictureAdapter(
 
     // 뷰와 데이터를 바인딩 하는 메서드
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.item.setImageDrawable(ContextCompat.getDrawable(fragmentActivity, imageList[position]))
+        Glide.with(fragmentActivity).load(imageList[position]).into(holder.item)
+        // holder.item.setImageDrawable(ContextCompat.getDrawable(fragmentActivity, imageList[position]))
     }
 
     override fun getItemCount() = imageList.size
