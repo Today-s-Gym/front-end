@@ -1,7 +1,6 @@
 package umc.standard.todaygym.presentation.calendar
 
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,8 +15,8 @@ import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.RecordInterface
-import umc.standard.todaygym.data.mdoel.Record
-import umc.standard.todaygym.data.mdoel.RecordByMonth
+import umc.standard.todaygym.data.model.Record
+import umc.standard.todaygym.data.model.RecordByMonth
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentCalendarBinding
 import umc.standard.todaygym.util.HasRecordDayDecorator

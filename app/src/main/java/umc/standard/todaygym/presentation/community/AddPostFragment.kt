@@ -13,14 +13,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
-import umc.standard.todaygym.data.mdoel.PostModel
-import umc.standard.todaygym.data.mdoel.RequestAddPost
+import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
 
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
+    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
 
 
     override fun onCreateView(
@@ -64,7 +64,7 @@ class AddPostFragment: Fragment() {
     private fun request(requestAddPost: RequestAddPost){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.addPost(requestAddPost)
+        val call = communityInterface?.addPost(JWT,requestAddPost)
         call?.enqueue(object : Callback<RequestAddPost> {
 
             override fun onResponse(

@@ -14,6 +14,7 @@
         android:layout_height="32dp"
         android:background="@drawable/border_account"
         android:clipToOutline="true"
+        android:src="@drawable/lv0"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="15dp"
@@ -24,7 +25,7 @@
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="닉네임"
+        android:text="오늘의 짐"
         android:textColor="@color/textBlack"
         android:textSize="14sp"
         android:textStyle="normal"
@@ -37,7 +38,7 @@
         android:id="@+id/tv_createAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="몇 초 전"
+        android:text="3분 전"
         android:textSize="11sp"
         android:textColor="@color/textGray"
         android:textStyle="normal"
@@ -57,6 +58,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/img_viewpager"
         android:layout_width="298dp"
+        android:visibility="gone"
         android:layout_height="188dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +83,7 @@
         android:id="@+id/tv_content"
         android:layout_width="298dp"
         android:layout_height="wrap_content"
-        android:text="델리히바에서 스윕\n 1. 발목을 내 쪽으로 강하게 끌어 당기면서 라펠을 바닥으로 당긴다."
+        android:text="델리히바에서 스윕"
         android:textColor="@color/textBlack"
         android:textSize="14sp"
         android:textStyle="normal"
@@ -94,6 +96,7 @@
         android:id="@+id/group_exrecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="btn_exrecord,img_exrecord,tv_exdate,tv_excontent,img_arrow,img_border1,img_border2"/>
 
     <ImageView
@@ -111,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:text="2022-12-25"
+        android:text="2023-2-1"
         android:textColor="@color/textBlack"
         app:layout_constraintTop_toTopOf="@+id/btn_exrecord"
         app:layout_constraintStart_toEndOf="@+id/img_exrecord"
@@ -124,7 +127,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textBlack"
         android:textSize="14sp"
-        android:text="운동 기록 미리보기 여기"
+        android:text="오운완"
         app:layout_constraintTop_toBottomOf="@+id/tv_exdate"
         app:layout_constraintStart_toStartOf="@+id/tv_exdate"
         android:layout_marginTop="2dp" />
@@ -183,8 +186,8 @@
         android:id="@+id/tv_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2"
-        android:visibility="gone"
+        android:text="5"
+        android:visibility="visible"
         android:textSize="14sp"
         android:textColor="@color/textGray"
         app:layout_constraintBottom_toBottomOf="@id/img_heart"
@@ -202,11 +205,11 @@
         app:layout_constraintTop_toTopOf="@+id/img_chat" />
 
     <TextView
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/tv_heart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2"
+        android:text="10"
         android:textSize="14sp"
         android:textColor="@color/textGray"
         app:layout_constraintBottom_toBottomOf="@id/img_heart"

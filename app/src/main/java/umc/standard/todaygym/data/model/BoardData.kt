@@ -1,17 +1,12 @@
-package umc.standard.todaygym.data.mdoel
+package umc.standard.todaygym.data.model
 
-data class PostModel(
+data class BoardData(
     val code: Int,
     val isSuccess: Boolean,
     val message: String,
-    val result: Result
-)
-data class Result(
-    val getPostRes: GetPostRes,
-    val mine: Boolean
-    )
-
-data class GetPostRes(
+    val result: List<Result>
+) {
+    data class Result(
         val categoryName: String,
         val commentCounts: Int,
         val content: String,
@@ -26,5 +21,6 @@ data class GetPostRes(
         val recordPhotoImgUrl: String,
         val title: String,
         val writerAvatarImgUrl: String,
-        val writerNickName: String)
-
+        val writerNickName: String
+    )
+}

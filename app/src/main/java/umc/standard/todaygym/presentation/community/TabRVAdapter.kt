@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.PostData
+import umc.standard.todaygym.data.model.PostData
 import umc.standard.todaygym.databinding.ItemExrecordBinding
 
 class TabRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adapter<TabRVAdapter.DataViewHolder>(){
@@ -16,6 +15,7 @@ class TabRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adapt
     inner class DataViewHolder(private val viewBinding: ItemExrecordBinding):RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(data: PostData){
             viewBinding.tvExcontent.text = data.chat
+            viewBinding.tvExdate.text = data.nickname
             val bundle = Bundle()
             viewBinding.btnChoose.setOnClickListener {
                 bundle.putString("desc",viewBinding.btnChoose.text.toString())

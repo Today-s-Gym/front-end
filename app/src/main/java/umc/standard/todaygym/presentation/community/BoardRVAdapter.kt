@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 
 import androidx.recyclerview.widget.RecyclerView
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.BoardData
+import umc.standard.todaygym.data.model.BoardData
 import umc.standard.todaygym.databinding.ItemBoardBinding
 
 
@@ -32,11 +32,11 @@ class BoardRVAdapter(private val dataList: ArrayList<BoardData.Result>):Recycler
          viewBinding.tvExcontent.text = data.recordContent
 
 
-         if(data.postPhotoList.isEmpty()){
-             viewBinding.imgViewpager.visibility = View.GONE
+         if(!data.postPhotoList.isEmpty()){
+             viewBinding.imgViewpager.visibility = View.VISIBLE
          }
-         if(data.recordId == 0){
-             viewBinding.groupExrecord.visibility = View.GONE
+         if(data.recordId != 0){
+             viewBinding.groupExrecord.visibility = View.VISIBLE
          }
 //         if(data.liked){
 //             viewBinding.imgHeart.src =
@@ -46,6 +46,11 @@ class BoardRVAdapter(private val dataList: ArrayList<BoardData.Result>):Recycler
         viewBinding.viewPost.setOnClickListener {
             Navigation.createNavigateOnClickListener(R.id.action_boardFragment_to_postFragment).onClick(viewBinding.imgChat)
         }
+
+         viewBinding.imgHeart.setOnClickListener {
+             viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+             viewBinding.tvHeart.text = (data.likeCounts + 1).toString()
+         }
      }
     }
 
