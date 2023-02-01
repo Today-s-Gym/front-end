@@ -48,7 +48,7 @@ interface RecordInterface {
 
     // 기록 수정(이미지 있을 때)
     @Multipart
-    @POST("update")
+    @POST("record/update")
     fun modifyRecord1(
         @Header("Authorization") Authorization: String,
         @Query("date") date: String,
@@ -58,7 +58,7 @@ interface RecordInterface {
 
     // 기록 수정(이미지 없을 때)
     @Multipart
-    @POST("update")
+    @POST("record/update")
     fun modifyRecord2(
         @Header("Authorization") Authorization: String,
         @Query("date") date: String,

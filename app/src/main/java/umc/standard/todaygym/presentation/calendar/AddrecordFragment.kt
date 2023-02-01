@@ -40,6 +40,7 @@ class AddrecordFragment : Fragment() {
     ): View? {
         binding = FragmentAddrecordBinding.inflate(layoutInflater)
         return binding.root
+
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,6 +92,7 @@ class AddrecordFragment : Fragment() {
                     }
                 } else {
                     if(recordData.pictures.size == 0) {
+                        Log.d("test","${recordData}")
                         addRecord(3, recordData.content)
                     } else {
                         addRecord(4, recordData.content)
@@ -110,12 +112,11 @@ class AddrecordFragment : Fragment() {
                 bundle.putSerializable("recordData", recordData)
                 findNavController().navigate(R.id.action_addrecordFragment_to_addtagFragment, bundle)
             }
-
             // tag추가 화면에서 돌아왔을 때
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Record>("addRecord")?.observe(viewLifecycleOwner){
                 recordData = it
-                putData()
             }
+
             // 4. 기록 데이터 값 입력
             putData()
 

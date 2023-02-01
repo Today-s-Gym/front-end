@@ -7,13 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import org.threeten.bp.LocalDate
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
@@ -25,7 +23,6 @@ import umc.standard.todaygym.databinding.FragmentCalendarBinding
 import umc.standard.todaygym.util.HasRecordDayDecorator
 import umc.standard.todaygym.util.MyTitleFormatter
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
 
 class CalendarFragment: Fragment() {
     private lateinit var binding : FragmentCalendarBinding
@@ -71,7 +68,6 @@ class CalendarFragment: Fragment() {
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<CalendarDay>("Calendar")?.observe(viewLifecycleOwner) {
                 // 선택된 날짜를 받아온 날짜로
                 selectedDate = it
-                setMonthData(selectedDate.year, selectedDate.month)
             }
 
             // 2. 서버에서 선택된 월에 대한 기록 데이터 받기

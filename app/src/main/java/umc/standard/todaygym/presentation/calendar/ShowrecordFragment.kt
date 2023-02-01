@@ -81,7 +81,6 @@ class ShowrecordFragment : Fragment() {
             // 이 화면으로 돌아왔을 때 수행할 것
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Record>("ShowRecord")?.observe(viewLifecycleOwner) {
                 recordData = it
-                putData()
             }
 
             // 3. 기록 날짜 입력
