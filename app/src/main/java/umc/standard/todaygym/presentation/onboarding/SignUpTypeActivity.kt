@@ -12,6 +12,7 @@ import retrofit2.Response
 import umc.standard.todaygym.MainActivity
 import umc.standard.todaygym.data.api.CategoryInterface
 import umc.standard.todaygym.data.model.CategoryResponse
+import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.ActivitySignupTypeBinding
 import umc.standard.todaygym.util.APIPreferences
@@ -27,7 +28,7 @@ class SignUpTypeActivity:AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivitySignupTypeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val categoryInterface: CategoryInterface? = RetrofitClient.getClient()?.create(CategoryInterface::class.java)
+        val categoryInterface: CategoryInterface? = RetrofitClient.getClient(base_url = BASE_URL)?.create(CategoryInterface::class.java)
         val call = categoryInterface?.CategoryRequest()
         call?.enqueue(object: Callback<CategoryResponse>{
             override fun onResponse(
