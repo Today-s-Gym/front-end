@@ -32,6 +32,7 @@ class CalendarFragment: Fragment() {
     private lateinit var mycalendar : MaterialCalendarView
     private val today = CalendarDay.today()
     private var selectedDate = today
+    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     var userRecords = arrayListOf<Record>()
 
     override fun onCreateView(
@@ -149,7 +150,7 @@ class CalendarFragment: Fragment() {
         val recordeInterface: RecordInterface? =
             RetrofitClient.getClient()?.create(RecordInterface::class.java)
         val df1 = DecimalFormat("00")
-        val call = recordeInterface?.getRecordByMonth("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk","${nowYear}-${df1.format(nowMonth)}")
+        val call = recordeInterface?.getRecordByMonth(JWT,"${nowYear}-${df1.format(nowMonth)}")
         call?.enqueue(object : retrofit2.Callback<RecordByMonth>{
             override fun onResponse(call: Call<RecordByMonth>, response: Response<RecordByMonth>) {
                 if(response.isSuccessful) {

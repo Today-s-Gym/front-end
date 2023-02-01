@@ -28,15 +28,15 @@ data class RecentTag(
     @SerializedName("result") val result: Result2
 )
 
-// 기록 추가
-data class AddRecordResponse(
+// 기록 추가 및 수정
+data class RecordResponse(
     @SerializedName("isSuccess") val isSuccess: Boolean,
     @SerializedName("code") val code: Int,
     @SerializedName("message") val message: String,
     @SerializedName("result") val result: Int
 )
 
-data class AddRecordRequest1 (
+data class RecordRequest (
     @SerializedName("content") val content: String,
     @SerializedName("tags") val tags: List<Tag>
 )
