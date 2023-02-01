@@ -4,8 +4,8 @@ import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
-import umc.standard.todaygym.data.mdoel.SignRequest
-import umc.standard.todaygym.data.mdoel.SignUpResponse
+import umc.standard.todaygym.data.model.SignRequest
+import umc.standard.todaygym.data.model.SignUpResponse
 
 interface UserInterface {
     @POST("/auth/signup")

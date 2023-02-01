@@ -1,4 +1,4 @@
-package umc.standard.todaygym.data.mdoel
+package umc.standard.todaygym.data.model
 
 data class BoardData(
     val code: Int,

@@ -1,7 +1,6 @@
 package umc.standard.todaygym.presentation.community
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.api.CommunityService
-import umc.standard.todaygym.data.mdoel.BoardData
-import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
+import umc.standard.todaygym.data.model.BoardData
 import umc.standard.todaygym.databinding.FragmentBoardBinding
 
 class BoardFragment: Fragment() {
@@ -58,11 +50,20 @@ class BoardFragment: Fragment() {
 
         dataList.apply {
             add(BoardData(1000,true,"쩝",resultList))
+            add(BoardData(1000,true,"쩝",resultList))
 
         }
 
         resultList.apply {
-            add(BoardData.Result("주짓수",10,"오늘 운동은 이것저것","1분 전",10,false,10,imgurl,"오늘 기록은","2022-12-24",10,"url","제목이다 드디어","ha","몰라하"))
+            add(BoardData.Result("주짓수",5,"델리히바에서 스윕","3분 전",10,false,10,
+                listOf(),"오운완","2023-2-2",0,"","오늘 주짓수 기록","","오늘의 짐"))
+            add(BoardData.Result("주짓수",5,"발목을 내 쪽으로 강하게 끌어 당기면서 라펠을 바닥으로 당긴다.","1일 전",10,false,10,
+                listOf(),"오운완","2023-2-1",0,"","오늘 주짓수 기록","","오늘의 짐"))
+
+            add(BoardData.Result("주짓수",6,"오늘 운동은 이것저것","8일 전",5,false,11,imgurl,"오늘 기록은","2022-12-24",10,"url","오늘 운동은","","세인"))
+            add(BoardData.Result("주짓수",1,"이 운동 저 운동","10일 전",7,false,12,
+                listOf("ddd"),"오늘 기록은","2022-12-24",0,"url","운동운동운동","","센"))
+
         }
 
         val dataRVAdapter = BoardRVAdapter(resultList)
@@ -82,39 +83,7 @@ class BoardFragment: Fragment() {
         }
     }
 
-    private fun load(){
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(CommunityService::class.java)
-
-        apiService.getBoard(10).enqueue(object : Callback<List<BoardData>>{
-            override fun onResponse(call: Call<List<BoardData>>, response: Response<List<BoardData>>) {
-                if (response.isSuccessful){
-
-                }
-
-            }
 
 
-            override fun onFailure(call: Call<List<BoardData>>, t: Throwable) {
 
-            }
-        })
-//        val call: Call<List<BoardData.Result>> ?= null
-//        call?.enqueue(object : Callback<List<BoardData.Result>> {
-//            override fun onResponse(
-//                call: Call<List<BoardData.Result>>,
-//                response: Response<List<BoardData.Result>>
-//            ) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onFailure(call: Call<List<BoardData.Result>>, t: Throwable) {
-//
-//            }
-//        })
-    }
 }

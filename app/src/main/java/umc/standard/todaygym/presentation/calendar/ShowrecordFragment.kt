@@ -2,7 +2,6 @@ package umc.standard.todaygym.presentation.calendar
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,15 +13,12 @@ import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.create
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.RecordInterface
-import umc.standard.todaygym.data.mdoel.DeleteRecord
-import umc.standard.todaygym.data.mdoel.Record
-import umc.standard.todaygym.data.mdoel.RecordByDay
+import umc.standard.todaygym.data.model.DeleteRecord
+import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
 import java.text.DecimalFormat

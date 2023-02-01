@@ -1,11 +1,9 @@
 package umc.standard.todaygym.data.api
 
 import okhttp3.MultipartBody
-import org.jetbrains.annotations.PropertyKey
 import retrofit2.Call
 import retrofit2.http.*
-import umc.standard.todaygym.data.mdoel.*
-import umc.standard.todaygym.data.mdoel.Tag
+import umc.standard.todaygym.data.model.*
 
 interface RecordInterface {
     // 기록 조회(월별)

@@ -2,7 +2,6 @@ package umc.standard.todaygym.presentation.signup
 
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import umc.standard.todaygym.data.api.UserInterface
 import umc.standard.todaygym.databinding.ActivitySignupBinding
 import retrofit2.*
-import umc.standard.todaygym.data.mdoel.SignRequest
-import umc.standard.todaygym.data.mdoel.SignUpResponse
+import umc.standard.todaygym.data.model.SignRequest
+import umc.standard.todaygym.data.model.SignUpResponse
 import umc.standard.todaygym.data.util.RetrofitClient
 
 class SignupActivity:AppCompatActivity() {

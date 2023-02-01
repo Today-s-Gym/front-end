@@ -2,6 +2,7 @@ package umc.standard.todaygym.presentation.community
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import umc.standard.todaygym.presentation.calendar.TabCalFragment
 
 class TabAdapter(fragmentActivity: AddExFragment): FragmentStateAdapter(fragmentActivity) {
 
