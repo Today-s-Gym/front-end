@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.mdoel.PostData
 
 import umc.standard.todaygym.databinding.DialogBottomMineBinding
 import umc.standard.todaygym.databinding.DialogDeletePostBinding
