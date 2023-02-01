@@ -30,6 +30,12 @@
         android:name="umc.standard.todaygym.presentation.calendar.CalendarFragment"
         android:label="CalendarFragment"
         tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/action_calendarFragment_to_showrecordFragment"
+            app:destination="@id/showrecordFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_addrecordFragment"
+            app:destination="@id/addrecordFragment" />
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"
@@ -41,12 +47,18 @@
         android:name="umc.standard.todaygym.presentation.calendar.ShowrecordFragment"
         android:label="fragment_showrecord"
         tools:layout="@layout/fragment_showrecord" >
+        <action
+            android:id="@+id/action_showrecordFragment_to_addrecordFragment"
+            app:destination="@id/addrecordFragment" />
     </fragment>
     <fragment
         android:id="@+id/addrecordFragment"
         android:name="umc.standard.todaygym.presentation.calendar.AddrecordFragment"
         android:label="fragment_addrecord"
         tools:layout="@layout/fragment_addrecord" >
+        <action
+            android:id="@+id/action_addrecordFragment_to_addtagFragment"
+            app:destination="@id/addtagFragment" />
     </fragment>
     <fragment
         android:id="@+id/addtagFragment"

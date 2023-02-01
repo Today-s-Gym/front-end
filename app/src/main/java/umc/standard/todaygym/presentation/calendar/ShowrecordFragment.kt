@@ -2,6 +2,8 @@ package umc.standard.todaygym.presentation.calendar
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.create
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.api.RecordInterface
+import umc.standard.todaygym.data.mdoel.DeleteRecord
 import umc.standard.todaygym.data.mdoel.Record
+import umc.standard.todaygym.data.mdoel.RecordByDay
+import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
+import java.text.DecimalFormat
 
 class ShowrecordFragment : Fragment() {
     private lateinit var binding: FragmentShowrecordBinding
@@ -34,12 +44,8 @@ class ShowrecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            // 1. 서버에서 데이터 받기
-            // 해당 날짜에 대한 기록 정보 받기
-            recordData = Record(CalendarDay.from(arguments?.getInt("recordYear") as Int,
-                arguments?.getInt("recordMonth") as Int,
-                arguments?.getInt("recordDay") as Int),
-                "하핫 1일차다", arrayListOf(R.drawable.add_black, R.drawable.add_gray), arrayListOf("asdfsadfasdfdsafdsasdaf","asdfasdfasdfdsfsdaff","태dfdf"))
+            // 1. 넘겨받은 값 변수에 넣기
+            recordData = arguments?.getSerializable("recordData") as Record
 
             // 사용자 정보 넣기
             tvUsernickname.text = "벡스"
@@ -49,7 +55,10 @@ class ShowrecordFragment : Fragment() {
             // 뒤로가기 버튼
             btnBack.setOnClickListener {
                 // 이전 화면으로 전환
-                findNavController().popBackStack()
+                findNavController().apply {
+                    previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
+                    popBackStack() // 이전 화면으로 이동
+                }
             }
             // 삭제버튼 클릭에 대한 다이얼로그 커스텀
             dialog = Dialog(requireContext())
@@ -65,18 +74,26 @@ class ShowrecordFragment : Fragment() {
             btnModifyrecord.setOnClickListener {
                 // 수정할 날짜 정보 넘기기
                 val bundle = Bundle()
-                bundle.putInt("recordYear",recordData.date.year)
-                bundle.putInt("recordMonth",recordData.date.month)
-                bundle.putInt("recordDay",recordData.date.day)
+                bundle.putSerializable("recordData",recordData)
                 bundle.putInt("check",1)
-                findNavController().navigate(R.id.addrecordFragment, bundle) // 기록수정 화면으로 전환
+                findNavController().navigate(R.id.action_showrecordFragment_to_addrecordFragment, bundle) // 기록수정 화면으로 전환
+            }
+            // 이 화면으로 돌아왔을 때 수행할 것
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Record>("ShowRecord")?.observe(viewLifecycleOwner) {
+                recordData = it
             }
 
             // 3. 기록 날짜 입력
             tvRecorddate.text = "${recordData.date.year}.${recordData.date.month}.${recordData.date.day}"
 
-
             // 4. 기록 데이터 적용하기
+            putData()
+        }
+    }
+
+    // 기록 데이터 대입 함수
+    private fun putData() {
+        binding.apply {
             // 사진 데이터 viewpager2에 적용하기
             if(recordData.pictures.size != 0) {
                 loRecordpic.visibility = View.VISIBLE
@@ -141,7 +158,34 @@ class ShowrecordFragment : Fragment() {
             // 서버에서 해당 기록 삭제
             // CalendarFragment로 이동
             dialog.dismiss()
-            findNavController().popBackStack()
+            val df1 = DecimalFormat("00")
+            deleteRecord("${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}")
+            findNavController().apply {
+                previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
+                popBackStack() // 이전 화면으로 이동
+            }
         }
+    }
+
+    // 서버에서 기록 삭제 함수
+    private fun deleteRecord(date: String) {
+        val recordInterface: RecordInterface? =
+            RetrofitClient.getClient()?.create(RecordInterface::class.java)
+        val call = recordInterface?.deleteRecord("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk", "${date}")
+        call?.enqueue(object : retrofit2.Callback<DeleteRecord>{
+            override fun onResponse(call: Call<DeleteRecord>, response: Response<DeleteRecord>) {
+                if(response.isSuccessful) {
+                    val body = response.body()
+                    if(body?.isSuccess == false) {
+                        Log.d("test","${body?.message}")
+                    }
+                } else {
+                    Log.d("test","Response Not Successful ${response.body()}")
+                }
+            }
+            override fun onFailure(call: Call<DeleteRecord>, t: Throwable) {
+                Log.d("test","Error!",t)
+            }
+        })
     }
 }
