@@ -19,7 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.mdoel.BoardData
+import umc.standard.todaygym.data.mdoel.RequestAddPost
 import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
+import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentBoardBinding
 
 class BoardFragment: Fragment() {
@@ -82,39 +84,7 @@ class BoardFragment: Fragment() {
         }
     }
 
-    private fun load(){
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(CommunityService::class.java)
-
-        apiService.getBoard(10).enqueue(object : Callback<List<BoardData>>{
-            override fun onResponse(call: Call<List<BoardData>>, response: Response<List<BoardData>>) {
-                if (response.isSuccessful){
-
-                }
-
-            }
 
 
-            override fun onFailure(call: Call<List<BoardData>>, t: Throwable) {
 
-            }
-        })
-//        val call: Call<List<BoardData.Result>> ?= null
-//        call?.enqueue(object : Callback<List<BoardData.Result>> {
-//            override fun onResponse(
-//                call: Call<List<BoardData.Result>>,
-//                response: Response<List<BoardData.Result>>
-//            ) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onFailure(call: Call<List<BoardData.Result>>, t: Throwable) {
-//
-//            }
-//        })
-    }
 }
