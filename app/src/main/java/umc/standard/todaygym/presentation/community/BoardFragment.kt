@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.BoardData
+import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
 import umc.standard.todaygym.databinding.FragmentBoardBinding
 
 class BoardFragment: Fragment() {

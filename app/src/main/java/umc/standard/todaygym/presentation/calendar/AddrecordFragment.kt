@@ -17,8 +17,8 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.api.RecordInterface
 import umc.standard.todaygym.data.model.Record
+import umc.standard.todaygym.data.api.RecordInterface
 import umc.standard.todaygym.data.model.RecordRequest
 import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag

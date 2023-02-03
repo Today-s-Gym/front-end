@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="111dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_title"
+        android:textSize="30sp"
+        android:textColor="@color/black" />
+    <LinearLayout
+        android:layout_marginTop="71dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="36dp"
+        >
+        <EditText
+            android:id="@+id/et_signup_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="닉네임을 입력해주세요."
+            android:textSize="16sp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="22dp"
+            android:background="@drawable/bt_background_grey"/>
+        <TextView
+            android:layout_marginStart="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중복확인"
+            android:textSize="16sp"
+            android:background="@drawable/bt_background_dark_grey"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="15dp"
+            />
+
+    </LinearLayout>
+    <EditText
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="36dp"
+        android:id="@+id/et_signup_statusMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="한 줄 소개 작성해주세요."
+        android:background="@drawable/bt_background_grey"
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="22dp"/>
+    <TextView
+        android:id="@+id/bt_singup_nickname"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="11dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="36dp"
+        android:paddingVertical="10dp"
+        android:layout_height="wrap_content"
+        android:text="다음으로"
+        android:textFontWeight="900"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:background="@drawable/bt_background_transparent"
+        />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
