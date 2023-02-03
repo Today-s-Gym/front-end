@@ -1,7 +1,6 @@
-package umc.standard.todaygym.data.mdoel
+package umc.standard.todaygym.data.model
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Multipart
 
 
 // 월 단위 캘린더 조회

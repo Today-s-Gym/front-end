@@ -14,11 +14,10 @@ import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.RecordInterface
-import umc.standard.todaygym.data.mdoel.RecentTag
 import umc.standard.todaygym.data.model.Record
+import umc.standard.todaygym.data.model.RecentTag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddtagBinding
-import java.text.DecimalFormat
 
 class AddtagFragment : Fragment() {
 

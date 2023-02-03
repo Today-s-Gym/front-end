@@ -9,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import umc.standard.todaygym.data.api.UserInterface
 import umc.standard.todaygym.databinding.ActivitySignupBinding
 import umc.standard.todaygym.data.model.SignRequest
-import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
+import retrofit2.*
+import umc.standard.todaygym.data.model.SignUpResponse
 import umc.standard.todaygym.data.util.RetrofitClient
 
 class SignupActivity:AppCompatActivity() {

@@ -11,7 +11,7 @@ import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.mdoel.PostData
+import umc.standard.todaygym.data.model.PostData
 
 import umc.standard.todaygym.databinding.DialogBottomMineBinding
 import umc.standard.todaygym.databinding.DialogDeletePostBinding
@@ -39,7 +39,7 @@ class PostRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adap
                 viewBinding.imgEdit.setOnClickListener {
                         dialog.show()
                 }
-                bottomSheetView.tvEdit.setOnClickListener {
+                bottomSheetView.tvDelete.setOnClickListener {
                     dlg.show()
                     dlg.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT)
                     dlg.window?.setBackgroundDrawableResource(R.drawable.dialog_box)

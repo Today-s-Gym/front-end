@@ -19,9 +19,9 @@ import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.api.RecordInterface
-import umc.standard.todaygym.data.mdoel.RecordRequest
-import umc.standard.todaygym.data.mdoel.RecordResponse
-import umc.standard.todaygym.data.mdoel.Tag
+import umc.standard.todaygym.data.model.RecordRequest
+import umc.standard.todaygym.data.model.RecordResponse
+import umc.standard.todaygym.data.model.Tag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
 import java.text.DecimalFormat
