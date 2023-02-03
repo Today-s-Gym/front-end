@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TodayGym" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.TodayGym" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -56,5 +57,8 @@
     <style name="toolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

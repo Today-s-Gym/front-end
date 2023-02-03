@@ -41,7 +41,11 @@
         android:id="@+id/mypageFragment"
         android:name="umc.standard.todaygym.presentation.mypage.MypageFragment"
         android:label="MypageFragment"
-        tools:layout="@layout/fragment_mypage"/>
+        tools:layout="@layout/fragment_mypage">
+        <action
+            android:id="@+id/action_mypageFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/showrecordFragment"
         android:name="umc.standard.todaygym.presentation.calendar.ShowrecordFragment"

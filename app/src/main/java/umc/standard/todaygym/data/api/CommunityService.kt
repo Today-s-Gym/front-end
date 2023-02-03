@@ -2,6 +2,9 @@ package umc.standard.todaygym.data.api
 
 
 import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Path
+import umc.standard.todaygym.data.model.BoardData
 import retrofit2.http.*
 import umc.standard.todaygym.data.model.*
 
