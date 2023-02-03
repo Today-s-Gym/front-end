@@ -3,14 +3,250 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_mypage_title"
+    android:layout_height="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="프로필"
+            android:layout_gravity="center"
+            android:textColor="@color/textBlack"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_settings_24"
+            android:layout_marginEnd="21dp"
+            android:layout_gravity="right"
+            android:background="@color/white"
+            app:tint="#909090"/>
+
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="mypage"/>
+        android:layout_marginTop="27dp">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_mypage_profile"
+            android:src="@drawable/charac1"
+            android:scaleType="centerCrop"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+        <ImageView
+            android:id="@+id/iv_mypage_profile_private"
+            android:src="@drawable/lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_mypage_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <TextView
+            android:id="@+id/tv_mypage_profile"
+            android:text="오늘의 짐"
+            android:textSize= "22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_mypage_profile_private"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#D9D9D9"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile"
+        android:layout_marginTop="18dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_profile_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile"
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="22dp"
+        android:paddingVertical="19dp">
+
+        <TextView
+            android:id="@+id/tv_profile_type"
+            android:text="주짓수"
+            android:textSize="13sp"
+            android:textAlignment="textStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bt_background_dark_grey"
+            android:paddingHorizontal="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주짓수짱이 될거야"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_type"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="19dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#D9D9D9"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile_type"
+        android:layout_marginTop="18dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_profile_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile_type"
+
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="22dp"
+        android:paddingVertical="19dp">
+        <ImageView
+            android:id="@+id/iv_mypage_profile_record_icon"
+            android:src="@drawable/crown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/tv_profile_record_title"
+            android:text="나의 기록"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/iv_mypage_profile_record_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <LinearLayout
+            android:id="@+id/layout_profile_record_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="6dp"
+            android:layout_marginVertical="21dp"
+            android:layout_marginTop="11dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_record_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingStart="35dp"
+            android:paddingEnd="35dp"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            android:divider="@drawable/divider_vertical"
+            android:background="@drawable/border_record_section">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="11dp"
+                android:paddingVertical="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13회"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번 달"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:paddingHorizontal="11dp"
+                android:paddingVertical="10dp"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="2회"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                   />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="업그레이드까지"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"
+                   />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="11dp"
+                android:paddingVertical="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="101회"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="누적"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"
+                   />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/btn_profile_to_post"
+        android:text="내 게시글 보러가기"
+        android:background="@drawable/bt_background_main"
+        android:paddingHorizontal="23dp"
+        android:paddingVertical="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile_record"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

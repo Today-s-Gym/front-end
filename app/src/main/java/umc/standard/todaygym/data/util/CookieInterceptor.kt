@@ -31,15 +31,16 @@ class AddCookiesInterceptor : Interceptor {
         val builder: Request.Builder = chain.request().newBuilder()
 
         // Preference에서 cookies를 가져오는 작업을 수행
-        val preferences: Set<String> = prefs.getSharedPreference(
+        val cookie: String = prefs.getSharedPreference(
             APIPreferences.SHARED_PREFERENCE_NAME_COOKIE,
-            HashSet<String>()
+            ""
         )
-        for (cookie in preferences) {
-            var tmp_cookie = cookie.split("=")?.get(1)?.split(";")?.get(0)
-            Log.d("Interceptor","Bearer ${tmp_cookie}")
-            builder.addHeader("Authorization", "Bearer ${tmp_cookie}")
-        }
+        builder.addHeader("Authorization", cookie)
+//        for (cookie in preferences) {
+////            var tmp_cookie = cookie.split("=")?.get(1)?.split(";")?.get(0)
+////            Log.d("Interceptor","Bearer ${tmp_cookie}")
+//            builder.addHeader("Authorization", cookie)
+//        }
 
         // Web,Android,iOS 구분을 위해 User-Agent세팅
         builder.removeHeader("User-Agent").addHeader("User-Agent", "Android")
