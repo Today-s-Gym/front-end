@@ -14,7 +14,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.api.RecordInterface
+import umc.standard.todaygym.data.api.RecordService
 import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.model.RecordByMonth
 import umc.standard.todaygym.data.util.RetrofitClient
@@ -28,7 +28,6 @@ class TabCalFragment: Fragment() {
     private lateinit var mycalendar : MaterialCalendarView
     private val today = CalendarDay.today()
     private var selectedDate = today
-    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     var userRecords = arrayListOf<Record>()
 
     override fun onCreateView(
@@ -87,7 +86,7 @@ class TabCalFragment: Fragment() {
         mycalendar.setOnMonthChangedListener { widget, date ->
             // 오늘이 포함된 달 이전 달일 경우
             if(date.year < today.year ||
-                (date.year == today.year && date.month < today.month)) {
+                (date.year == today.year && date.month <= today.month)) {
                 // 서버에서 해당 월 기록 정보 받기
                 setMonthData(date.year, date.month)
             }
@@ -132,10 +131,10 @@ class TabCalFragment: Fragment() {
 
     // 서버에서 월 단위로 데이터 받아와서 userRecords에 넣어주는 함수
     private fun setMonthData(nowYear: Int, nowMonth: Int) {
-        val recordeInterface: RecordInterface? =
-            RetrofitClient.getClient()?.create(RecordInterface::class.java)
+        val recordeInterface: RecordService? =
+            RetrofitClient.getClient()?.create(RecordService::class.java)
         val df1 = DecimalFormat("00")
-        val call = recordeInterface?.getRecordByMonth(JWT,"${nowYear}-${df1.format(nowMonth)}")
+        val call = recordeInterface?.getRecordByMonth("${nowYear}-${df1.format(nowMonth)}")
         call?.enqueue(object : retrofit2.Callback<RecordByMonth>{
             override fun onResponse(call: Call<RecordByMonth>, response: Response<RecordByMonth>) {
                 if(response.isSuccessful) {
@@ -145,9 +144,9 @@ class TabCalFragment: Fragment() {
                         var tempRecords = arrayListOf<Record>()
                         mycalendar.removeDecorators()
                         for(record in records) {
-                            var year = record.createdAt.substring(0 until 4)
-                            var month = record.createdAt.substring(5 until 7)
-                            var day = record.createdAt.substring(8 until 10)
+                            var year = record.createdTime.substring(0 until 4)
+                            var month = record.createdTime.substring(5 until 7)
+                            var day = record.createdTime.substring(8 until 10)
 
                             var photos = arrayListOf<String>()
                             for(photo in record.recordPhotos) {

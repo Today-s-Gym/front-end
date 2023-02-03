@@ -17,8 +17,8 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.api.RecordService
 import umc.standard.todaygym.data.model.Record
-import umc.standard.todaygym.data.api.RecordInterface
 import umc.standard.todaygym.data.model.RecordRequest
 import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag
@@ -189,8 +189,8 @@ class AddrecordFragment : Fragment() {
 
     // 서버에 기록 추가 및 수정 함수
     private fun addRecord(method: Int, content: String) {
-        val recordInterface: RecordInterface? =
-            RetrofitClient.getClient()?.create(RecordInterface::class.java)
+        val recordInterface: RecordService? =
+            RetrofitClient.getClient()?.create(RecordService::class.java)
         val tags = arrayListOf<Tag>()
         for(tag in recordData.tags) {
             tags.add(Tag(tag))
@@ -198,15 +198,15 @@ class AddrecordFragment : Fragment() {
         val recordGetReq = RecordRequest(content,tags)
         var call : Call<RecordResponse>?
         when(method) {
-            1 -> call = recordInterface?.addRecord2(JWT,recordGetReq) // 이미지 없는 기록 추가
+            1 -> call = recordInterface?.addRecord2(recordGetReq) // 이미지 없는 기록 추가
             2 -> {
                 val imgArray = arrayListOf<MultipartBody.Part>()
                 for(img in recordData.pictures) {
                     // 이미지들 Multipart 형태로 바꿔주기
                 }
-                call = recordInterface?.addRecord2(JWT,recordGetReq) // 이미지 있는 기록 추가
+                call = recordInterface?.addRecord2(recordGetReq) // 이미지 있는 기록 추가
             }
-            3 -> call = recordInterface?.modifyRecord2(JWT,
+            3 -> call = recordInterface?.modifyRecord2(
                 "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
                 recordGetReq) // 이미지 없는 기록 수정
             else -> {
@@ -214,7 +214,7 @@ class AddrecordFragment : Fragment() {
                 for(img in recordData.pictures) {
                     // 이미지들 Multipart 형태로 바꿔주기
                 }
-                call = recordInterface?.modifyRecord2(JWT,
+                call = recordInterface?.modifyRecord2(
                     "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
                     recordGetReq) // 이미지 있는 기록 수정
             }

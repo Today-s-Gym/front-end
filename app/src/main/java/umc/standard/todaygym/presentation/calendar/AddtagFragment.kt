@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.api.RecordInterface
+import umc.standard.todaygym.data.api.RecordService
 import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.model.RecentTag
 import umc.standard.todaygym.data.util.RetrofitClient
@@ -150,9 +150,9 @@ class AddtagFragment : Fragment() {
 
     // 최근 사용 태그 서버에서 받아오는 함수
     private fun setRecentTag() {
-        val recordeInterface: RecordInterface? =
-            RetrofitClient.getClient()?.create(RecordInterface::class.java)
-        val call = recordeInterface?.getRecentTag("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk",0)
+        val recordeInterface: RecordService? =
+            RetrofitClient.getClient()?.create(RecordService::class.java)
+        val call = recordeInterface?.getRecentTag(0)
         call?.enqueue(object : retrofit2.Callback<RecentTag>{
             override fun onResponse(call: Call<RecentTag>, response: Response<RecentTag>) {
                 if(response.isSuccessful) {
