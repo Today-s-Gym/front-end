@@ -14,7 +14,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.api.RecordInterface
+import umc.standard.todaygym.data.api.RecordService
 import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.model.RecordByMonth
 import umc.standard.todaygym.data.util.RetrofitClient
@@ -85,9 +85,9 @@ class CalendarFragment: Fragment() {
             mycalendar.setOnDateChangedListener { widget, date, selected ->
                 selectedDate = date
                 setPreview()
-                // 선택한 날짜가 오늘 이후라면 추가 버튼 없애기
-                if(selectedDate.isAfter(CalendarDay.today())) {
-                    btnAddrecord.visibility = View.INVISIBLE
+                // 선택한 날짜가 오늘이라면 버튼 추가하기
+                if(selectedDate == CalendarDay.today()) {
+                    btnAddrecord.visibility = View.VISIBLE
                 }
             }
         }
@@ -100,6 +100,7 @@ class CalendarFragment: Fragment() {
                 // 서버에서 해당 월 기록 정보 받기
                 setMonthData(date.year, date.month)
             }
+            mycalendar.selectedDate = CalendarDay.from(date.year, date.month, 1)
         }
     }
 
@@ -125,7 +126,7 @@ class CalendarFragment: Fragment() {
             if (!judge) {
                 layoutPreview.visibility = View.INVISIBLE
                 tvNorecord.visibility = View.VISIBLE
-                btnAddrecord.visibility = View.VISIBLE
+                btnAddrecord.visibility = View.INVISIBLE
             }
         }
     }
@@ -142,10 +143,10 @@ class CalendarFragment: Fragment() {
 
     // 서버에서 월 단위로 데이터 받아와서 userRecords에 넣어주는 함수
     private fun setMonthData(nowYear: Int, nowMonth: Int) {
-        val recordeInterface: RecordInterface? =
-            RetrofitClient.getClient()?.create(RecordInterface::class.java)
+        val recordeInterface: RecordService? =
+            RetrofitClient.getClient()?.create(RecordService::class.java)
         val df1 = DecimalFormat("00")
-        val call = recordeInterface?.getRecordByMonth(JWT,"${nowYear}-${df1.format(nowMonth)}")
+        val call = recordeInterface?.getRecordByMonth("${nowYear}-${df1.format(nowMonth)}")
         call?.enqueue(object : retrofit2.Callback<RecordByMonth>{
             override fun onResponse(call: Call<RecordByMonth>, response: Response<RecordByMonth>) {
                 if(response.isSuccessful) {
