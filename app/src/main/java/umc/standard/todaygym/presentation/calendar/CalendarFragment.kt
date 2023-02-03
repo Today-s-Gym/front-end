@@ -96,7 +96,7 @@ class CalendarFragment: Fragment() {
         mycalendar.setOnMonthChangedListener { widget, date ->
             // 오늘이 포함된 달 이전 달일 경우
             if(date.year < today.year ||
-                (date.year == today.year && date.month < today.month)) {
+                (date.year == today.year && date.month <= today.month)) {
                 // 서버에서 해당 월 기록 정보 받기
                 setMonthData(date.year, date.month)
             }
@@ -155,9 +155,10 @@ class CalendarFragment: Fragment() {
                         var tempRecords = arrayListOf<Record>()
                         mycalendar.removeDecorators()
                         for(record in records) {
-                            var year = record.createdAt.substring(0 until 4)
-                            var month = record.createdAt.substring(5 until 7)
-                            var day = record.createdAt.substring(8 until 10)
+                            Log.d("test","${record.createdTime}")
+                            var year = record.createdTime.substring(0 until 4)
+                            var month = record.createdTime.substring(5 until 7)
+                            var day = record.createdTime.substring(8 until 10)
 
                             var photos = arrayListOf<String>()
                             for(photo in record.recordPhotos) {
