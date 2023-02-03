@@ -50,7 +50,7 @@ data class DeleteRecord(
 
 data class Result(
     @SerializedName("content") val content: String,
-    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("createdTime") val createdTime: String,
     @SerializedName("userName") val userName: String,
     @SerializedName("recordPhotos") val recordPhotos: List<Image>,
     @SerializedName("tags") val tags: List<Tag>

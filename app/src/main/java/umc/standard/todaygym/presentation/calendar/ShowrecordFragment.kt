@@ -2,7 +2,6 @@ package umc.standard.todaygym.presentation.calendar
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +16,7 @@ import androidx.viewpager2.widget.ViewPager2
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
-import umc.standard.todaygym.data.api.RecordInterface
+import umc.standard.todaygym.data.api.RecordService
 import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.model.DeleteRecord
 import umc.standard.todaygym.data.util.RetrofitClient
@@ -166,9 +165,9 @@ class ShowrecordFragment : Fragment() {
 
     // 서버에서 기록 삭제 함수
     private fun deleteRecord(date: String) {
-        val recordInterface: RecordInterface? =
-            RetrofitClient.getClient()?.create(RecordInterface::class.java)
-        val call = recordInterface?.deleteRecord("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk", "${date}")
+        val recordInterface: RecordService? =
+            RetrofitClient.getClient()?.create(RecordService::class.java)
+        val call = recordInterface?.deleteRecord("${date}")
         call?.enqueue(object : retrofit2.Callback<DeleteRecord>{
             override fun onResponse(call: Call<DeleteRecord>, response: Response<DeleteRecord>) {
                 if(response.isSuccessful) {
