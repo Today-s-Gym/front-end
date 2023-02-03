@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import umc.standard.todaygym.R
+import umc.standard.todaygym.data.model.ChatData
 import umc.standard.todaygym.data.model.PostData
 
 import umc.standard.todaygym.databinding.DialogBottomMineBinding
@@ -18,7 +19,7 @@ import umc.standard.todaygym.databinding.DialogDeletePostBinding
 import umc.standard.todaygym.databinding.ItemBoardBinding
 import umc.standard.todaygym.databinding.ItemPostBinding
 
-class PostRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val postDataList:List<PostData.Result.GetPostRes>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var dlg: Dialog
 
     enum class ContentViewType(val num: Int){
@@ -68,15 +69,15 @@ class PostRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adap
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder){
             is PostViewHolder -> {
-                holder.bind(dataList[position])
+                holder.bind(postDataList[position])
             }
             else -> {
-                (holder as ChatViewHolder).bind(dataList[position])
+                (holder as ChatViewHolder).bind(chatDataList[position])
             }
         }
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = postDataList.size + chatDataList.size
 
     override fun getItemViewType(position: Int): Int {
         return when (position){
@@ -87,8 +88,17 @@ class PostRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adap
     }
 
     inner class PostViewHolder(private val viewBinding: ItemBoardBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(data: PostData){
-
+        fun bind(data: PostData.Result.GetPostRes){
+            viewBinding.apply {
+                tvNickname.text = data.writerNickName
+                tvCreateAt.text = data.createdAt
+                tvTitle.text = data.title
+                tvContent.text = data.content
+                tvExdate.text = data.recordCreatedAt
+                tvExcontent.text = data.recordContent
+                tvChat.text = data.commentCounts.toString()
+                tvHeart.text = data.likeCounts.toString()
+            }
         }
     }
 
@@ -96,9 +106,11 @@ class PostRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adap
         private val dialog = BottomSheetDialog(parent.context)
         private val bottomSheetView = DialogBottomMineBinding.inflate(LayoutInflater.from(parent.context))
 
-        fun bind(data: PostData){
-            viewBinding.tvNickname.text = data.nickname
-            viewBinding.tvContent.text = data.chat
+        fun bind(data: ChatData.Result){
+            viewBinding.apply {
+                tvNickname.text = data.writerName
+                tvContent.text = data.content
+            }
             dialog.setContentView(bottomSheetView.root)
 
             viewBinding.imgEdit.setOnClickListener {

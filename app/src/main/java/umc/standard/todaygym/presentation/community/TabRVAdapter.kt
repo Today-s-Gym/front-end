@@ -14,8 +14,8 @@ class TabRVAdapter(private val dataList: ArrayList<PostData>):RecyclerView.Adapt
 
     inner class DataViewHolder(private val viewBinding: ItemExrecordBinding):RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(data: PostData){
-            viewBinding.tvExcontent.text = data.chat
-            viewBinding.tvExdate.text = data.nickname
+//            viewBinding.tvExcontent.text = data.chat
+//            viewBinding.tvExdate.text = data.nickname
             val bundle = Bundle()
             viewBinding.btnChoose.setOnClickListener {
                 bundle.putString("desc",viewBinding.btnChoose.text.toString())

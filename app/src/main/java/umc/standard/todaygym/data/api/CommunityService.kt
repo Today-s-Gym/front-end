@@ -10,13 +10,19 @@ interface CommunityService {
     fun getBoard(
         @Header("Authorization") Authorization: String,
         @Path("categoryId") categoryId : Int
-    ): Call<List<BoardData>>
+    ): Call<BoardData>
 
     @GET("posts/{postId}")
     fun getPost(
         @Header("Authorization") Authorization: String,
         @Path("postId") postId : Int
-    ): Call<List<PostModel>>
+    ): Call<PostData>
+
+    @GET("comments/{postId}")
+    fun getChat(
+        @Header("Authorization") Authorization: String,
+        @Path("postId") postId : Int
+    ):Call<ChatData>
 
     @POST("post")
     fun addPost(

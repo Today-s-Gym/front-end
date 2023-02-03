@@ -11,7 +11,7 @@ import umc.standard.todaygym.data.model.BoardData
 import umc.standard.todaygym.databinding.ItemBoardBinding
 
 
-class BoardRVAdapter(private val dataList: ArrayList<BoardData.Result>):RecyclerView.Adapter<BoardRVAdapter.DataViewHolder>() {
+class BoardRVAdapter(private val dataList: List<BoardData.Result>):RecyclerView.Adapter<BoardRVAdapter.DataViewHolder>() {
 
     inner class DataViewHolder(private val viewBinding: ItemBoardBinding):RecyclerView.ViewHolder(viewBinding.root){
      fun bind(data: BoardData.Result){
@@ -32,11 +32,11 @@ class BoardRVAdapter(private val dataList: ArrayList<BoardData.Result>):Recycler
          viewBinding.tvExcontent.text = data.recordContent
 
 
-         if(!data.postPhotoList.isEmpty()){
-             viewBinding.imgViewpager.visibility = View.VISIBLE
+         if(data.postPhotoList.isEmpty()){
+             viewBinding.imgViewpager.visibility = View.GONE
          }
-         if(data.recordId != 0){
-             viewBinding.groupExrecord.visibility = View.VISIBLE
+         if(data.recordId == 0){
+             viewBinding.groupExrecord.visibility = View.GONE
          }
 //         if(data.liked){
 //             viewBinding.imgHeart.src =
