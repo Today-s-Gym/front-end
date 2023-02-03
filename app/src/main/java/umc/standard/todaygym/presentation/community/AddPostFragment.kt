@@ -41,8 +41,6 @@ class AddPostFragment: Fragment() {
             requestAddPost.title = viewBinding.editTitle.text.toString()
             requestAddPost.content = viewBinding.editContent.text.toString()
             requestAddPost.postPhotos  = listOf()
-            Log.d("addPost 요청","u----------------------------------------------------------")
-            Toast.makeText(context,"화나네 ",Toast.LENGTH_SHORT)
             request(requestAddPost)
         }
 
@@ -64,7 +62,7 @@ class AddPostFragment: Fragment() {
     private fun request(requestAddPost: RequestAddPost){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.addPost(JWT,requestAddPost)
+        val call = communityInterface?.addPost(requestAddPost)
         call?.enqueue(object : Callback<RequestAddPost> {
 
             override fun onResponse(

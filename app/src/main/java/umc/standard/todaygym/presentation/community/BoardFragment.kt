@@ -64,7 +64,7 @@ class BoardFragment: Fragment() {
     private fun request(id:Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.getBoard(JWT,id)
+        val call = communityInterface?.getBoard(id)
         call?.enqueue(object : Callback<BoardData> {
             override fun onResponse(call: Call<BoardData>, response: Response<BoardData>) {
                 if(response.isSuccessful){

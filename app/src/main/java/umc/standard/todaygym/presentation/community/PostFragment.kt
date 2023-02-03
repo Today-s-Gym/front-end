@@ -44,7 +44,7 @@ class PostFragment: Fragment() {
     private fun load(postId: Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.getPost(JWT,postId)
+        val call = communityInterface?.getPost(postId)
         call?.enqueue(object : Callback<PostData>{
             override fun onResponse(call: Call<PostData>, response: Response<PostData>) {
                 if(response.isSuccessful){
@@ -61,7 +61,7 @@ class PostFragment: Fragment() {
     private fun load2(postId: Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.getChat(JWT,postId)
+        val call = communityInterface?.getChat(postId)
         call?.enqueue(object : Callback<ChatData>{
             override fun onResponse(call: Call<ChatData>, response: Response<ChatData>) {
                 if(response.isSuccessful){
