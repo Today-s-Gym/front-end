@@ -36,16 +36,16 @@ data class PostData(
 }
 
 data class ChatData(
-    val code: Int,
-    val isSuccess: Boolean,
-    val message: String,
-    val result: List<Result>
+    @SerializedName("code")val code: Int,
+    @SerializedName("isSuccess") val isSuccess: Boolean,
+    @SerializedName("message")val message: String,
+    @SerializedName("result")val result: List<Result>
 ) {
     data class Result(
-        val commentId: Int,
-        val content: String,
-        val mine: Boolean,
-        val writerAvatarImgUrl: String,
-        val writerName: String
+        @SerializedName("commentId") val commentId: Int,
+        @SerializedName("content") val content: String,
+        @SerializedName("mine") val mine: Boolean,
+        @SerializedName("writerAvatarImgUrl") val writerAvatarImgUrl: String,
+        @SerializedName("writerName") val writerName: String
     )
 }

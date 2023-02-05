@@ -14,7 +14,7 @@ interface CommunityService {
         @Path("categoryId") categoryId : Int
     ): Call<BoardData>
 
-    @GET("posts/{postId}")
+    @GET("post/{postId}")
     fun getPost(
         @Path("postId") postId : Int
     ): Call<PostData>
@@ -33,6 +33,11 @@ interface CommunityService {
     fun responseAddPost(
         @Body responseAddPost: Response
     ) :Call<Response>
+
+    @GET("record/recent")
+    fun tabNewRecord(
+        @Query("page") page : Int
+    ) :Call<TabNewData>
 
 
 }

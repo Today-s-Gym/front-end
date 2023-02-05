@@ -13,7 +13,7 @@
         android:background="@drawable/border_account"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="12dp"
+
         android:src="@drawable/lv1"/>
 
     <TextView
@@ -24,6 +24,8 @@
         android:textColor="@color/textBlack"
         android:textStyle="bold"
         android:textSize="14dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         app:layout_constraintTop_toTopOf="@id/img_account"
         app:layout_constraintStart_toEndOf="@+id/img_account"
         android:layout_marginLeft="10dp" />
@@ -34,6 +36,8 @@
         android:layout_height="wrap_content"
         android:text="댓글"
         android:textSize="14dp"
+
+        android:paddingBottom="1dp"
         android:textStyle="normal"
         android:textColor="@color/textBlack"
         app:layout_constraintStart_toStartOf="@+id/tv_nickname"

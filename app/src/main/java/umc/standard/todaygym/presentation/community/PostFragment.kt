@@ -18,10 +18,9 @@ import umc.standard.todaygym.databinding.FragmentPostBinding
 
 class PostFragment: Fragment() {
     private lateinit var viewBinding: FragmentPostBinding
-    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     var data: PostData? = null
     var data2: ChatData? = null
-    var postList: List<PostData.Result>? = null
+    var postList: List<PostData.Result.GetPostRes>? = null
     var chatList: List<ChatData.Result>? = null
 
     override fun onCreateView(
@@ -30,9 +29,9 @@ class PostFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentPostBinding.inflate(layoutInflater)
-
-        load(8)
-        load2(10)
+        var id = arguments?.getInt("id") as Int
+        load(id)
+        load2(id)
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -49,6 +48,8 @@ class PostFragment: Fragment() {
             override fun onResponse(call: Call<PostData>, response: Response<PostData>) {
                 if(response.isSuccessful){
                     data = response.body()
+                    data?.result?.let { listOf(it.getPostRes) }
+                        ?.let { data2?.let { it1 -> chatAdapter(it1.result, it) } }
                 }
             }
             override fun onFailure(call: Call<PostData>, t: Throwable) {

@@ -13,6 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
+import umc.standard.todaygym.data.model.PostData
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
@@ -20,8 +21,6 @@ import umc.standard.todaygym.databinding.FragmentAddPostBinding
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
-    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +32,13 @@ class AddPostFragment: Fragment() {
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
-
-        requestAddPost = RequestAddPost(9,"d", listOf(),"title")
+        var postPostReq= RequestAddPost.PostPostReq(9,"","")
+        requestAddPost = RequestAddPost(listOf(),postPostReq)
 
         viewBinding.btnAdd.setOnClickListener {
-            requestAddPost.categoryId = 9
-            requestAddPost.title = viewBinding.editTitle.text.toString()
-            requestAddPost.content = viewBinding.editContent.text.toString()
-            requestAddPost.postPhotos  = listOf()
+            postPostReq.content = viewBinding.editContent.text.toString()
+            postPostReq.title = viewBinding.editTitle.text.toString()
+            requestAddPost.postPostReq= postPostReq
             request(requestAddPost)
         }
 

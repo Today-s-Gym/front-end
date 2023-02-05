@@ -3,11 +3,15 @@ package umc.standard.todaygym.data.model
 import com.google.gson.annotations.SerializedName
 
 data class RequestAddPost(
-    @SerializedName("categoryId") var categoryId: Int,
-    @SerializedName("content") var content: String,
-    @SerializedName("postPhotos") var postPhotos: List<String>,
-    @SerializedName("title") var title: String
-)
+    @SerializedName("image")var image: List<String>,
+    @SerializedName("postPostReq")var postPostReq: PostPostReq
+){
+    data class PostPostReq(
+        @SerializedName("categoryId") var categoryId: Int,
+        @SerializedName("content") var content: String,
+        @SerializedName("title") var title: String
+    )
+}
 
 data class Response(
     @SerializedName("isSuccess") val isSuccess: Boolean,

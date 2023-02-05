@@ -1,12 +1,14 @@
 package umc.standard.todaygym.presentation.community
 
 import android.app.Dialog
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.view.marginBottom
 
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -28,7 +30,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerView.ViewHolder {
         val dialog = BottomSheetDialog(parent.context)
         val bottomSheetView = DialogBottomMineBinding.inflate(LayoutInflater.from(parent.context))
-
+        Log.d("oncreate","hihihihihi")
         dialog.setContentView(bottomSheetView.root)
         return when (viewType) {
             ContentViewType.Post.num -> {
@@ -72,7 +74,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                 holder.bind(postDataList[position])
             }
             else -> {
-                (holder as ChatViewHolder).bind(chatDataList[position])
+                (holder as ChatViewHolder).bind(chatDataList[position-1])
             }
         }
     }
@@ -80,9 +82,10 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
     override fun getItemCount(): Int = postDataList.size + chatDataList.size
 
     override fun getItemViewType(position: Int): Int {
+        Log.d("popopo",position.toString())
         return when (position){
             0 -> ContentViewType.Post.num
-            1 -> ContentViewType.Chat.num
+            1-> ContentViewType.Chat.num
             else -> ContentViewType.Empty.num
         }
     }
@@ -94,10 +97,23 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                 tvCreateAt.text = data.createdAt
                 tvTitle.text = data.title
                 tvContent.text = data.content
-                tvExdate.text = data.recordCreatedAt
-                tvExcontent.text = data.recordContent
-                tvChat.text = data.commentCounts.toString()
-                tvHeart.text = data.likeCounts.toString()
+                if(data.likeCounts != 0){
+                    tvHeart.visibility = View.VISIBLE
+                    tvHeart.text = data.likeCounts.toString()
+                }
+                if(data.commentCounts != 0){
+                    tvChat.visibility = View.VISIBLE
+                    tvChat.text = data.commentCounts.toString()
+                }
+
+                if(data.recordId == 0 ){
+                    btnExrecord.visibility = View.GONE
+                    tvExdate.text = data.recordCreatedAt
+                    tvExcontent.text = data.recordContent
+                }
+                if(data.postPhotoList.isEmpty()){
+                    viewBinding.imgViewpager.visibility = View.GONE
+                }
             }
         }
     }

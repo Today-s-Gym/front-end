@@ -36,19 +36,14 @@ class BoardFragment: Fragment() {
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        viewBinding.recyclerPost.setOnClickListener {
-            findNavController().navigate(R.id.action_boardFragment_to_postFragment)
-        }
 
-        viewBinding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)
-        }
 
         viewBinding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)
         }
         var id = arguments?.getInt("id") as Int
         request(id)
+
         viewBinding.apply {
             name = arguments?.getString("category") as String
             tvToolbar.text = "$name 게시판"

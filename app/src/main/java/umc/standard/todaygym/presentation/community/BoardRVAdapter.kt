@@ -1,5 +1,7 @@
 package umc.standard.todaygym.presentation.community
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,40 +14,41 @@ import umc.standard.todaygym.databinding.ItemBoardBinding
 
 
 class BoardRVAdapter(private val dataList: List<BoardData.Result>):RecyclerView.Adapter<BoardRVAdapter.DataViewHolder>() {
+    private lateinit var bundle: Bundle
 
     inner class DataViewHolder(private val viewBinding: ItemBoardBinding):RecyclerView.ViewHolder(viewBinding.root){
      fun bind(data: BoardData.Result){
 
-         viewBinding.tvTitle.text = data.title
-         viewBinding.tvContent.text = data.content
-         viewBinding.tvCreateAt.text = data.createdAt
-         if(data.likeCounts != 0){
-             viewBinding.tvHeart.visibility = View.VISIBLE
-             viewBinding.tvHeart.text = data.likeCounts.toString()
-         }
-         if(data.commentCounts != 0) {
-             viewBinding.tvChat.visibility = View.VISIBLE
-             viewBinding.tvChat.text = data.commentCounts.toString()
-         }
-         viewBinding.tvNickname.text = data.writerNickName
-         viewBinding.tvExdate.text = data.recordCreatedAt
-         viewBinding.tvExcontent.text = data.recordContent
+         viewBinding.apply {
+             tvNickname.text = data.writerNickName
+             tvCreateAt.text = data.createdAt
+             tvTitle.text = data.title
+             tvContent.text = data.content
+             if(data.likeCounts != 0){
+                 tvHeart.visibility = View.VISIBLE
+                 tvHeart.text = data.likeCounts.toString()
+             }
+             if(data.commentCounts != 0){
+                 tvChat.visibility = View.VISIBLE
+                 tvChat.text = data.commentCounts.toString()
+             }
 
-
-         if(data.postPhotoList.isEmpty()){
-             viewBinding.imgViewpager.visibility = View.GONE
+             if(data.recordId == 0 ){
+                 btnExrecord.visibility = View.GONE
+                 tvExdate.text = data.recordCreatedAt
+                 tvExcontent.text = data.recordContent
+             }
+             if(data.postPhotoList.isEmpty()){
+                 viewBinding.imgViewpager.visibility = View.GONE
+             }
          }
-         if(data.recordId == 0){
-             viewBinding.groupExrecord.visibility = View.GONE
+
+         viewBinding.viewPost.setOnClickListener {
+             bundle = Bundle()
+             bundle.putInt("id",data.postId)
+             Log.d("ididididid",data.postId.toString())
+             Navigation.createNavigateOnClickListener(R.id.action_boardFragment_to_postFragment,bundle).onClick(viewBinding.viewPost)
          }
-//         if(data.liked){
-//             viewBinding.imgHeart.src =
-//         }
-
-
-        viewBinding.viewPost.setOnClickListener {
-            Navigation.createNavigateOnClickListener(R.id.action_boardFragment_to_postFragment).onClick(viewBinding.imgChat)
-        }
 
          viewBinding.imgHeart.setOnClickListener {
              viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
