@@ -29,15 +29,16 @@ interface CommunityService {
         @Body requestAddPost: RequestAddPost
     ) :Call<RequestAddPost>
 
-    @POST("post")
-    fun responseAddPost(
-        @Body responseAddPost: Response
-    ) :Call<Response>
 
     @GET("record/recent")
     fun tabNewRecord(
         @Query("page") page : Int
     ) :Call<TabNewData>
+
+    @POST("post/like")
+    fun heart(
+        @Body postId: Int
+    ) :Call<Heart>
 
 
 }

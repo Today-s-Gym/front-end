@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +46,18 @@ class AddPostFragment: Fragment() {
 
         viewBinding.btnExrecord.setOnClickListener {
             findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
+        }
+
+        var content = arguments?.getString("content")
+        if(!content.equals("")){
+            viewBinding.viewExrecord.visibility=View.VISIBLE
+            viewBinding.tvExcontent.text = content
+            viewBinding.tvExdate.text = arguments?.getString("date")
+            var imgUrl = arguments?.getString("url")
+            Glide.with(this)
+                .load(imgUrl)
+                .into(viewBinding.imgExrecord)
+
         }
 
 

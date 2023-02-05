@@ -16,6 +16,7 @@ import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.BoardData
+import umc.standard.todaygym.data.model.Heart
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentBoardBinding
 
@@ -24,6 +25,7 @@ class BoardFragment: Fragment() {
     private lateinit var name: String
     val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     var data: BoardData? = null
+
     var boardList: List<BoardData.Result>? = null
 
     override fun onCreateView(
@@ -65,6 +67,7 @@ class BoardFragment: Fragment() {
                 if(response.isSuccessful){
                     data = response.body()
                     data?.let { boardAdapter(it.result) }
+
                 }
 
             }
@@ -85,6 +88,7 @@ class BoardFragment: Fragment() {
         viewBinding.recyclerPost.setHasFixedSize(true)
 
     }
+
 
 
 

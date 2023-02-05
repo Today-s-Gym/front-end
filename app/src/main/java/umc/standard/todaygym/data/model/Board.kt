@@ -24,3 +24,17 @@ data class BoardData(
         val writerNickName: String
     )
 }
+
+data class Heart(
+    val code: Int,
+    val isSuccess: Boolean,
+    val message: String,
+    val result: Result
+) {
+    data class Result(
+        val postId: Int,
+        val result: String,
+        val status: Boolean,
+        val userId: Int
+    )
+}
