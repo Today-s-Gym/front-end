@@ -74,7 +74,6 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>):RecyclerView.
              }
          }
          else {
-             viewBinding.imgHeart.setImageResource(R.drawable.favorite)
              viewBinding.imgHeart.setOnClickListener {
                  viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
                  viewBinding.tvHeart.text = (data.likeCounts + 1).toString()

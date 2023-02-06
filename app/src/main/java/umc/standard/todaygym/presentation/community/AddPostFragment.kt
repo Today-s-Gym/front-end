@@ -9,15 +9,21 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Part
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.PostData
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
+import java.io.File
 
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
@@ -33,13 +39,11 @@ class AddPostFragment: Fragment() {
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        var postPostReq= RequestAddPost.PostPostReq(9,"","")
-        requestAddPost = RequestAddPost(listOf(),postPostReq)
+        requestAddPost = RequestAddPost(9,"","")
 
         viewBinding.btnAdd.setOnClickListener {
-            postPostReq.content = viewBinding.editContent.text.toString()
-            postPostReq.title = viewBinding.editTitle.text.toString()
-            requestAddPost.postPostReq= postPostReq
+            requestAddPost.content = viewBinding.editContent.text.toString()
+            requestAddPost.title = viewBinding.editTitle.text.toString()
             request(requestAddPost)
         }
 
@@ -71,6 +75,8 @@ class AddPostFragment: Fragment() {
     }
 
     private fun request(requestAddPost: RequestAddPost){
+//        val requestFile = RequestBody.create(MultipartBody.FORM,"")
+//        val body = MultipartBody.Part.createFormData("image", "", requestFile)
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
         val call = communityInterface?.addPost(requestAddPost)

@@ -1,6 +1,7 @@
 package umc.standard.todaygym.data.api
 
 
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,9 +25,10 @@ interface CommunityService {
         @Path("postId") postId : Int
     ):Call<ChatData>
 
+    @Multipart
     @POST("post")
     fun addPost(
-        @Body requestAddPost: RequestAddPost
+        @Part("postPostReq") requestAddPost: RequestAddPost
     ) :Call<RequestAddPost>
 
 

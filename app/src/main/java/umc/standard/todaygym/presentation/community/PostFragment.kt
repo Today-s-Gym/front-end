@@ -48,7 +48,7 @@ class PostFragment: Fragment() {
             override fun onResponse(call: Call<PostData>, response: Response<PostData>) {
                 if(response.isSuccessful){
                     data = response.body()
-                    data?.result?.let { listOf(it.getPostRes) }
+                    data?.result?.let { listOf(it) }
                         ?.let { data2?.let { it1 -> chatAdapter(it1.result, it) } }
                 }
             }
@@ -68,7 +68,7 @@ class PostFragment: Fragment() {
                 if(response.isSuccessful){
                     data2 = response.body()
                     data2?.let {
-                        data?.result?.let { it1 -> listOf(it1.getPostRes) }?.let { it2 ->
+                        data?.result?.let { it1 -> listOf(it1) }?.let { it2 ->
                             chatAdapter(it.result,
                                 it2)
                         }
@@ -83,7 +83,7 @@ class PostFragment: Fragment() {
         })
     }
 
-    private fun chatAdapter(chatList: List<ChatData.Result>,postList: List<PostData.Result.GetPostRes>){
+    private fun chatAdapter(chatList: List<ChatData.Result>,postList: List<PostData.Result>){
         val dataRVAdapter = PostRVAdapter(chatList,postList)
 
         viewBinding.recyclerChat.adapter = dataRVAdapter
