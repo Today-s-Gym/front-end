@@ -72,6 +72,8 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    //kakaotlak
+    //kakaotalk
     implementation "com.kakao.sdk:v2-user:2.12.1"
+    //permission manager
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 }

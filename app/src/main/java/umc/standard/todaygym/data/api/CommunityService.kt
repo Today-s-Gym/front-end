@@ -23,7 +23,6 @@ interface CommunityService {
 
     @POST("post")
     fun addPost(
-        @Header("Authorization") Authorization: String,
         @Body requestAddPost: RequestAddPost
     ) :Call<RequestAddPost>
 

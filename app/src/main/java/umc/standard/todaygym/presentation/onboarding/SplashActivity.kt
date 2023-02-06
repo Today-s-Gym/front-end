@@ -1,10 +1,13 @@
 package umc.standard.todaygym.presentation.onboarding
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Constraints.TAG
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -20,6 +23,7 @@ import umc.standard.todaygym.data.api.UserInterface
 import umc.standard.todaygym.data.model.SignUpResponse
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.ActivitySplashBinding
+import umc.standard.todaygym.databinding.BottomsheetCheckPolicyBinding
 import umc.standard.todaygym.util.APIPreferences.SHARED_PREFERENCE_NAME_COOKIE
 import umc.standard.todaygym.util.SharePreferences.Companion.prefs
 
@@ -84,9 +88,14 @@ fun kakaoApi(token:OAuthToken){
                     SHARED_PREFERENCE_NAME_COOKIE,
                     response.body()?.result?.accessToken
                 )
-//                    dialog.setContentView(R.layout.bottomsheet_check_permission)
-                val Intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(Intent)
+//                val bottomSheetView = CheckPolicyBottomSheet()
+                Log.d("bottomsheet","작동되긴하니?")
+//                showBottomSheet(supportFragmentManager)
+                showBottomSheet(this@SplashActivity)
+
+//                val Intent = Intent(this@SplashActivity, MainActivity::class.java)
+//                startActivity(Intent)
+//                finish()
 
             }
 
@@ -96,4 +105,46 @@ fun kakaoApi(token:OAuthToken){
 
         })
     }
+}
+fun showBottomSheet(context: Context){
+//    val bottomSheetView = CheckPolicyBottomSheet()
+//    Log.d("bottomsheet","작동되긴하니?")
+//    bottomSheetView.show(fragmentManager, bottomSheetView.tag)
+    val dialog = BottomSheetDialog(context)
+    val dialogView = BottomsheetCheckPolicyBinding.inflate(LayoutInflater.from(context))
+    var policyGlobal:Boolean = false
+    var policyPersonal:Boolean = false
+    var policyMarketing:Boolean = false
+    dialog.setContentView(dialogView.root)
+    dialog.show()
+    // all check
+    dialogView.btnPolicyAllCheck.setOnClickListener{
+            it.setBackgroundResource(R.drawable.border_account_primary)
+        dialogView.btnPolicyGlobal.setBackgroundResource(R.drawable.border_account_primary)
+        dialogView.btnPolicyPersonal.setBackgroundResource(R.drawable.border_account_primary)
+        dialogView.btnPolicyMarketing.setBackgroundResource(R.drawable.border_account_primary)
+            policyGlobal = true
+            policyPersonal = true
+            policyMarketing = true
+        }
+        //individual check
+    dialogView.btnPolicyGlobal.setOnClickListener{
+            it.setBackgroundResource(R.drawable.border_account_primary)
+            policyGlobal = true
+
+        }
+    dialogView.btnPolicyPersonal.setOnClickListener{
+            it.setBackgroundResource(R.drawable.border_account_primary)
+            policyPersonal = true
+
+        }
+    dialogView.btnPolicyMarketing.setOnClickListener{
+            it.setBackgroundResource(R.drawable.border_account_primary)
+            policyMarketing = true
+        }
+    dialogView.btnPolicyNext.setOnClickListener{
+            if(policyGlobal && policyPersonal){
+                dialog.dismiss()
+            }
+        }
 }

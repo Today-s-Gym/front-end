@@ -9,7 +9,6 @@ import umc.standard.todaygym.databinding.ActivityMainBinding
 import umc.standard.todaygym.presentation.calendar.AddrecordFragment
 import umc.standard.todaygym.presentation.calendar.AddtagFragment
 import umc.standard.todaygym.presentation.calendar.ShowrecordFragment
-import umc.standard.todaygym.util.CameraActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
