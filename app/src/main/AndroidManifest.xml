@@ -79,6 +79,12 @@
         </activity>
         <activity android:name=".presentation.onboarding.KakaoLoginActivity">
         </activity>
+        <activity android:name=".presentation.onboarding.SignUpNicknameActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".presentation.onboarding.SignUpTypeActivity"
+            android:exported="true">
+        </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="umc.standard.todaygym.fileprovider"

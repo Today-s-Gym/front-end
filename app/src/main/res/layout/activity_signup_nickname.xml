@@ -28,6 +28,7 @@
             android:paddingHorizontal="22dp"
             android:background="@drawable/bt_background_grey"/>
         <TextView
+            android:id="@+id/btn_nickname_check"
             android:layout_marginStart="11dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

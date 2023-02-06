@@ -9,7 +9,9 @@
     tools:context=".presentation.onboarding.SplashActivity"
     android:paddingHorizontal="36dp"
     android:orientation="vertical"
-    android:background="@drawable/border_bottom_dialog_white">
+    android:background="@drawable/border_bottom_dialog_white"
+    android:paddingBottom="100dp"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
             android:layout_weight="1"
             />
         <ImageView
+            android:id="@+id/btn_close_tap"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_baseline_close_24"
@@ -45,7 +48,7 @@
             android:id="@+id/btn_policy_all_check"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/border_account" />
+            android:background="@drawable/border_account" />
         <TextView
             android:layout_marginStart="8dp"
             android:textStyle="bold"
@@ -75,7 +78,6 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/border_account"
-            android:src="@drawable/btn_check_box"
             />
         <TextView
             android:layout_marginStart="8dp"
