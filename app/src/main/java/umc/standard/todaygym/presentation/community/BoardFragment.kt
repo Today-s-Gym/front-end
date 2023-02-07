@@ -23,11 +23,8 @@ import umc.standard.todaygym.databinding.FragmentBoardBinding
 class BoardFragment: Fragment() {
     private lateinit var viewBinding: FragmentBoardBinding
     private lateinit var name: String
-    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     var data: BoardData? = null
-
-    var boardList: List<BoardData.Result>? = null
-
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

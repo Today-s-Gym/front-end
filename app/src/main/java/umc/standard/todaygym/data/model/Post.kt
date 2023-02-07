@@ -26,6 +26,7 @@ data class PostData(
             @SerializedName("recordId") val recordId: Int,
             @SerializedName("recordPhotoImgUrl") val recordPhotoImgUrl: String,
             @SerializedName("title") val title: String,
+            @SerializedName("writerId") val writerId: Int,
             @SerializedName("writerAvatarImgUrl") val writerAvatarImgUrl: String,
             @SerializedName("writerNickName") val writerNickName: String
         )
@@ -49,3 +50,10 @@ data class ChatData(
         @SerializedName("writerName") val writerName: String
     )
 }
+
+data class Report(
+    @SerializedName("isSuccess") val isSuccess: Boolean,
+    @SerializedName("code")val code: Int,
+    @SerializedName("message")val message: String,
+    @SerializedName("result")val result: Int
+)

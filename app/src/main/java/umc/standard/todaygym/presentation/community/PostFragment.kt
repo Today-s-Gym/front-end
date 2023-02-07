@@ -13,6 +13,7 @@ import retrofit2.Response
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.ChatData
 import umc.standard.todaygym.data.model.PostData
+import umc.standard.todaygym.data.model.Report
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentPostBinding
 
@@ -20,8 +21,7 @@ class PostFragment: Fragment() {
     private lateinit var viewBinding: FragmentPostBinding
     var data: PostData? = null
     var data2: ChatData? = null
-    var postList: List<PostData.Result.GetPostRes>? = null
-    var chatList: List<ChatData.Result>? = null
+    var chat: Report?= null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +34,9 @@ class PostFragment: Fragment() {
         load2(id)
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+        viewBinding.btnChat.setOnClickListener {
+            addChat(id,viewBinding.editChat.text.toString())
         }
 
 
@@ -91,6 +94,26 @@ class PostFragment: Fragment() {
         dataRVAdapter.notifyDataSetChanged()
         viewBinding.recyclerChat.setHasFixedSize(true)
 
+    }
+
+    private fun addChat(postId:Int,content:String){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.addChat(postId,content)
+        call?.enqueue(object : Callback<Report> {
+            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+                if(response.isSuccessful){
+                    chat = response.body()
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<Report>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }
 

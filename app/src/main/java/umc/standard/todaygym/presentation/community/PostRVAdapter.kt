@@ -20,6 +20,7 @@ import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.ChatData
 import umc.standard.todaygym.data.model.Heart
 import umc.standard.todaygym.data.model.PostData
+import umc.standard.todaygym.data.model.Report
 import umc.standard.todaygym.data.util.RetrofitClient
 
 import umc.standard.todaygym.databinding.DialogBottomMineBinding
@@ -31,6 +32,9 @@ import umc.standard.todaygym.databinding.ItemPostBinding
 class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val postDataList:List<PostData.Result>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var dlg: Dialog
     var dataheart: Heart? = null
+    var reportPost:Report?=null
+    var reportUser:Report?=null
+    var reportChat:Report?=null
 
     enum class ContentViewType(val num: Int){
         Post(0), Chat(1),Empty(2)
@@ -102,15 +106,23 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                 }
                 dialog.setContentView(bottomSheetView.root)
             }
+
+            //남의 게시물일 때
             else{
                 dialog.setContentView(bottomSheetyouView.root)
                 viewBinding.imgEdit.setOnClickListener {
                     dialog.show()
                 }
+                bottomSheetyouView.tvPost.setOnClickListener {
+                    reportPost(data.getPostRes.postId)
+                }
+                bottomSheetyouView.tvUser.setOnClickListener {
+                    reportUser(data.getPostRes.writerId)
+                }
 
             }
 
-
+            //데이터 넣기
             var data2 = data.getPostRes
             viewBinding.apply {
                 tvNickname.text = data2.writerNickName
@@ -132,20 +144,20 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     tvExcontent.text = data2.recordContent
                 }
                 if(data2.postPhotoList.isEmpty()){
-                    viewBinding.imgViewpager.visibility = View.GONE
+                    imgViewpager.visibility = View.GONE
                 }
                 if(data2.liked) {
-                    viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    viewBinding.imgHeart.setOnClickListener {
-                        viewBinding.imgHeart.setImageResource(R.drawable.favorite)
-                        viewBinding.tvHeart.text = (data2.likeCounts - 1).toString()
+                    imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    imgHeart.setOnClickListener {
+                        imgHeart.setImageResource(R.drawable.favorite)
+                        tvHeart.text = (data2.likeCounts - 1).toString()
                         requestHeart(data2.postId)
                     }
                 }
                 else {
-                    viewBinding.imgHeart.setOnClickListener {
-                        viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
-                        viewBinding.tvHeart.text = (data2.likeCounts + 1).toString()
+                    imgHeart.setOnClickListener {
+                        imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                        tvHeart.text = (data2.likeCounts + 1).toString()
                         requestHeart(data2.postId)
                     }
                 }
@@ -157,18 +169,43 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
     inner class ChatViewHolder(private val viewBinding: ItemPostBinding, parent: ViewGroup) : RecyclerView.ViewHolder(viewBinding.root){
         private val dialog = BottomSheetDialog(parent.context)
         private val bottomSheetView = DialogBottomMineBinding.inflate(LayoutInflater.from(parent.context))
+        private val bottomSheetyouView = DialogBottomYoursBinding.inflate(LayoutInflater.from(parent.context))
+
 
         fun bind(data: ChatData.Result){
             viewBinding.apply {
                 tvNickname.text = data.writerName
                 tvContent.text = data.content
-            }
-            dialog.setContentView(bottomSheetView.root)
 
-            viewBinding.imgEdit.setOnClickListener {
-                dialog.show()
-                bottomSheetView.groupEdit.visibility = View.GONE
+                //내 댓글일 때
+                if(data.mine){
+                    dialog.setContentView(bottomSheetView.root)
+
+                    imgEdit.setOnClickListener {
+                        dialog.show()
+                        bottomSheetView.groupEdit.visibility = View.GONE
+                    }
+                }
+
+                //남의 댓글일 때
+                else {
+                    dialog.setContentView(bottomSheetyouView.root)
+
+                    imgEdit.setOnClickListener {
+                        dialog.show()
+                        bottomSheetyouView.apply {
+                            groupEdit.visibility = View.GONE
+                            tvUser.text = "신고하기"
+                            tvUser.setOnClickListener {
+                                reportChat(data.commentId)
+                            }
+                        }
+                    }
+
+                }
             }
+
+
         }
     }
     private fun requestHeart(id:Int){
@@ -190,6 +227,68 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
 
         })
     }
+
+    private fun reportPost(reportId:Int){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.reportPost(reportId)
+        call?.enqueue(object : Callback<Report> {
+            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+                if(response.isSuccessful){
+                    reportPost = response.body()
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<Report>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun reportUser(reportId:Int){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.reportUser(reportId)
+        call?.enqueue(object : Callback<Report> {
+            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+                if(response.isSuccessful){
+                    reportUser = response.body()
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<Report>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun reportChat(reportId:Int){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.reportChat(reportId)
+        call?.enqueue(object : Callback<Report> {
+            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+                if(response.isSuccessful){
+                    reportChat = response.body()
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<Report>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+
 
 
 

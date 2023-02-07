@@ -2,6 +2,7 @@ package umc.standard.todaygym.presentation.community
 
 import android.os.Bundle
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import umc.standard.todaygym.databinding.ItemBoardBinding
 class BoardRVAdapter(private val dataList: List<BoardData.Result>):RecyclerView.Adapter<BoardRVAdapter.DataViewHolder>() {
     private lateinit var bundle: Bundle
     var dataheart: Heart? = null
+    private val heartStatus = SparseBooleanArray()
 
     inner class DataViewHolder(private val viewBinding: ItemBoardBinding):RecyclerView.ViewHolder(viewBinding.root){
      fun bind(data: BoardData.Result){
@@ -65,9 +67,14 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>):RecyclerView.
              Navigation.createNavigateOnClickListener(R.id.action_boardFragment_to_postFragment,bundle).onClick(viewBinding.viewPost)
          }
 
+         viewBinding.imgHeart.isClickable = heartStatus[bindingAdapterPosition]
          if(data.liked) {
              viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
              viewBinding.imgHeart.setOnClickListener {
+                 if(!viewBinding.imgHeart.isClickable)
+                     heartStatus.put(bindingAdapterPosition,true)
+                 else
+                     heartStatus.put(bindingAdapterPosition,false)
                  viewBinding.imgHeart.setImageResource(R.drawable.favorite)
                  viewBinding.tvHeart.text = (data.likeCounts - 1).toString()
                  requestHeart(data.postId)
@@ -76,6 +83,11 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>):RecyclerView.
          else {
              viewBinding.imgHeart.setOnClickListener {
                  viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                 if(!viewBinding.imgHeart.isClickable)
+                     heartStatus.put(bindingAdapterPosition,false)
+                 else
+                     heartStatus.put(bindingAdapterPosition,true)
+
                  viewBinding.tvHeart.text = (data.likeCounts + 1).toString()
                  requestHeart(data.postId)
              }

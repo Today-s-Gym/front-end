@@ -8,6 +8,7 @@ import retrofit2.http.Path
 import umc.standard.todaygym.data.model.BoardData
 import retrofit2.http.*
 import umc.standard.todaygym.data.model.*
+import retrofit2.http.Field as Field
 
 interface CommunityService {
     @GET("posts/{categoryId}")
@@ -37,10 +38,39 @@ interface CommunityService {
         @Query("page") page : Int
     ) :Call<TabNewData>
 
+    @FormUrlEncoded
     @POST("post/like")
     fun heart(
-        @Body postId: Int
+        @Field("postId") postId: Int
     ) :Call<Heart>
+
+
+    @POST("report/post")
+    fun reportPost(
+        @Body reportedId:Int
+    ) :Call<Report>
+
+
+    @POST("report/user")
+    fun reportUser(
+        @Body reportedId:Int
+    ) :Call<Report>
+
+
+    @POST("report/comment")
+    fun reportChat(
+        @Body reportedId:Int
+    ) :Call<Report>
+
+    @POST("comment")
+    fun addChat(
+        @Body postId:Int,
+        @Body content: String
+    ) :Call<Report>
+
+
+
+
 
 
 }
