@@ -1,19 +1,19 @@
 package umc.standard.todaygym.presentation.community
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import umc.standard.todaygym.data.api.CommunityService
-import umc.standard.todaygym.data.model.ChatData
-import umc.standard.todaygym.data.model.PostData
-import umc.standard.todaygym.data.model.Report
+import umc.standard.todaygym.data.model.*
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentPostBinding
 
@@ -21,7 +21,6 @@ class PostFragment: Fragment() {
     private lateinit var viewBinding: FragmentPostBinding
     var data: PostData? = null
     var data2: ChatData? = null
-    var chat: Report?= null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,16 +28,17 @@ class PostFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentPostBinding.inflate(layoutInflater)
-        var id = arguments?.getInt("id") as Int
-        load(id)
-        load2(id)
+        var postId = arguments?.getInt("id") as Int
+        load(postId)
+        load2(postId)
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
         viewBinding.btnChat.setOnClickListener {
-            addChat(id,viewBinding.editChat.text.toString())
+            var chat=AddChat(postId,viewBinding.editChat.text.toString())
+            addChat(chat,postId)
+            viewBinding.editChat.text = null
         }
-
 
         return viewBinding.root
     }
@@ -96,23 +96,20 @@ class PostFragment: Fragment() {
 
     }
 
-    private fun addChat(postId:Int,content:String){
+    private fun addChat(addChat: AddChat,postId: Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.addChat(postId,content)
-        call?.enqueue(object : Callback<Report> {
-            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+        val call = communityInterface?.addChat(addChat)
+        call?.enqueue(object : Callback<AddChat> {
+            override fun onResponse(call: Call<AddChat>, response: Response<AddChat>) {
                 if(response.isSuccessful){
-                    chat = response.body()
-
+                    var body = response.body()
+                    load2(postId)
                 }
-
             }
-
-            override fun onFailure(call: Call<Report>, t: Throwable) {
+            override fun onFailure(call: Call<AddChat>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
         })
     }
 }

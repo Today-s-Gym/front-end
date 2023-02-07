@@ -57,3 +57,9 @@ data class Report(
     @SerializedName("message")val message: String,
     @SerializedName("result")val result: Int
 )
+
+
+data class AddChat(
+    @SerializedName("postId") var postId: Int,
+    @SerializedName("content") var content: String
+)

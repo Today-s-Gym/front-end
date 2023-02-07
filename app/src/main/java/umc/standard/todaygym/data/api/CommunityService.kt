@@ -64,9 +64,8 @@ interface CommunityService {
 
     @POST("comment")
     fun addChat(
-        @Body postId:Int,
-        @Body content: String
-    ) :Call<Report>
+        @Body addChat: AddChat
+    ) :Call<AddChat>
 
 
 
