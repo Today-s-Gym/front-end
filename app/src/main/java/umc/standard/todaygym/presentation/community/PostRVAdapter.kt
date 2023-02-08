@@ -8,7 +8,6 @@ import android.view.View
 
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.core.view.marginBottom
 
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -35,6 +34,8 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
     var reportPost:Report?=null
     var reportUser:Report?=null
     var reportChat:Report?=null
+    var deleteChat:Report?=null
+    var data2:ChatData?=null
 
     enum class ContentViewType(val num: Int){
         Post(0), Chat(1),Empty(2)
@@ -115,9 +116,11 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                 }
                 bottomSheetyouView.tvPost.setOnClickListener {
                     reportPost(data.getPostRes.postId)
+                    dialog.dismiss()
                 }
                 bottomSheetyouView.tvUser.setOnClickListener {
                     reportUser(data.getPostRes.writerId)
+                    dialog.dismiss()
                 }
 
             }
@@ -184,7 +187,13 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     imgEdit.setOnClickListener {
                         dialog.show()
                         bottomSheetView.groupEdit.visibility = View.GONE
+                        bottomSheetView.tvDelete.setOnClickListener {
+                            deleteChat(data.commentId)
+
+                            dialog.dismiss()
+                        }
                     }
+
                 }
 
                 //남의 댓글일 때
@@ -198,6 +207,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                             tvUser.text = "신고하기"
                             tvUser.setOnClickListener {
                                 reportChat(data.commentId)
+                                dialog.dismiss()
                             }
                         }
                     }
@@ -288,8 +298,23 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
         })
     }
 
+    private fun deleteChat(commentId:Int){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.deleteChat(commentId)
+        call?.enqueue(object : Callback<Report> {
+            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+                if(response.isSuccessful){
+                    deleteChat = response.body()
+                }
 
+            }
 
+            override fun onFailure(call: Call<Report>, t: Throwable) {
+            }
+
+        })
+    }
 
 
 }

@@ -30,7 +30,7 @@ class PostFragment: Fragment() {
         viewBinding = FragmentPostBinding.inflate(layoutInflater)
         var postId = arguments?.getInt("id") as Int
         load(postId)
-        load2(postId)
+        loadChat(postId)
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -62,7 +62,7 @@ class PostFragment: Fragment() {
         })
     }
 
-    private fun load2(postId: Int){
+    private fun loadChat(postId: Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
         val call = communityInterface?.getChat(postId)
@@ -104,7 +104,7 @@ class PostFragment: Fragment() {
             override fun onResponse(call: Call<AddChat>, response: Response<AddChat>) {
                 if(response.isSuccessful){
                     var body = response.body()
-                    load2(postId)
+                    loadChat(postId)
                 }
             }
             override fun onFailure(call: Call<AddChat>, t: Throwable) {

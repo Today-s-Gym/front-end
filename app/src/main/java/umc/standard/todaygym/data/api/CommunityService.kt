@@ -67,6 +67,12 @@ interface CommunityService {
         @Body addChat: AddChat
     ) :Call<AddChat>
 
+    @FormUrlEncoded
+    @PATCH("comment/delete")
+    fun deleteChat(
+        @Field("commentId") commentId: Int
+    ) :Call<Report>
+
 
 
 
