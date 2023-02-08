@@ -73,6 +73,12 @@ interface CommunityService {
         @Field("commentId") commentId: Int
     ) :Call<Report>
 
+    @FormUrlEncoded
+    @PATCH("post/delete")
+    fun deletePost(
+        @Field("postId") postId: Int
+    ) :Call<Report>
+
 
 
 

@@ -80,7 +80,11 @@
     <fragment
         android:id="@+id/postFragment"
         android:name="umc.standard.todaygym.presentation.community.PostFragment"
-        android:label="PostFragment" />
+        android:label="PostFragment" >
+        <action
+            android:id="@+id/action_postFragment_to_boardFragment"
+            app:destination="@id/boardFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/addPostFragment"
         android:name="umc.standard.todaygym.presentation.community.AddPostFragment"

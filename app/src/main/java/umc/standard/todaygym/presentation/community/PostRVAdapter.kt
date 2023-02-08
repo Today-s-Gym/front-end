@@ -8,6 +8,11 @@ import android.view.View
 
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+
 
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -36,6 +41,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
     var reportChat:Report?=null
     var deleteChat:Report?=null
     var data2:ChatData?=null
+    var deletePost:Report?=null
 
     enum class ContentViewType(val num: Int){
         Post(0), Chat(1),Empty(2)
@@ -103,7 +109,9 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     dlg.dismiss()
                 }
                 diaBinding.btnYes.setOnClickListener {
+                    deletePost(data.getPostRes.postId)
                     dlg.dismiss()
+                    dialog.dismiss()
                 }
                 dialog.setContentView(bottomSheetView.root)
             }
@@ -189,7 +197,6 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                         bottomSheetView.groupEdit.visibility = View.GONE
                         bottomSheetView.tvDelete.setOnClickListener {
                             deleteChat(data.commentId)
-
                             dialog.dismiss()
                         }
                     }
@@ -306,6 +313,24 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
             override fun onResponse(call: Call<Report>, response: Response<Report>) {
                 if(response.isSuccessful){
                     deleteChat = response.body()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Report>, t: Throwable) {
+            }
+
+        })
+    }
+
+    private fun deletePost(postId:Int){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.deletePost(postId)
+        call?.enqueue(object : Callback<Report> {
+            override fun onResponse(call: Call<Report>, response: Response<Report>) {
+                if(response.isSuccessful){
+                    deletePost=response.body()
                 }
 
             }
