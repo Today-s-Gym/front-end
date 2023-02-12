@@ -63,3 +63,20 @@ data class AddChat(
     @SerializedName("postId") var postId: Int,
     @SerializedName("content") var content: String
 )
+
+data class RequestAddPost(
+    @SerializedName("categoryId") var categoryId: Int,
+    @SerializedName("title") var title: String,
+    @SerializedName("content") var content: String,
+    @SerializedName("recordId") var recordId: Int?
+
+)
+
+data class EditPost(
+    val categoryId: Int,
+    val title: String,
+    val content: String,
+    val postPhotos: List<String>,
+    val recordId: Int?
+
+)

@@ -34,6 +34,7 @@ class PostFragment: Fragment() {
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
         viewBinding.btnChat.setOnClickListener {
             var chat=AddChat(postId,viewBinding.editChat.text.toString())
             addChat(chat,postId)
@@ -87,11 +88,14 @@ class PostFragment: Fragment() {
     }
 
     private fun chatAdapter(chatList: List<ChatData.Result>,postList: List<PostData.Result>){
-        val dataRVAdapter = PostRVAdapter(chatList,postList)
+        val dataRVAdapter =
+            arguments?.getInt("categoryId")?.let { PostRVAdapter(chatList,postList, it) }
 
         viewBinding.recyclerChat.adapter = dataRVAdapter
         viewBinding.recyclerChat.layoutManager = LinearLayoutManager(context)
-        dataRVAdapter.notifyDataSetChanged()
+        if (dataRVAdapter != null) {
+            dataRVAdapter.notifyDataSetChanged()
+        }
         viewBinding.recyclerChat.setHasFixedSize(true)
 
     }

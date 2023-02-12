@@ -79,9 +79,13 @@ interface CommunityService {
         @Field("postId") postId: Int
     ) :Call<Report>
 
-
-
-
+    @FormUrlEncoded
+    @Multipart
+    @PATCH("post")
+    fun editPost(
+        @Field("postId") postId: Int,
+        @Part("postPostReq") editPost: EditPost
+    ) :Call<EditPost>
 
 
 }

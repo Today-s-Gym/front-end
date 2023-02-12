@@ -36,12 +36,15 @@ class BoardFragment: Fragment() {
             findNavController().popBackStack()
         }
 
-
-        viewBinding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)
-        }
         var id = arguments?.getInt("id") as Int
         request(id)
+
+        var bundle = Bundle()
+        bundle.putInt("categoryId",id)
+        viewBinding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment,bundle)
+        }
+
 
         viewBinding.apply {
             name = arguments?.getString("category") as String
@@ -63,21 +66,21 @@ class BoardFragment: Fragment() {
             override fun onResponse(call: Call<BoardData>, response: Response<BoardData>) {
                 if(response.isSuccessful){
                     data = response.body()
-                    data?.let { boardAdapter(it.result) }
+                    data?.let { boardAdapter(it.result,id) }
 
                 }
 
             }
 
             override fun onFailure(call: Call<BoardData>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
     }
 
-    private fun boardAdapter(boardList: List<BoardData.Result>){
-        val dataRVAdapter = BoardRVAdapter(boardList)
+    private fun boardAdapter(boardList: List<BoardData.Result>,catrgoryId:Int){
+        val dataRVAdapter = BoardRVAdapter(boardList,catrgoryId)
 
         viewBinding.recyclerPost.adapter = dataRVAdapter
         viewBinding.recyclerPost.layoutManager = LinearLayoutManager(context)

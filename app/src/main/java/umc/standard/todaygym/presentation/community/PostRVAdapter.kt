@@ -1,6 +1,7 @@
 package umc.standard.todaygym.presentation.community
 
 import android.app.Dialog
+import android.os.Bundle
 import android.util.Log
 
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import umc.standard.todaygym.MainActivity
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.ChatData
@@ -33,8 +35,10 @@ import umc.standard.todaygym.databinding.DialogDeletePostBinding
 import umc.standard.todaygym.databinding.ItemBoardBinding
 import umc.standard.todaygym.databinding.ItemPostBinding
 
-class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val postDataList:List<PostData.Result>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val postDataList:List<PostData.Result>,var categoryId: Int):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var dlg: Dialog
+    private lateinit var bundle: Bundle
     var dataheart: Heart? = null
     var reportPost:Report?=null
     var reportUser:Report?=null
@@ -47,12 +51,14 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
         Post(0), Chat(1),Empty(2)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerView.ViewHolder {
-        return when (viewType) {
+         return when (viewType) {
             ContentViewType.Post.num -> {
                 val viewBinding = ItemBoardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 dlg = Dialog(parent.context)
                 val diaBinding = DialogDeletePostBinding.inflate(LayoutInflater.from(parent.context))
+
                 PostViewHolder(viewBinding,parent,diaBinding)
+
             }
             ContentViewType.Chat.num -> {
                 val viewBinding = ItemPostBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -105,6 +111,18 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     dlg.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT)
                     dlg.window?.setBackgroundDrawableResource(R.drawable.dialog_box)
                 }
+
+                bottomSheetView.tvEdit.setOnClickListener {
+                    bundle =Bundle()
+                    bundle.getInt("editCategoryId",categoryId)
+                    bundle.getInt("editPostId",data.getPostRes.postId)
+                    bundle.putString("editTitle",viewBinding.tvTitle.text.toString())
+                    bundle.putString("editContent",viewBinding.tvContent.text.toString())
+//                    val navHostFragment = (parent.context as MainActivity).supportFragmentManager.findFragmentById(R.id.action_postFragment_to_editPostFragment) as NavHostFragment
+//                    val navController = navHostFragment.navController
+//
+                    it.findNavController().navigate(R.id.action_postFragment_to_editPostFragment)
+                }
                 diaBinding.btnNo.setOnClickListener {
                     dlg.dismiss()
                 }
@@ -154,22 +172,26 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     tvExdate.text = data2.recordCreatedAt
                     tvExcontent.text = data2.recordContent
                 }
+
                 if(data2.postPhotoList.isEmpty()){
                     imgViewpager.visibility = View.GONE
                 }
+
                 if(data2.liked) {
-                    imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+//                    imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
                     imgHeart.setOnClickListener {
                         imgHeart.setImageResource(R.drawable.favorite)
-                        tvHeart.text = (data2.likeCounts - 1).toString()
                         requestHeart(data2.postId)
+                        notifyDataSetChanged()
                     }
                 }
                 else {
+//                    imgHeart.setImageResource(R.drawable.favorite)
                     imgHeart.setOnClickListener {
                         imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
-                        tvHeart.text = (data2.likeCounts + 1).toString()
+//                        tvHeart.text = (data2.likeCounts + 1).toString()
                         requestHeart(data2.postId)
+                        notifyDataSetChanged()
                     }
                 }
 

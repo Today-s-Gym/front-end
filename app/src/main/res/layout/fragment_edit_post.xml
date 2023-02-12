@@ -87,7 +87,7 @@
             android:textColorHint="@color/textGray"
             android:layout_marginTop="12dp"
             android:textSize="14sp"
-            android:imeOptions="actionDone"
+
             android:layout_below="@+id/img_border1"
             android:background="@android:color/transparent"
             android:textColor="@color/textBlack"/>

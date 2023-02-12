@@ -1,14 +1,10 @@
 package umc.standard.todaygym.presentation.community
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -17,41 +13,39 @@ import retrofit2.Callback
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
+import umc.standard.todaygym.data.model.EditPost
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
-import umc.standard.todaygym.databinding.FragmentAddPostBinding
+import umc.standard.todaygym.databinding.FragmentEditPostBinding
 
-class AddPostFragment: Fragment() {
-    private lateinit var viewBinding: FragmentAddPostBinding
-    private lateinit var requestAddPost : RequestAddPost
-
+class EditPostFragment: Fragment() {
+    private lateinit var viewBinding: FragmentEditPostBinding
+    private lateinit var editPost: EditPost
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentAddPostBinding.inflate(layoutInflater)
+        viewBinding = FragmentEditPostBinding.inflate(layoutInflater)
 
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        val mInputMethodManager =
-            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        mInputMethodManager.hideSoftInputFromWindow(viewBinding.editContent.windowToken,
-            0)
-
         viewBinding.btnAdd.setOnClickListener {
-            requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),null)
-            request(requestAddPost)
+            editPost = EditPost(arguments?.getInt("editCategoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),
+                listOf(""),null)
+            requestEditPost(arguments?.getInt("editPostId")!!,editPost)
+
         }
 
-
+        viewBinding.editTitle.setText(arguments?.getString("editTitle"))
+        viewBinding.editContent.setText(arguments?.getString("editContent"))
         viewBinding.viewExrecord.visibility=View.GONE
 
         viewBinding.btnExrecord.setOnClickListener {
-            findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
+            findNavController().navigate(R.id.action_editPostFragment_to_addExFragment)
 
         }
 
@@ -65,6 +59,7 @@ class AddPostFragment: Fragment() {
                 .load(imgUrl)
                 .into(viewBinding.imgExrecord)
             viewBinding.viewExrecord.visibility = View.VISIBLE
+
         }
 
         viewBinding.btnDelete.setOnClickListener {
@@ -74,20 +69,8 @@ class AddPostFragment: Fragment() {
             Glide.with(this)
                 .load("")
                 .into(viewBinding.imgExrecord)
-        }
 
-//        viewBinding.editContent.setOnEditorActionListener{ textView, action, event ->
-//            var handled = false
-//
-//            if (action == EditorInfo.IME_ACTION_DONE) {
-//                // 키보드 내리기
-//                val inputMethodManager = getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                inputMethodManager.hideSoftInputFromWindow(viewBinding.editContent.windowToken, 0)
-//                handled = true
-//            }
-//
-//            handled
-//        }
+        }
 
         return viewBinding.root
     }
@@ -95,19 +78,21 @@ class AddPostFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
     }
 
-    private fun request(requestAddPost: RequestAddPost){
+
+    private fun requestEditPost(postId:Int ,editPost: EditPost){
 //        val requestFile = RequestBody.create(MultipartBody.FORM,"")
 //        val body = MultipartBody.Part.createFormData("image", "", requestFile)
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
-        val call = communityInterface?.addPost(requestAddPost)
-        call?.enqueue(object : Callback<RequestAddPost> {
+        val call = communityInterface?.editPost(postId,editPost)
+        call?.enqueue(object : Callback<EditPost> {
 
             override fun onResponse(
-                call: Call<RequestAddPost>,
-                response: Response<RequestAddPost>,
+                call: Call<EditPost>,
+                response: Response<EditPost>,
             ) {
                 if (response.isSuccessful){
                     var data = response.body()
@@ -116,20 +101,11 @@ class AddPostFragment: Fragment() {
 
             }
 
-            override fun onFailure(call: Call<RequestAddPost>, t: Throwable) {
+            override fun onFailure(call: Call<EditPost>, t: Throwable) {
 
             }
 
         })
     }
-
-//    fun onTouchEvent(event: MotionEvent): Boolean {
-//        val imm: InputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        val hideSoftInputFromWindow = imm.hideSoftInputFromWindow(view?.windowToken ?:, 0)
-//        return true
-//    }
-
-
-
 
 }

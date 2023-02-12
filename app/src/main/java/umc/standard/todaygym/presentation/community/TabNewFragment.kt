@@ -23,7 +23,7 @@ class TabNewFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentTabNewBinding.inflate(layoutInflater)
-        request(1)
+        request(0)
         return viewBinding.root
 
     }
@@ -35,13 +35,16 @@ class TabNewFragment: Fragment() {
             override fun onResponse(call: Call<TabNewData>, response: Response<TabNewData>) {
                 if(response.isSuccessful){
                     data = response.body()
-                    data?.let { tabnewdapter(it.result.content) }
+                    if(!data?.result?.empty!!){
+                        data?.let { tabnewdapter(it.result.content) }
+                    }
+
                 }
 
             }
 
             override fun onFailure(call: Call<TabNewData>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
