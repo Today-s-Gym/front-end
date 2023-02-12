@@ -1,8 +1,10 @@
 package umc.standard.todaygym.presentation.community
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.standard.todaygym.databinding.FragmentImg1Binding
 
 class ViewPagerAdapter(var img: List<String>):RecyclerView.Adapter<ViewPagerAdapter.DataViewHolder>() {
@@ -18,6 +20,7 @@ class ViewPagerAdapter(var img: List<String>):RecyclerView.Adapter<ViewPagerAdap
     }
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
+        Glide.with(holder.itemView).load(img[position]).into(holder.img)
 //        holder.img.setImageResource(img[position])
     }
 

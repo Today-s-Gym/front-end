@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -151,6 +152,9 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
 
             }
 
+
+
+
             //데이터 넣기
             var data2 = data.getPostRes
             viewBinding.apply {
@@ -177,24 +181,54 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     imgViewpager.visibility = View.GONE
                 }
 
-                if(data2.liked) {
-//                    imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                if(data2.liked){
+                    imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    //좋아요 취소
+                    var i=0
                     imgHeart.setOnClickListener {
-                        imgHeart.setImageResource(R.drawable.favorite)
+                        if(i%2==0){
+                            imgHeart.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                            (data2.likeCounts - 1).toString().also { tvHeart.text = it }
+                            if((data2.likeCounts -1) ==0){
+                                tvHeart.visibility = View.GONE
+                            }
+                        }
+                        else{
+                            imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                            data2.likeCounts.toString().also { tvHeart.text = it }
+                            tvHeart.visibility = View.VISIBLE
+                        }
+                        i++
                         requestHeart(data2.postId)
-                        notifyDataSetChanged()
+
                     }
-                }
-                else {
-//                    imgHeart.setImageResource(R.drawable.favorite)
-                    imgHeart.setOnClickListener {
-                        imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
-//                        tvHeart.text = (data2.likeCounts + 1).toString()
-                        requestHeart(data2.postId)
-                        notifyDataSetChanged()
-                    }
+
+                    imgViewpager.adapter = ViewPagerAdapter(data2.postPhotoList)
+                    imgViewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 }
 
+                //좋아요 안누른 경우
+                else{
+                    //좋아요 누름
+                    var i=0
+                    imgHeart.setOnClickListener {
+                        if(i%2==0){
+                            imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
+                            (data2.likeCounts + 1).toString().also { tvHeart.text = it }
+                            tvHeart.visibility = View.VISIBLE
+                        }
+                        else{
+                            imgHeart.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                            data2.likeCounts.toString().also { tvHeart.text = it }
+                            if(data2.likeCounts ==0){
+                                tvHeart.visibility = View.GONE
+                            }
+                        }
+                        i++
+                        requestHeart(data2.postId)
+                    }
+
+                }
             }
         }
     }

@@ -45,7 +45,7 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
                  var i=0
                  imgHeart.setOnClickListener {
                      if(i%2==0){
-                         imgHeart.setImageResource(R.drawable.favorite)
+                         imgHeart.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                          (data.likeCounts - 1).toString().also { tvHeart.text = it }
                          if((data.likeCounts -1) ==0){
                              tvHeart.visibility = View.GONE
@@ -73,7 +73,7 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
                          tvHeart.visibility = View.VISIBLE
                      }
                      else{
-                         imgHeart.setImageResource(R.drawable.favorite)
+                         imgHeart.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                          data.likeCounts.toString().also { tvHeart.text = it }
                          if(data.likeCounts ==0){
                              tvHeart.visibility = View.GONE
