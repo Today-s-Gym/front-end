@@ -1,5 +1,8 @@
 package umc.standard.todaygym.presentation.calendar
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +16,10 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
@@ -24,13 +30,17 @@ import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import java.text.DecimalFormat
 
 
 class AddrecordFragment : Fragment() {
     private lateinit var binding: FragmentAddrecordBinding
     private lateinit var recordData: Record
-    private var JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     // 수정이면 1 / 추가면 0
     var check : Int = -1
     val df1 = DecimalFormat("00")
@@ -56,7 +66,7 @@ class AddrecordFragment : Fragment() {
                 recordData = arguments?.getSerializable("recordData") as Record
             }
 
-            // 서버에서 사용자 정보 받아서 넣기
+            // 서버에서 사용자 정보 받아서 넣기(sharedPreference에서 받아오기)
             tvUsernickname.text = "벡스"
             ivUseravarta.setImageResource(R.drawable.logo)
 
@@ -66,8 +76,10 @@ class AddrecordFragment : Fragment() {
             tvRecorddate.text = dateForm
             // 뒤로가기 버튼
             btnBack.setOnClickListener {
-                // 이전 화면으로 전환
-                findNavController().popBackStack()
+                findNavController().apply {
+                    // previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
+                    popBackStack() // 이전 화면으로 이동
+                }
             }
 
             // 완료 버튼
@@ -82,20 +94,20 @@ class AddrecordFragment : Fragment() {
                 recordData.content = etRecordcontent.text.toString()
                 if(check == 0) {
                     if(recordData.pictures.size == 0) {
-                        addRecord(1, recordData.content)
+                        addRecord(1)
                     } else {
-                        addRecord(2, recordData.content)
+                        addRecord(2)
                     }
                     findNavController().apply {
-                        previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
+                        // previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
                         popBackStack() // 이전 화면으로 이동
                     }
                 } else {
                     if(recordData.pictures.size == 0) {
                         Log.d("test","${recordData}")
-                        addRecord(3, recordData.content)
+                        addRecord(3)
                     } else {
-                        addRecord(4, recordData.content)
+                        addRecord(4)
                     }
                     findNavController().apply {
                         previousBackStackEntry?.savedStateHandle?.set("ShowRecord", recordData)
@@ -115,6 +127,8 @@ class AddrecordFragment : Fragment() {
             // tag추가 화면에서 돌아왔을 때
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Record>("addRecord")?.observe(viewLifecycleOwner){
                 recordData = it
+                loAddtag.removeAllViews()
+                putData()
             }
 
             // 4. 기록 데이터 값 입력
@@ -188,14 +202,35 @@ class AddrecordFragment : Fragment() {
     }
 
     // 서버에 기록 추가 및 수정 함수
-    private fun addRecord(method: Int, content: String) {
+    private fun addRecord(method: Int) {
         val recordInterface: RecordService? =
             RetrofitClient.getClient()?.create(RecordService::class.java)
         val tags = arrayListOf<Tag>()
         for(tag in recordData.tags) {
             tags.add(Tag(tag))
         }
-        val recordGetReq = RecordRequest(content,tags)
+        // 이미지 uri
+        var imageFile = arrayListOf<MultipartBody.Part>()
+        //filepath는 String 변수로 갤러리에서 이미지를 가져올 때 photoUri.getPath()를 통해 받아온다.
+        for(image in recordData.pictures) {
+            var imageUri = Uri.parse(image)
+            var file = File(imageUri.path)
+            var inputStream : InputStream? = null
+            try {
+                // inputStream = context.contentResolver.openInputStream(image)
+                inputStream = requireContext().contentResolver.openInputStream(imageUri)
+            } catch (e : IOException) {
+                e.printStackTrace()
+            }
+            var bitmap = BitmapFactory.decodeStream(inputStream)
+            var byteArrayOutputStream = ByteArrayOutputStream()
+            // bitmap이미지를 jpeg포맷으로 20%압축하여 byteArrayOutputStream에 저장
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+            var requestBody : RequestBody = RequestBody.create("image/jpg".toMediaTypeOrNull(), byteArrayOutputStream.toByteArray())
+            var uploadFile = MultipartBody.Part.createFormData("image",file.name, requestBody)
+            imageFile.add(uploadFile)
+        }
+        val recordGetReq = RecordRequest(recordData.content ,tags)
         var call : Call<RecordResponse>?
         when(method) {
             1 -> call = recordInterface?.addRecord2(recordGetReq) // 이미지 없는 기록 추가
@@ -204,7 +239,7 @@ class AddrecordFragment : Fragment() {
                 for(img in recordData.pictures) {
                     // 이미지들 Multipart 형태로 바꿔주기
                 }
-                call = recordInterface?.addRecord2(recordGetReq) // 이미지 있는 기록 추가
+                call = recordInterface?.addRecord1(imageFile, recordGetReq) // 이미지 있는 기록 추가
             }
             3 -> call = recordInterface?.modifyRecord2(
                 "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
@@ -214,8 +249,9 @@ class AddrecordFragment : Fragment() {
                 for(img in recordData.pictures) {
                     // 이미지들 Multipart 형태로 바꿔주기
                 }
-                call = recordInterface?.modifyRecord2(
+                call = recordInterface?.modifyRecord1(
                     "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
+                    imageFile,
                     recordGetReq) // 이미지 있는 기록 수정
             }
         }

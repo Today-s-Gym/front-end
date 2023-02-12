@@ -52,7 +52,7 @@ class ShowrecordFragment : Fragment() {
             btnBack.setOnClickListener {
                 // 이전 화면으로 전환
                 findNavController().apply {
-                    previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
+                    // previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
                     popBackStack() // 이전 화면으로 이동
                 }
             }
@@ -77,6 +77,8 @@ class ShowrecordFragment : Fragment() {
             // 이 화면으로 돌아왔을 때 수행할 것
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Record>("ShowRecord")?.observe(viewLifecycleOwner) {
                 recordData = it
+                loTag.removeAllViews()
+                putData()
             }
 
             // 3. 기록 날짜 입력
@@ -144,12 +146,12 @@ class ShowrecordFragment : Fragment() {
         dialog.show() // 다이얼로그 띄우기
 
         // 아니오 버튼
-        var noBtn : Button = dialog.findViewById(R.id.btn_no)
+        var noBtn : TextView = dialog.findViewById(R.id.btn_no)
         noBtn.setOnClickListener {
             // 다이얼로그 닫기
             dialog.dismiss()
         }
-        var yesBtn : Button = dialog.findViewById(R.id.btn_yes)
+        var yesBtn : TextView = dialog.findViewById(R.id.btn_yes)
         yesBtn.setOnClickListener {
             // 서버에서 해당 기록 삭제
             // CalendarFragment로 이동

@@ -13,6 +13,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import retrofit2.Call
 import retrofit2.Response
+import umc.standard.todaygym.MainActivity
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.RecordService
 import umc.standard.todaygym.data.model.Record
@@ -27,8 +28,7 @@ class CalendarFragment: Fragment() {
     private lateinit var binding : FragmentCalendarBinding
     private lateinit var mycalendar : MaterialCalendarView
     private val today = CalendarDay.today()
-    private var selectedDate = today
-    val JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
+    private lateinit var selectedDate : CalendarDay
     var userRecords = arrayListOf<Record>()
 
     override fun onCreateView(
@@ -41,11 +41,15 @@ class CalendarFragment: Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // 메인 액티비티에 저장된 선택된 날짜 넣기
+        selectedDate = (activity as MainActivity).selectedDate
+
         binding.apply {
             // 1. 기록 보기 또는 추가 화면으로 전환
             val bundle = Bundle()
             // 기록 보기 화면으로 전환
             btnShowrecord.setOnClickListener {
+                (activity as MainActivity).selectedDate = selectedDate
                 // 선택된 날짜 기록 넘겨주기
                 var tmp = findRecord(selectedDate)
                 if(tmp != null) {
@@ -57,16 +61,12 @@ class CalendarFragment: Fragment() {
             }
             // 기록 추가화면으로 전환
             btnAddrecord.setOnClickListener {
+                (activity as MainActivity).selectedDate = selectedDate
                 // 선택된 날짜 넘겨주기
                 bundle.putParcelable("recordDate",selectedDate)
+                // 수정/추가 여부 넘겨주기
                 bundle.putInt("check",0)
                 findNavController().navigate(R.id.action_calendarFragment_to_addrecordFragment, bundle)
-            }
-
-            // 이 화면으로 돌아왔을 때 수행할 것
-            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<CalendarDay>("Calendar")?.observe(viewLifecycleOwner) {
-                // 선택된 날짜를 받아온 날짜로
-                selectedDate = it
             }
 
             // 2. 서버에서 선택된 월에 대한 기록 데이터 받기
@@ -76,19 +76,15 @@ class CalendarFragment: Fragment() {
             // 3. 캘린더 기능
             // calendarView 객체 생성
             mycalendar = calendarview
-            // 캘린더 선택된 날짜(최초에는 오늘)로 선택
-            mycalendar.setDateSelected(selectedDate, true)
             // 캘린더 Title 연. 월 형식으로 변경
             mycalendar.setTitleFormatter(MyTitleFormatter())
+            // 캘린더 선택된 날짜(최초에는 오늘)로 선택
+            mycalendar.setDateSelected(selectedDate, true)
 
             // 4. 선택 날짜 변경에 따른 미리보기 화면 구성
             mycalendar.setOnDateChangedListener { widget, date, selected ->
                 selectedDate = date
                 setPreview()
-                // 선택한 날짜가 오늘이라면 버튼 추가하기
-                if(selectedDate == CalendarDay.today()) {
-                    btnAddrecord.visibility = View.VISIBLE
-                }
             }
         }
 
@@ -100,33 +96,38 @@ class CalendarFragment: Fragment() {
                 // 서버에서 해당 월 기록 정보 받기
                 setMonthData(date.year, date.month)
             }
-            mycalendar.selectedDate = CalendarDay.from(date.year, date.month, 1)
+            // 선택된 날짜와 같은 월이라면
+            if(selectedDate.year != date.year || selectedDate.month != date.month) {
+                // 월 변경 시 1일을 기본 선택으로 지정
+                mycalendar.selectedDate = CalendarDay.from(date.year, date.month, 1)
+                selectedDate = CalendarDay.from(date.year, date.month, 1)
+                setPreview()
+            }
         }
     }
 
     // 미리보기 화면을 구성해주는 함수
     private fun setPreview() {
         binding.apply {
-            var judge = false
-            for (record in userRecords) {
-                if (selectedDate == record.date) {
-                    judge = true
-                    layoutPreview.visibility = View.VISIBLE
-                    tvNorecord.visibility = View.INVISIBLE
-                    btnAddrecord.visibility = View.INVISIBLE
-                    tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
-                    tvRecordcontent.text = record.content
-                    //
-                    if(record.pictures.size > 0) {
-                        Glide.with(this@CalendarFragment).load(record.pictures[0]).into(ivRecordpicture)
-                    }
-                    break
+            var selectedRecord = findRecord(selectedDate)
+            if( selectedRecord != null) {
+                layoutPreview.visibility = View.VISIBLE
+                tvNorecord.visibility = View.INVISIBLE
+                tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
+                tvRecordcontent.text = selectedRecord.content
+                btnAddrecord.visibility = View.INVISIBLE
+                if(selectedRecord.pictures.size > 0) {
+                    Glide.with(this@CalendarFragment).load(selectedRecord.pictures[0]).into(ivRecordpicture)
                 }
-            }
-            if (!judge) {
+            } else {
                 layoutPreview.visibility = View.INVISIBLE
                 tvNorecord.visibility = View.VISIBLE
-                btnAddrecord.visibility = View.INVISIBLE
+                // 선택한 날짜가 오늘이라면 버튼 추가하기
+                if(selectedDate == CalendarDay.today()) {
+                    btnAddrecord.visibility = View.VISIBLE
+                } else {
+                    btnAddrecord.visibility = View.INVISIBLE
+                }
             }
         }
     }
@@ -156,7 +157,6 @@ class CalendarFragment: Fragment() {
                         var tempRecords = arrayListOf<Record>()
                         mycalendar.removeDecorators()
                         for(record in records) {
-                            Log.d("test","${record.createdTime}")
                             var year = record.createdTime.substring(0 until 4)
                             var month = record.createdTime.substring(5 until 7)
                             var day = record.createdTime.substring(8 until 10)
@@ -173,6 +173,7 @@ class CalendarFragment: Fragment() {
                             mycalendar.addDecorator(HasRecordDayDecorator(this@CalendarFragment, CalendarDay.from(year.toInt(),month.toInt(),day.toInt())))
                         }
                         userRecords = tempRecords
+                        Log.d("test","${userRecords}")
                         // 선택된 날짜에 대한 미리보기 화면 구성
                         setPreview()
                     } else {
