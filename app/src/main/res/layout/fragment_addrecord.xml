@@ -34,6 +34,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2023.12.31"
+                    android:fontFamily="@font/noto_sans"
+                    android:textFontWeight="400"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -41,20 +43,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
+                <TextView
                     android:id="@+id/btn_completerecord"
                     android:layout_width="56dp"
                     android:layout_height="31dp"
                     android:layout_marginRight="21dp"
                     android:background="@drawable/rectangle_radius40"
-                    android:backgroundTint="#E0E5FF"
+                    android:backgroundTint="#478B9EFF"
                     android:text="작성"
+                    android:gravity="center"
+                    android:fontFamily="@font/noto_sans"
+                    android:textFontWeight="900"
                     android:textColor="@color/black"
                     android:textSize="15sp"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -68,17 +73,22 @@
                     android:src="@drawable/logo"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
+
                 <TextView
                     android:id="@+id/tv_usernickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
                     android:text="닉네임"
+                    android:fontFamily="@font/noto_sans"
                     android:textColor="@color/black"
+                    android:textFontWeight="500"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
-                    app:layout_constraintTop_toTopOf="@id/iv_useravarta"
                     app:layout_constraintBottom_toBottomOf="@id/iv_useravarta"
-                    app:layout_constraintLeft_toRightOf="@id/iv_useravarta" />
+                    app:layout_constraintLeft_toRightOf="@id/iv_useravarta"
+                    app:layout_constraintTop_toTopOf="@id/iv_useravarta"
+                    app:layout_constraintVertical_bias="0.695" />
+
                 <EditText
                     android:id="@+id/et_recordcontent"
                     android:layout_width="match_parent"
@@ -134,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:text="태그 추가"
                     android:textSize="16sp"
+                    android:fontFamily="@font/actor"
                     android:textColor="@color/black"
                     android:layout_marginTop="19dp"
                     app:layout_constraintTop_toBottomOf="@id/lo_addpic"
