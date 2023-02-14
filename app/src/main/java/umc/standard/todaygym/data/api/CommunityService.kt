@@ -1,37 +1,90 @@
 package umc.standard.todaygym.data.api
 
 
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import umc.standard.todaygym.data.model.BoardData
 import retrofit2.http.*
 import umc.standard.todaygym.data.model.*
+import retrofit2.http.Field as Field
 
 interface CommunityService {
     @GET("posts/{categoryId}")
     fun getBoard(
-        @Header("Authorization") Authorization: String,
         @Path("categoryId") categoryId : Int
-    ): Call<List<BoardData>>
+    ): Call<BoardData>
 
-    @GET("posts/{postId}")
+    @GET("post/{postId}")
     fun getPost(
-        @Header("Authorization") Authorization: String,
         @Path("postId") postId : Int
-    ): Call<List<PostModel>>
+    ): Call<PostData>
 
+    @GET("comments/{postId}")
+    fun getChat(
+        @Path("postId") postId : Int
+    ):Call<ChatData>
+
+    @Multipart
     @POST("post")
     fun addPost(
-        @Header("Authorization") Authorization: String,
-        @Body requestAddPost: RequestAddPost
+        @Part("postPostReq") requestAddPost: RequestAddPost
     ) :Call<RequestAddPost>
 
-    @POST("post")
-    fun responseAddPost(
-        @Header("Authorization") Authorization: String,
-        @Body responseAddPost: Response
-    ) :Call<Response>
+
+    @GET("record/recent")
+    fun tabNewRecord(
+        @Query("page") page : Int
+    ) :Call<TabNewData>
+
+    @FormUrlEncoded
+    @POST("post/like")
+    fun heart(
+        @Field("postId") postId: Int
+    ) :Call<Heart>
+
+
+    @POST("report/post")
+    fun reportPost(
+        @Body reportedId:Int
+    ) :Call<Report>
+
+
+    @POST("report/user")
+    fun reportUser(
+        @Body reportedId:Int
+    ) :Call<Report>
+
+
+    @POST("report/comment")
+    fun reportChat(
+        @Body reportedId:Int
+    ) :Call<Report>
+
+    @POST("comment")
+    fun addChat(
+        @Body addChat: AddChat
+    ) :Call<AddChat>
+
+    @FormUrlEncoded
+    @PATCH("comment/delete")
+    fun deleteChat(
+        @Field("commentId") commentId: Int
+    ) :Call<Report>
+
+    @FormUrlEncoded
+    @PATCH("post/delete")
+    fun deletePost(
+        @Field("postId") postId: Int
+    ) :Call<Report>
+
+    @Multipart
+    @PATCH("post")
+    fun editPost(
+        @Part("postId") postId: Int,
+        @Part("postPostReq") editPost: EditPost
+    ) :Call<EditPost>
 
 
 }

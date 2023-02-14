@@ -34,50 +34,51 @@ class CommunityFragment: Fragment() {
         bindng.apply {
             bundle= Bundle()
             imgHealth.setOnClickListener {
-                navCategory("헬스")
+                navCategory("헬스",1)
             }
             imgCrossfit.setOnClickListener {
-                navCategory("크로스핏")
+                navCategory("크로스핏",2)
             }
             imgClimbing.setOnClickListener {
-                navCategory("클라이밍")
+                navCategory("클라이밍",3)
             }
             imgKarate.setOnClickListener {
-                navCategory("가라테")
+                navCategory("가라테",4)
             }
             imgTaekwondo.setOnClickListener {
-                navCategory("태권도")
+                navCategory("태권도",5)
             }
             imgMuaythai.setOnClickListener {
-                navCategory("무에타이")
+                navCategory("무에타이",6)
             }
             imgJiujitsu.setOnClickListener {
-                navCategory("주짓수")
+                navCategory("주짓수",7)
             }
             imgJeetkunedo.setOnClickListener {
-                navCategory("절권도")
+                navCategory("절권도",8)
             }
             imgWushu.setOnClickListener {
-                navCategory("우슈")
+                navCategory("우슈",9)
             }
             imgKudo.setOnClickListener {
-                navCategory("쿠도")
+                navCategory("쿠도",10)
             }
             imgProwrestling.setOnClickListener {
-                navCategory("프로레슬링")
+                navCategory("프로레슬링",11)
             }
             imgKickboxing.setOnClickListener {
-                navCategory("킥복싱")
+                navCategory("킥복싱",12)
             }
             imgKendo.setOnClickListener {
-                navCategory("검도")
+                navCategory("검도",13)
             }
         }
 
     }
 
-    private fun navCategory(category:String){
+    private fun navCategory(category:String,id:Int){
         bundle.putString("category",category)
+        bundle.putInt("id",id)
         findNavController().navigate(R.id.action_communityFragment_to_boardFragment,bundle)
 
     }

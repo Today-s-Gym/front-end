@@ -8,19 +8,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.BoardData
-import umc.standard.todaygym.data.util.API_CONSTNATS.BASE_URL
+import umc.standard.todaygym.data.model.Heart
+import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentBoardBinding
 
 class BoardFragment: Fragment() {
     private lateinit var viewBinding: FragmentBoardBinding
-    var data: BoardData? = null
     private lateinit var name: String
-
+    var data: BoardData? = null
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,59 +35,60 @@ class BoardFragment: Fragment() {
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        viewBinding.recyclerPost.setOnClickListener {
-            findNavController().navigate(R.id.action_boardFragment_to_postFragment)
-        }
 
+        var id = arguments?.getInt("id") as Int
+        request(id)
+
+        var bundle = Bundle()
+        bundle.putInt("categoryId",id)
         viewBinding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)
+            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment,bundle)
         }
 
-        viewBinding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_boardFragment_to_addPostFragment)
-        }
 
-        val dataList: ArrayList<BoardData> = arrayListOf()
-        val resultList: ArrayList<BoardData.Result> = arrayListOf()
-        val imgurl: List<String> = listOf()
-        imgurl.apply {
-            "ㅇ"
-        }
-
-        dataList.apply {
-            add(BoardData(1000,true,"쩝",resultList))
-            add(BoardData(1000,true,"쩝",resultList))
-
-        }
-
-        resultList.apply {
-            add(BoardData.Result("주짓수",5,"델리히바에서 스윕","3분 전",10,false,10,
-                listOf(),"오운완","2023-2-2",0,"","오늘 주짓수 기록","","오늘의 짐"))
-            add(BoardData.Result("주짓수",5,"발목을 내 쪽으로 강하게 끌어 당기면서 라펠을 바닥으로 당긴다.","1일 전",10,false,10,
-                listOf(),"오운완","2023-2-1",0,"","오늘 주짓수 기록","","오늘의 짐"))
-
-            add(BoardData.Result("주짓수",6,"오늘 운동은 이것저것","8일 전",5,false,11,imgurl,"오늘 기록은","2022-12-24",10,"url","오늘 운동은","","세인"))
-            add(BoardData.Result("주짓수",1,"이 운동 저 운동","10일 전",7,false,12,
-                listOf("ddd"),"오늘 기록은","2022-12-24",0,"url","운동운동운동","","센"))
-
-        }
-
-        val dataRVAdapter = BoardRVAdapter(resultList)
-
-        viewBinding.recyclerPost.adapter = dataRVAdapter
-        viewBinding.recyclerPost.layoutManager = LinearLayoutManager(context)
-
-        return viewBinding.root
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewBinding.apply {
             name = arguments?.getString("category") as String
             tvToolbar.text = "$name 게시판"
+
         }
+
+         return viewBinding.root
+
     }
+
+
+
+    private fun request(id:Int){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.getBoard(id)
+        call?.enqueue(object : Callback<BoardData> {
+            override fun onResponse(call: Call<BoardData>, response: Response<BoardData>) {
+                if(response.isSuccessful){
+                    data = response.body()
+                    data?.let { boardAdapter(it.result,id) }
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<BoardData>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+    private fun boardAdapter(boardList: List<BoardData.Result>,catrgoryId:Int){
+        val dataRVAdapter = BoardRVAdapter(boardList,catrgoryId)
+
+        viewBinding.recyclerPost.adapter = dataRVAdapter
+        viewBinding.recyclerPost.layoutManager = LinearLayoutManager(context)
+        dataRVAdapter.notifyDataSetChanged()
+        viewBinding.recyclerPost.setHasFixedSize(true)
+
+    }
+
 
 
 

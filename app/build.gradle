@@ -74,4 +74,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     //kakaotlak
     implementation "com.kakao.sdk:v2-user:2.12.1"
+
+
 }
