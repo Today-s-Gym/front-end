@@ -114,6 +114,7 @@ class PostRVAdapter(
                     bundle.putInt("editPostId",data.getPostRes.postId)
                     bundle.putString("editTitle",viewBinding.tvTitle.text.toString())
                     bundle.putString("editContent",viewBinding.tvContent.text.toString())
+                    bundle.putInt("editRecordId",data.getPostRes.recordId)
                     dialog.dismiss()
                     itemView.findNavController().navigate(R.id.action_postFragment_to_editPostFragment,bundle)
 

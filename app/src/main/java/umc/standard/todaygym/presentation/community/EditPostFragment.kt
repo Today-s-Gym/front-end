@@ -39,11 +39,13 @@ class EditPostFragment: Fragment() {
                 listOf(""),recordId)
             requestEditPost(arguments?.getInt("editPostId")!!,editPost)
             Log.d("editPostID",arguments?.getInt("editPostId").toString())
+            Log.d("recordId",recordId.toString())
             findNavController().popBackStack(R.id.boardFragment,false)
         }
 
         viewBinding.editTitle.setText(arguments?.getString("editTitle"))
         viewBinding.editContent.setText(arguments?.getString("editContent"))
+        
         viewBinding.viewExrecord.visibility=View.GONE
 
         viewBinding.btnExrecord.setOnClickListener {

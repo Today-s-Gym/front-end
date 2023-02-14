@@ -78,5 +78,4 @@ data class EditPost(
     val content: String,
     val postPhotos: List<String>,
     val recordId: Int?
-
 )
