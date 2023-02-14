@@ -51,10 +51,7 @@ class ShowrecordFragment : Fragment() {
             // 뒤로가기 버튼
             btnBack.setOnClickListener {
                 // 이전 화면으로 전환
-                findNavController().apply {
-                    // previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
-                    popBackStack() // 이전 화면으로 이동
-                }
+                findNavController().popBackStack()
             }
             // 삭제버튼 클릭에 대한 다이얼로그 커스텀
             dialog = Dialog(requireContext())
