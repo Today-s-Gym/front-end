@@ -12,6 +12,8 @@
         android:text="태그"
         android:textSize="14sp"
         android:textColor="@color/black"
+        android:fontFamily="@font/actor"
+        android:includeFontPadding="false"
         android:gravity="center_vertical"
         android:paddingLeft="9.12dp"
         android:paddingRight="9.12dp"

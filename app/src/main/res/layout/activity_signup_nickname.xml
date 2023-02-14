@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:text="@string/signup_title"
         android:textSize="30sp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false" />
     <LinearLayout
         android:layout_marginTop="71dp"
         android:layout_width="match_parent"
@@ -24,6 +26,8 @@
             android:layout_height="wrap_content"
             android:hint="닉네임을 입력해주세요."
             android:textSize="16sp"
+            android:fontFamily="@font/actor"
+            android:includeFontPadding="false"
             android:paddingVertical="15dp"
             android:paddingHorizontal="22dp"
             android:background="@drawable/bt_background_grey"/>
@@ -33,6 +37,8 @@
             android:layout_height="wrap_content"
             android:text="중복확인"
             android:textSize="16sp"
+            android:fontFamily="@font/actor"
+            android:includeFontPadding="false"
             android:background="@drawable/bt_background_dark_grey"
             android:paddingHorizontal="20dp"
             android:paddingVertical="15dp"
@@ -46,6 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="한 줄 소개 작성해주세요."
+        android:fontFamily="@font/actor"
+        android:includeFontPadding="false"
         android:background="@drawable/bt_background_grey"
         android:paddingVertical="15dp"
         android:paddingHorizontal="22dp"/>
@@ -58,9 +66,12 @@
         android:paddingVertical="10dp"
         android:layout_height="wrap_content"
         android:text="다음으로"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
         android:textFontWeight="900"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:background="@drawable/bt_background_transparent"
         />
 
