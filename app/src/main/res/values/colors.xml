@@ -16,6 +16,7 @@
     <color name="btnColor">#E0E5FF</color>
     <color name="btngrey">#AEAEAE</color>
     <color name="btnblue">#8B9EFF</color>
+    <color name="closeGrey">#676767</color>
 
 
 </resources>

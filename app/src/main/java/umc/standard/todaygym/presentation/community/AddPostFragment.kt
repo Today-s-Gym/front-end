@@ -1,12 +1,22 @@
 package umc.standard.todaygym.presentation.community
 
+
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.content.Context
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.graphics.TypefaceCompatUtil.getTempFile
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -20,10 +30,16 @@ import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
+import java.io.File
+import java.io.IOException
 
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == Activity.RESULT_OK){
+            val imageUrl = it.data?.data
+//            viewBinding.imgCamera.setImageURI(imageUrl)
 
 
     override fun onCreateView(
@@ -38,6 +54,8 @@ class AddPostFragment: Fragment() {
         }
 
 
+        requestAddPost = RequestAddPost(9,"d", listOf(),"title")
+
         var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
         viewBinding.btnAdd.setOnClickListener {
             requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),recordId)
@@ -45,7 +63,9 @@ class AddPostFragment: Fragment() {
             findNavController().popBackStack(R.id.boardFragment,false)
 
         }
-
+        viewBinding.imgCamera.setOnClickListener{
+            move_gallery()
+        }
 
         viewBinding.viewExrecord.visibility=View.GONE
 
@@ -111,6 +131,12 @@ class AddPostFragment: Fragment() {
         })
     }
 
+    fun move_gallery() {
+        var photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
+        startForResult.launch(photoPickerIntent)
+
+    }
 
 
 }
