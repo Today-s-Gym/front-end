@@ -13,7 +13,8 @@
         android:background="@drawable/border_account"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/lv1"/>
 
     <TextView

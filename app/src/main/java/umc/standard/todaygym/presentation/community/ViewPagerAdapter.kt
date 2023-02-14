@@ -11,6 +11,7 @@ class ViewPagerAdapter(var img: List<String>):RecyclerView.Adapter<ViewPagerAdap
 
     inner class DataViewHolder(private val viewBinding: FragmentImg1Binding):RecyclerView.ViewHolder(viewBinding.root){
         val img = viewBinding.img1
+        val indicator = viewBinding.indicator
 
     }
 
@@ -21,6 +22,7 @@ class ViewPagerAdapter(var img: List<String>):RecyclerView.Adapter<ViewPagerAdap
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         Glide.with(holder.itemView).load(img[position]).into(holder.img)
+        holder.indicator.text = (position+1).toString()+"/"+img.size
 //        holder.img.setImageResource(img[position])
     }
 

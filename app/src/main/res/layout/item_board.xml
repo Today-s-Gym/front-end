@@ -65,6 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/img_account"
         android:layout_marginTop="9dp"
         android:clipToOutline="true"
+
         android:background="@drawable/border_post_glide"/>
 
     <TextView
@@ -107,6 +108,8 @@
         android:id="@+id/img_exrecord"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:src="@drawable/kendo"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="@+id/btn_exrecord"
         app:layout_constraintStart_toStartOf="@+id/btn_exrecord"
         android:background="@drawable/border_exrecord"

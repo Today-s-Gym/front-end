@@ -86,25 +86,6 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
              }
 
 
-//             if(data.liked) {
-//                 viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
-//                 viewBinding.imgHeart.setOnClickListener {
-//                     viewBinding.imgHeart.setImageResource(R.drawable.favorite)
-//                     viewBinding.tvHeart.text = (data.likeCounts - 1).toString()
-//                     if(data.likeCounts-1==0){
-//                         viewBinding.tvHeart.visibility = View.GONE
-//                     }
-//                     requestHeart(data.postId)
-//                 }
-//             }
-//             else {
-//                 viewBinding.imgHeart.setOnClickListener {
-//                     viewBinding.imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
-//                     viewBinding.tvHeart.text = (data.likeCounts + 1).toString()
-//                     viewBinding.tvHeart.visibility = View.VISIBLE
-//                     requestHeart(data.postId)
-//                 }
-//             }
              if(data.commentCounts != 0){
                  tvChat.visibility = View.VISIBLE
                  tvChat.text = data.commentCounts.toString()
@@ -112,9 +93,14 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
 
              if(data.recordId == 0 ){
                  btnExrecord.visibility = View.GONE
+             }
+             else{
+                 btnExrecord.visibility = View.VISIBLE
                  tvExdate.text = data.recordCreatedAt
                  tvExcontent.text = data.recordContent
+                 Glide.with(itemView).load(data.recordPhotoImgUrl).into(imgExrecord)
              }
+
              if(data.postPhotoList.isEmpty()){
                  viewBinding.imgViewpager.visibility = View.GONE
              }
@@ -134,7 +120,6 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
              bundle = Bundle()
              bundle.putInt("id",data.postId)
              bundle.putInt("categoryId",categoryID)
-             Log.d("ididididid",data.postId.toString())
              Navigation.createNavigateOnClickListener(R.id.action_boardFragment_to_postFragment,bundle).onClick(viewBinding.viewPost)
          }
 

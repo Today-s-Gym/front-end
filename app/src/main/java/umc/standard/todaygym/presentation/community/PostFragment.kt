@@ -1,14 +1,12 @@
 package umc.standard.todaygym.presentation.community
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +51,7 @@ class PostFragment: Fragment() {
                 if(response.isSuccessful){
                     data = response.body()
                     data?.result?.let { listOf(it) }
-                        ?.let { data2?.let { it1 -> chatAdapter(it1.result, it) } }
+                        ?.let { data2?.let { it1 -> chatAdapter(it1.result, it, postId) } }
                 }
             }
             override fun onFailure(call: Call<PostData>, t: Throwable) {
@@ -63,7 +61,7 @@ class PostFragment: Fragment() {
         })
     }
 
-    private fun loadChat(postId: Int){
+    fun loadChat(postId: Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
         val call = communityInterface?.getChat(postId)
@@ -74,22 +72,22 @@ class PostFragment: Fragment() {
                     data2?.let {
                         data?.result?.let { it1 -> listOf(it1) }?.let { it2 ->
                             chatAdapter(it.result,
-                                it2)
+                                it2, postId)
                         }
                     }
                 }
             }
 
             override fun onFailure(call: Call<ChatData>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
     }
 
-    private fun chatAdapter(chatList: List<ChatData.Result>,postList: List<PostData.Result>){
+    private fun chatAdapter(chatList: List<ChatData.Result>, postList: List<PostData.Result>, postId: Int){
         val dataRVAdapter =
-            arguments?.getInt("categoryId")?.let { PostRVAdapter(chatList,postList, it) }
+            arguments?.getInt("categoryId")?.let { PostRVAdapter(chatList,postList, it,postId) }
 
         viewBinding.recyclerChat.adapter = dataRVAdapter
         viewBinding.recyclerChat.layoutManager = LinearLayoutManager(context)

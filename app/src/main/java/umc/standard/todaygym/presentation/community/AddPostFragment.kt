@@ -37,14 +37,13 @@ class AddPostFragment: Fragment() {
             findNavController().popBackStack()
         }
 
-        val mInputMethodManager =
-            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        mInputMethodManager.hideSoftInputFromWindow(viewBinding.editContent.windowToken,
-            0)
 
+        var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
         viewBinding.btnAdd.setOnClickListener {
-            requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),null)
+            requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),recordId)
             request(requestAddPost)
+            findNavController().popBackStack(R.id.boardFragment,false)
+
         }
 
 
@@ -53,19 +52,21 @@ class AddPostFragment: Fragment() {
         viewBinding.btnExrecord.setOnClickListener {
             findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
 
+
         }
 
-        var content = arguments?.getString("content")
-        Log.d("content",content.toString())
-        if (!content.equals(null)) {
-            viewBinding.tvExcontent.text = content
-            viewBinding.tvExdate.text = arguments?.getString("date")
-            var imgUrl = arguments?.getString("url")
+        val navController = findNavController()
+        if(navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true){
+            viewBinding.tvExcontent.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("content")
+            viewBinding.tvExdate.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("data")
+            var imgUrl = navController.currentBackStackEntry?.savedStateHandle?.get<String>("url")
             Glide.with(this)
                 .load(imgUrl)
                 .into(viewBinding.imgExrecord)
             viewBinding.viewExrecord.visibility = View.VISIBLE
         }
+
+
 
         viewBinding.btnDelete.setOnClickListener {
             viewBinding.viewExrecord.visibility=View.GONE
@@ -76,26 +77,11 @@ class AddPostFragment: Fragment() {
                 .into(viewBinding.imgExrecord)
         }
 
-//        viewBinding.editContent.setOnEditorActionListener{ textView, action, event ->
-//            var handled = false
-//
-//            if (action == EditorInfo.IME_ACTION_DONE) {
-//                // 키보드 내리기
-//                val inputMethodManager = getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                inputMethodManager.hideSoftInputFromWindow(viewBinding.editContent.windowToken, 0)
-//                handled = true
-//            }
-//
-//            handled
-//        }
 
         return viewBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-    }
 
     private fun request(requestAddPost: RequestAddPost){
 //        val requestFile = RequestBody.create(MultipartBody.FORM,"")
@@ -112,6 +98,8 @@ class AddPostFragment: Fragment() {
                 if (response.isSuccessful){
                     var data = response.body()
 
+
+
                 }
 
             }
@@ -122,13 +110,6 @@ class AddPostFragment: Fragment() {
 
         })
     }
-
-//    fun onTouchEvent(event: MotionEvent): Boolean {
-//        val imm: InputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        val hideSoftInputFromWindow = imm.hideSoftInputFromWindow(view?.windowToken ?:, 0)
-//        return true
-//    }
-
 
 
 

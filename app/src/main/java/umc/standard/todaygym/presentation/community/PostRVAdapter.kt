@@ -1,27 +1,21 @@
 package umc.standard.todaygym.presentation.community
 
+
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-
+import android.provider.ContactsContract.RawContacts.Data
 import android.view.LayoutInflater
 import android.view.View
-
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-
-
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import umc.standard.todaygym.MainActivity
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.ChatData
@@ -29,15 +23,15 @@ import umc.standard.todaygym.data.model.Heart
 import umc.standard.todaygym.data.model.PostData
 import umc.standard.todaygym.data.model.Report
 import umc.standard.todaygym.data.util.RetrofitClient
-
-import umc.standard.todaygym.databinding.DialogBottomMineBinding
-import umc.standard.todaygym.databinding.DialogBottomYoursBinding
-import umc.standard.todaygym.databinding.DialogDeletePostBinding
-import umc.standard.todaygym.databinding.ItemBoardBinding
-import umc.standard.todaygym.databinding.ItemPostBinding
+import umc.standard.todaygym.databinding.*
 
 
-class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val postDataList:List<PostData.Result>,var categoryId: Int):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PostRVAdapter(
+    private val chatDataList: List<ChatData.Result>,
+    private val postDataList: List<PostData.Result>,
+    var categoryId: Int,
+    var postId: Int
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var dlg: Dialog
     private lateinit var bundle: Bundle
     var dataheart: Heart? = null
@@ -111,18 +105,18 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     dlg.show()
                     dlg.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT)
                     dlg.window?.setBackgroundDrawableResource(R.drawable.dialog_box)
+
                 }
 
                 bottomSheetView.tvEdit.setOnClickListener {
                     bundle =Bundle()
-                    bundle.getInt("editCategoryId",categoryId)
-                    bundle.getInt("editPostId",data.getPostRes.postId)
+                    bundle.putInt("editCategoryId",categoryId)
+                    bundle.putInt("editPostId",data.getPostRes.postId)
                     bundle.putString("editTitle",viewBinding.tvTitle.text.toString())
                     bundle.putString("editContent",viewBinding.tvContent.text.toString())
-//                    val navHostFragment = (parent.context as MainActivity).supportFragmentManager.findFragmentById(R.id.action_postFragment_to_editPostFragment) as NavHostFragment
-//                    val navController = navHostFragment.navController
-//
-                    it.findNavController().navigate(R.id.action_postFragment_to_editPostFragment)
+                    dialog.dismiss()
+                    itemView.findNavController().navigate(R.id.action_postFragment_to_editPostFragment,bundle)
+
                 }
                 diaBinding.btnNo.setOnClickListener {
                     dlg.dismiss()
@@ -131,6 +125,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                     deletePost(data.getPostRes.postId)
                     dlg.dismiss()
                     dialog.dismiss()
+                    itemView.findNavController().popBackStack()
                 }
                 dialog.setContentView(bottomSheetView.root)
             }
@@ -152,7 +147,8 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
 
             }
 
-
+            viewBinding.imgViewpager.adapter = ViewPagerAdapter(data.getPostRes.postPhotoList)
+            viewBinding.imgViewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
 
             //데이터 넣기
@@ -162,38 +158,40 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                 tvCreateAt.text = data2.createdAt
                 tvTitle.text = data2.title
                 tvContent.text = data2.content
-                if(data2.likeCounts != 0){
+                if (data2.likeCounts != 0) {
                     tvHeart.visibility = View.VISIBLE
                     tvHeart.text = data2.likeCounts.toString()
                 }
-                if(data2.commentCounts != 0){
+                if (data2.commentCounts != 0) {
                     tvChat.visibility = View.VISIBLE
                     tvChat.text = data2.commentCounts.toString()
                 }
 
-                if(data2.recordId == 0 ){
+                if (data2.recordId == 0) {
                     btnExrecord.visibility = View.GONE
+
+                } else {
                     tvExdate.text = data2.recordCreatedAt
                     tvExcontent.text = data2.recordContent
+                    Glide.with(itemView).load(data2.recordPhotoImgUrl).into(imgExrecord)
                 }
 
-                if(data2.postPhotoList.isEmpty()){
+                if (data2.postPhotoList.isEmpty()) {
                     imgViewpager.visibility = View.GONE
                 }
 
-                if(data2.liked){
+                if (data2.liked) {
                     imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
                     //좋아요 취소
-                    var i=0
+                    var i = 0
                     imgHeart.setOnClickListener {
-                        if(i%2==0){
+                        if (i % 2 == 0) {
                             imgHeart.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                             (data2.likeCounts - 1).toString().also { tvHeart.text = it }
-                            if((data2.likeCounts -1) ==0){
+                            if ((data2.likeCounts - 1) == 0) {
                                 tvHeart.visibility = View.GONE
                             }
-                        }
-                        else{
+                        } else {
                             imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
                             data2.likeCounts.toString().also { tvHeart.text = it }
                             tvHeart.visibility = View.VISIBLE
@@ -203,24 +201,20 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
 
                     }
 
-                    imgViewpager.adapter = ViewPagerAdapter(data2.postPhotoList)
-                    imgViewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 }
-
                 //좋아요 안누른 경우
                 else{
-                    //좋아요 누름
-                    var i=0
+                //좋아요 누름
+                    var i = 0
                     imgHeart.setOnClickListener {
-                        if(i%2==0){
+                        if (i % 2 == 0) {
                             imgHeart.setImageResource(R.drawable.ic_baseline_favorite_24)
                             (data2.likeCounts + 1).toString().also { tvHeart.text = it }
                             tvHeart.visibility = View.VISIBLE
-                        }
-                        else{
+                        } else {
                             imgHeart.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                             data2.likeCounts.toString().also { tvHeart.text = it }
-                            if(data2.likeCounts ==0){
+                            if (data2.likeCounts == 0) {
                                 tvHeart.visibility = View.GONE
                             }
                         }
@@ -230,6 +224,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
 
                 }
             }
+
         }
     }
 
@@ -244,7 +239,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                 tvNickname.text = data.writerName
                 tvContent.text = data.content
 
-                //내 댓글일 때
+                //내 댓글일 때 - 댓글 삭제
                 if(data.mine){
                     dialog.setContentView(bottomSheetView.root)
 
@@ -253,13 +248,14 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
                         bottomSheetView.groupEdit.visibility = View.GONE
                         bottomSheetView.tvDelete.setOnClickListener {
                             deleteChat(data.commentId)
+                            PostFragment().loadChat(postId)
                             dialog.dismiss()
                         }
                     }
 
                 }
 
-                //남의 댓글일 때
+                //남의 댓글일 때 - 댓글 신고
                 else {
                     dialog.setContentView(bottomSheetyouView.root)
 
@@ -281,6 +277,9 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
 
         }
     }
+
+
+
     private fun requestHeart(id:Int){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
@@ -289,13 +288,12 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
             override fun onResponse(call: Call<Heart>, response: Response<Heart>) {
                 if(response.isSuccessful){
                     dataheart = response.body()
-                    Log.d("ididididiidid",id.toString())
                 }
 
             }
 
             override fun onFailure(call: Call<Heart>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -315,7 +313,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
             }
 
             override fun onFailure(call: Call<Report>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -335,7 +333,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
             }
 
             override fun onFailure(call: Call<Report>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -355,7 +353,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
             }
 
             override fun onFailure(call: Call<Report>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -387,6 +385,7 @@ class PostRVAdapter(private val chatDataList: List<ChatData.Result>,private val 
             override fun onResponse(call: Call<Report>, response: Response<Report>) {
                 if(response.isSuccessful){
                     deletePost=response.body()
+
                 }
 
             }

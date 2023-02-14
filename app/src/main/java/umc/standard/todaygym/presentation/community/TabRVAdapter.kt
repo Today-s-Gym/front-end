@@ -1,9 +1,11 @@
 package umc.standard.todaygym.presentation.community
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,11 +26,17 @@ class TabRVAdapter(private val dataList: List<TabNewData.Result.Content>):Recycl
 
             val bundle = Bundle()
             viewBinding.btnChoose.setOnClickListener {
-                bundle.putString("content",viewBinding.tvExcontent.text.toString())
-                bundle.putString("date",viewBinding.tvExdate.text.toString())
-                bundle.putString("url",data.imgUrl)
-                Navigation.createNavigateOnClickListener(R.id.action_addExFragment_to_addPostFragment,bundle).onClick(viewBinding.btnChoose)
+//                bundle.putString("content",viewBinding.tvExcontent.text.toString())
+//                bundle.putString("date",viewBinding.tvExdate.text.toString())
+//                bundle.putString("url",data.imgUrl)
+                val navController = it.findNavController()
+                navController.previousBackStackEntry?.savedStateHandle?.set("content",viewBinding.tvExcontent.text.toString())
+                navController.previousBackStackEntry?.savedStateHandle?.set("date",viewBinding.tvExdate.text.toString())
+                navController.previousBackStackEntry?.savedStateHandle?.set("url",data.imgUrl)
+                navController.previousBackStackEntry?.savedStateHandle?.set("recordId",data.recordId)
+//                Navigation.createNavigateOnClickListener(R.id.action_addExFragment_to_addPostFragment,bundle).onClick(viewBinding.btnChoose)
 
+                navController.popBackStack()
             }
         }
     }

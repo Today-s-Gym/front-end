@@ -16,10 +16,10 @@ import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.EditPost
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
-import umc.standard.todaygym.databinding.FragmentEditPostBinding
+import umc.standard.todaygym.databinding.FragmentAddPostBinding
 
 class EditPostFragment: Fragment() {
-    private lateinit var viewBinding: FragmentEditPostBinding
+    private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var editPost: EditPost
 
     override fun onCreateView(
@@ -27,17 +27,19 @@ class EditPostFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentEditPostBinding.inflate(layoutInflater)
+        viewBinding = FragmentAddPostBinding.inflate(layoutInflater)
 
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
         viewBinding.btnAdd.setOnClickListener {
             editPost = EditPost(arguments?.getInt("editCategoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),
-                listOf(""),null)
+                listOf(""),recordId)
             requestEditPost(arguments?.getInt("editPostId")!!,editPost)
-
+            Log.d("editPostID",arguments?.getInt("editPostId").toString())
+            findNavController().popBackStack(R.id.boardFragment,false)
         }
 
         viewBinding.editTitle.setText(arguments?.getString("editTitle"))
@@ -49,17 +51,15 @@ class EditPostFragment: Fragment() {
 
         }
 
-        var content = arguments?.getString("content")
-        Log.d("content",content.toString())
-        if (!content.equals(null)) {
-            viewBinding.tvExcontent.text = content
-            viewBinding.tvExdate.text = arguments?.getString("date")
-            var imgUrl = arguments?.getString("url")
+        val navController = findNavController()
+        if(navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true){
+            viewBinding.tvExcontent.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("content")
+            viewBinding.tvExdate.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("data")
+            var imgUrl = navController.currentBackStackEntry?.savedStateHandle?.get<String>("url")
             Glide.with(this)
                 .load(imgUrl)
                 .into(viewBinding.imgExrecord)
             viewBinding.viewExrecord.visibility = View.VISIBLE
-
         }
 
         viewBinding.btnDelete.setOnClickListener {
@@ -75,11 +75,6 @@ class EditPostFragment: Fragment() {
         return viewBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
 
     private fun requestEditPost(postId:Int ,editPost: EditPost){

@@ -35,6 +35,7 @@ data class TabNewData(
         )
 
         data class Content(
+            val recordId:Int,
             val content: String,
             val createdAt: String,
             val imgUrl: String
