@@ -6,6 +6,7 @@
         android:id="@+id/lo_addpicWrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="11dp">
         <ImageView
             android:id="@+id/iv_addpic"
@@ -13,6 +14,7 @@
             android:layout_height="80dp"
             android:background="@drawable/rectangle_radius20"
             android:backgroundTint="#F0F0F0"
+            android:scaleType="fitXY"
             android:layout_marginTop="7dp"/>
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/btn_addpicdelete"

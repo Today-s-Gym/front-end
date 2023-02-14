@@ -75,22 +75,45 @@
         android:label="AddExFragment">
         <action
             android:id="@+id/action_addExFragment_to_addPostFragment"
-            app:destination="@id/addPostFragment"/>
+            app:destination="@id/addPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
         android:name="umc.standard.todaygym.presentation.community.PostFragment"
-        android:label="PostFragment" />
+        android:label="PostFragment">
+        <action
+            android:id="@+id/action_postFragment_to_boardFragment"
+            app:destination="@id/boardFragment"/>
+        <action
+            android:id="@+id/action_postFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment"/>
+        <action
+            android:id="@+id/action_postFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addPostFragment"
         android:name="umc.standard.todaygym.presentation.community.AddPostFragment"
         android:label="AddPostFragment" >
         <action
             android:id="@+id/action_addPostFragment_to_addExFragment"
+            app:popUpToSaveState="true"
+            app:popUpTo="@id/postFragment"
+            app:popUpToInclusive="true"
+            app:restoreState="true"
+            app:destination="@id/addExFragment" />
+        <action
+            android:id="@+id/action_addPostFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="umc.standard.todaygym.presentation.community.EditPostFragment"
+        android:label="EditPostFragment" >
+        <action
+            android:id="@+id/action_editPostFragment_to_addExFragment"
             app:destination="@id/addExFragment" />
     </fragment>
-
-
 
 
 </navigation>

@@ -35,7 +35,6 @@ class AddtagFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // 1. 넘겨받은 기록 정보 변수 설정
         recordData = arguments?.getSerializable("recordData") as Record
         // 넘겨받은 태그 값들 보여주기
@@ -52,7 +51,6 @@ class AddtagFragment : Fragment() {
             btnCompletetag.setOnClickListener {
                 findNavController().apply {
                     // 추가된 태그를 포함하는 기록 데이터 보내기
-                    Log.d("test","${recordData}")
                     previousBackStackEntry?.savedStateHandle?.set("addRecord", recordData)
                     popBackStack() // 이전 화면으로 이동
                 }

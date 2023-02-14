@@ -40,7 +40,7 @@
         android:layout_width="318dp"
         android:layout_height="0dp"
 
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintBottom_toTopOf="@id/edit_chat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"

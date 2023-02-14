@@ -9,6 +9,7 @@
         android:id="@+id/img_exrecord"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/border_exrecord"

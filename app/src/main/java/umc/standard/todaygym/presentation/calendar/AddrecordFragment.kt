@@ -1,5 +1,6 @@
 package umc.standard.todaygym.presentation.calendar
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,9 +12,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
@@ -24,13 +29,13 @@ import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
+import java.io.*
 import java.text.DecimalFormat
 
 
 class AddrecordFragment : Fragment() {
     private lateinit var binding: FragmentAddrecordBinding
     private lateinit var recordData: Record
-    private var JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE3LCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjc0OTY5MzY4LCJleHAiOjE3MDY1MDUzNjh9.wME-N31YIrjAtr7Y1usIIQZwG_cHZcmZqB8hBtgq5lk"
     // 수정이면 1 / 추가면 0
     var check : Int = -1
     val df1 = DecimalFormat("00")
@@ -55,8 +60,7 @@ class AddrecordFragment : Fragment() {
             } else {
                 recordData = arguments?.getSerializable("recordData") as Record
             }
-
-            // 서버에서 사용자 정보 받아서 넣기
+            // 서버에서 사용자 정보 받아서 넣기(sharedPreference에서 받아오기)
             tvUsernickname.text = "벡스"
             ivUseravarta.setImageResource(R.drawable.logo)
 
@@ -66,8 +70,7 @@ class AddrecordFragment : Fragment() {
             tvRecorddate.text = dateForm
             // 뒤로가기 버튼
             btnBack.setOnClickListener {
-                // 이전 화면으로 전환
-                findNavController().popBackStack()
+                findNavController().popBackStack() // 이전 화면으로 이동
             }
 
             // 완료 버튼
@@ -82,20 +85,16 @@ class AddrecordFragment : Fragment() {
                 recordData.content = etRecordcontent.text.toString()
                 if(check == 0) {
                     if(recordData.pictures.size == 0) {
-                        addRecord(1, recordData.content)
+                        addRecord(1)
                     } else {
-                        addRecord(2, recordData.content)
+                        addRecord(2)
                     }
-                    findNavController().apply {
-                        previousBackStackEntry?.savedStateHandle?.set("Calendar", recordData.date)
-                        popBackStack() // 이전 화면으로 이동
-                    }
+                    findNavController().popBackStack() // 이전 화면으로 이동
                 } else {
                     if(recordData.pictures.size == 0) {
-                        Log.d("test","${recordData}")
-                        addRecord(3, recordData.content)
+                        addRecord(3)
                     } else {
-                        addRecord(4, recordData.content)
+                        addRecord(4)
                     }
                     findNavController().apply {
                         previousBackStackEntry?.savedStateHandle?.set("ShowRecord", recordData)
@@ -115,13 +114,18 @@ class AddrecordFragment : Fragment() {
             // tag추가 화면에서 돌아왔을 때
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Record>("addRecord")?.observe(viewLifecycleOwner){
                 recordData = it
+                loAddtag.removeAllViews()
+                loAddpic.removeAllViews()
+                putData()
             }
 
             // 4. 기록 데이터 값 입력
             putData()
 
             // 5. 사진 업로드 기능
+            btnAddpicture.setOnClickListener {
 
+            }
         }
 
     }
@@ -129,37 +133,39 @@ class AddrecordFragment : Fragment() {
     private fun putData() {
         binding.apply {
             // 사진 개수가 3개이면 사진 추가 버튼 없애기
-            if(recordData.pictures.size == 3) btnAddpicture.visibility = View.GONE
+            if(recordData.pictures.size >= 3) btnAddpicture.visibility = View.GONE
             // 기존 사진 넣기
-            for(pic in recordData.pictures) {
-                // addpic_layout의 뷰를 설정
-                val picView = layoutInflater.inflate(R.layout.addpic_layout, null, false)
-                // 사진 뷰의 widget 설정
-                val picImageView : ImageView = picView.findViewById(R.id.iv_addpic)
-                val picDeleteBtn : CircleImageView = picView.findViewById(R.id.btn_addpicdelete)
-                // picImageView에 저장된 사진을 입력
-                Glide.with(this@AddrecordFragment).load(pic).into(picImageView)
-                // 사진을 하나씩 추가
-                loAddpic.addView(picView)
-                // 사진 삭제 기능
-                picDeleteBtn.setOnClickListener {
-                    loAddpic.removeView(picView)
-                    if(recordData.pictures.size == 3) {
-                        // 사진이 3개면 사진 추가 버튼을 다시 보이게 하기
-                        btnAddpicture.visibility = View.VISIBLE
-                    }
-                    recordData.pictures.remove(pic)
-                }
-            }
+            for(pic in recordData.pictures) addDeleteImage(pic)
 
             // 기존 글 내용 넣기
-            if(recordData.content != "") {
-                etRecordcontent.setText(recordData.content)
-            }
+            if(recordData.content != "") etRecordcontent.setText(recordData.content)
 
             // 기존 태그 넣기
-            for(tag in recordData.tags) {
-                addDeleteTag(tag)
+            for(tag in recordData.tags) addDeleteTag(tag)
+        }
+    }
+    // 삭제 버튼이 있는 사진 생성 함수
+    private fun addDeleteImage(pic : String) {
+        binding.apply {
+            // addpic_layout의 뷰를 설정
+            val picView = layoutInflater.inflate(R.layout.addpic_layout, null, false)
+            // 사진 뷰의 widget 설정
+            val picImageView : ImageView = picView.findViewById(R.id.iv_addpic)
+            val picDeleteBtn : CircleImageView = picView.findViewById(R.id.btn_addpicdelete)
+            // picImageView에 저장된 사진을 입력
+            Glide.with(this@AddrecordFragment).load(pic)
+                .transform(CenterCrop(), RoundedCorners(60))
+                .into(picImageView)
+            // 사진을 하나씩 추가
+            loAddpic.addView(picView)
+            // 사진 삭제 기능
+            picDeleteBtn.setOnClickListener {
+                loAddpic.removeView(picView)
+                if(recordData.pictures.size == 3) {
+                    // 사진이 3개면 사진 추가 버튼을 다시 보이게 하기
+                    btnAddpicture.visibility = View.VISIBLE
+                }
+                recordData.pictures.remove(pic)
             }
         }
     }
@@ -188,36 +194,36 @@ class AddrecordFragment : Fragment() {
     }
 
     // 서버에 기록 추가 및 수정 함수
-    private fun addRecord(method: Int, content: String) {
+    private fun addRecord(method: Int) {
         val recordInterface: RecordService? =
             RetrofitClient.getClient()?.create(RecordService::class.java)
+
         val tags = arrayListOf<Tag>()
         for(tag in recordData.tags) {
             tags.add(Tag(tag))
         }
-        val recordGetReq = RecordRequest(content,tags)
+        val recordGetReq = RecordRequest(recordData.content ,tags)
+
+        // 이미지 uri
+        var imageFile = arrayListOf<MultipartBody.Part>()
+        for(image in recordData.pictures) {
+            val path = Uri.parse(image).path
+            // val path = createCopyAndReturnRealPath(Uri.parse(image))
+            val mp = MultipartBody.Part.createFormData("image", File(path).name, File(path).asRequestBody("image/*".toMediaTypeOrNull()))
+            imageFile.add(mp)
+        }
+
         var call : Call<RecordResponse>?
         when(method) {
             1 -> call = recordInterface?.addRecord2(recordGetReq) // 이미지 없는 기록 추가
-            2 -> {
-                val imgArray = arrayListOf<MultipartBody.Part>()
-                for(img in recordData.pictures) {
-                    // 이미지들 Multipart 형태로 바꿔주기
-                }
-                call = recordInterface?.addRecord2(recordGetReq) // 이미지 있는 기록 추가
-            }
+            2 -> call = recordInterface?.addRecord1(imageFile, recordGetReq) // 이미지 있는 기록 추가
             3 -> call = recordInterface?.modifyRecord2(
                 "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
                 recordGetReq) // 이미지 없는 기록 수정
-            else -> {
-                val imgArray = arrayListOf<MultipartBody.Part>()
-                for(img in recordData.pictures) {
-                    // 이미지들 Multipart 형태로 바꿔주기
-                }
-                call = recordInterface?.modifyRecord2(
-                    "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
-                    recordGetReq) // 이미지 있는 기록 수정
-            }
+            else -> call = recordInterface?.modifyRecord1(
+                "${recordData.date.year}-${df1.format(recordData.date.month)}-${df1.format(recordData.date.day)}",
+                imageFile,
+                recordGetReq) // 이미지 있는 기록 수정
         }
         call?.enqueue(object : retrofit2.Callback<RecordResponse>{
             override fun onResponse(
@@ -227,7 +233,8 @@ class AddrecordFragment : Fragment() {
                 if(response.isSuccessful) {
                     val body = response.body()
                     if(body?.isSuccess == true) {
-                        Log.d("test","기록이 성공적으로 추가되었습니다.")
+                        if(check == 0) Log.d("test","기록이 성공적으로 추가되었습니다.")
+                        else Log.d("test","기록이 성공적으로 수정되었습니다.")
                     } else {
                         if(body?.code == 2401) {
                             Toast.makeText(requireContext(), body.message, Toast.LENGTH_SHORT).show()
@@ -245,5 +252,26 @@ class AddrecordFragment : Fragment() {
 
         })
     }
+    // 이미지 uri를 절대 경로로 바꾸고 이미지
+    fun createCopyAndReturnRealPath(uri: Uri) :String? {
+        val context = requireContext()
+        val contentResolver = context.contentResolver ?: return null
 
+        // Create file path inside app's data dir
+        val filePath = (context.applicationInfo.dataDir + File.separator
+                + System.currentTimeMillis())
+        val file = File(filePath)
+        try {
+            val inputStream = contentResolver.openInputStream(uri) ?: return null
+            val outputStream: OutputStream = FileOutputStream(file)
+            val buf = ByteArray(1024)
+            var len: Int
+            while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
+            outputStream.close()
+            inputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return file.getAbsolutePath()
+    }
 }
