@@ -20,9 +20,11 @@ class TabRVAdapter(private val dataList: List<TabNewData.Result.Content>):Recycl
         fun bind(data: TabNewData.Result.Content){
             viewBinding.tvExcontent.text = data.content
             viewBinding.tvExdate.text = data.createdTime
-            Glide.with(itemView)
-                .load(data.imgUrl)
-                .into(viewBinding.imgExrecord)
+            if(data.imgUrl!=""){
+                Glide.with(itemView)
+                    .load(data.imgUrl)
+                    .into(viewBinding.imgExrecord)
+            }
 
             val bundle = Bundle()
             viewBinding.btnChoose.setOnClickListener {

@@ -97,9 +97,12 @@ class EditPostFragment: Fragment() {
             viewBinding.tvExcontent.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("content")
             viewBinding.tvExdate.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("data")
             var imgUrl = navController.currentBackStackEntry?.savedStateHandle?.get<String>("url")
-            Glide.with(this)
-                .load(imgUrl)
-                .into(viewBinding.imgExrecord)
+            if(imgUrl!=""){
+                Glide.with(this)
+                    .load(imgUrl)
+                    .into(viewBinding.imgExrecord)
+            }
+
             viewBinding.viewExrecord.visibility = View.VISIBLE
         }
 

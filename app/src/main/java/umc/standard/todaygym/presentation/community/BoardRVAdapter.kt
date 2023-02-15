@@ -106,16 +106,21 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
                  btnExrecord.visibility = View.VISIBLE
                  tvExdate.text = data.recordCreatedAt
                  tvExcontent.text = data.recordContent
-                 Glide.with(itemView).load(data.recordPhotoImgUrl).into(imgExrecord)
+                 if(data.recordPhotoImgUrl != "") {
+                     Glide.with(itemView).load(data.recordPhotoImgUrl).into(imgExrecord)
+                 }
              }
 
              if(data.postPhotoList.isEmpty()){
                  viewBinding.imgViewpager.visibility = View.GONE
              }
 
+
              Glide.with(itemView)
                  .load(data.writerAvatarImgUrl)
                  .into(imgAccount)
+
+
 
          }
 

@@ -177,7 +177,9 @@ class PostRVAdapter(
                 } else {
                     tvExdate.text = data2.recordCreatedAt
                     tvExcontent.text = data2.recordContent
-                    Glide.with(itemView).load(data2.recordPhotoImgUrl).into(imgExrecord)
+                    if(data2.recordPhotoImgUrl!=""){
+                        Glide.with(itemView).load(data2.recordPhotoImgUrl).into(imgExrecord)
+                    }
                 }
 
                 if (data2.postPhotoList.isEmpty()) {
