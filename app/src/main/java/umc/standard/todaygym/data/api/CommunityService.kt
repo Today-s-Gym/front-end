@@ -29,7 +29,7 @@ interface CommunityService {
     @Multipart
     @POST("post")
     fun addPost(
-        @Body requestAddPost: RequestAddPost
+        // @Body requestAddPost: RequestAddPost
         @Part("postPostReq") requestAddPost: RequestAddPost
     ) :Call<RequestAddPost>
 

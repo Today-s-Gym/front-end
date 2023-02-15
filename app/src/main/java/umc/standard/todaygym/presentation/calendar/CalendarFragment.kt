@@ -75,7 +75,7 @@ class CalendarFragment: Fragment() {
             mycalendar = calendarview
             // 캘린더 Title 연. 월 형식으로 변경
             mycalendar.setTitleFormatter(MyTitleFormatter())
-7
+
             // 3. 서버에서 선택된 월에 대한 기록 데이터 받기
             // 선택된 월에 대한 기록 데이터 받기
             setMonthData(selectedDate.year, selectedDate.month)
@@ -178,8 +178,6 @@ class CalendarFragment: Fragment() {
                             mycalendar.addDecorator(HasRecordDayDecorator(this@CalendarFragment, CalendarDay.from(year.toInt(),month.toInt(),day.toInt())))
                         }
                         userRecords = tempRecords
-
-                        Log.d("test","${selectedDate}/${(activity as MainActivity).selectedDate}")
                         // 캘린더 선택된 날짜(최초에는 오늘)로 선택
                         mycalendar.setDateSelected(selectedDate, true)
                         // 선택된 날짜에 대한 미리보기 화면 구성
