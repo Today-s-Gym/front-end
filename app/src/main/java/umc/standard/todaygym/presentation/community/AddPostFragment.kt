@@ -36,11 +36,12 @@ import java.io.IOException
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == Activity.RESULT_OK){
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
             val imageUrl = it.data?.data
 //            viewBinding.imgCamera.setImageURI(imageUrl)
-
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,8 +55,6 @@ class AddPostFragment: Fragment() {
         }
 
 
-        requestAddPost = RequestAddPost(9,"d", listOf(),"title")
-
         var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
         viewBinding.btnAdd.setOnClickListener {
             requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),recordId)
@@ -63,9 +62,7 @@ class AddPostFragment: Fragment() {
             findNavController().popBackStack(R.id.boardFragment,false)
 
         }
-        viewBinding.imgCamera.setOnClickListener{
-            move_gallery()
-        }
+
 
         viewBinding.viewExrecord.visibility=View.GONE
 
@@ -104,8 +101,6 @@ class AddPostFragment: Fragment() {
 
 
     private fun request(requestAddPost: RequestAddPost){
-//        val requestFile = RequestBody.create(MultipartBody.FORM,"")
-//        val body = MultipartBody.Part.createFormData("image", "", requestFile)
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
         val call = communityInterface?.addPost(requestAddPost)
@@ -117,9 +112,6 @@ class AddPostFragment: Fragment() {
             ) {
                 if (response.isSuccessful){
                     var data = response.body()
-
-
-
                 }
 
             }
@@ -137,6 +129,5 @@ class AddPostFragment: Fragment() {
         startForResult.launch(photoPickerIntent)
 
     }
-
 
 }

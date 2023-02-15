@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/border_bottom_dialog">
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:text="사진가져오기"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginStart="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_camera_alt_24"/>
+        <TextView
+            android:layout_marginStart="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="촬영해서 첨부하기"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#D9D9D9" />
+    <LinearLayout
+        android:layout_marginBottom= "30dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginStart="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_insert_photo_24"/>
+        <TextView
+            android:layout_marginStart="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="갤러리에서 가져오기"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

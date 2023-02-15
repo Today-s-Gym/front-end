@@ -32,6 +32,7 @@ class SignUpNicknameActivity:AppCompatActivity(){
                 ) {
                     if(response.body()?.isSuccess == true){
                         Toast.makeText(this@SignUpNicknameActivity,"사용가능한 닉네임입니다",Toast.LENGTH_SHORT).show()
+                        isValid = true
                     }else{
                         Toast.makeText(this@SignUpNicknameActivity,response.body()?.msg,Toast.LENGTH_SHORT).show()
                     }
