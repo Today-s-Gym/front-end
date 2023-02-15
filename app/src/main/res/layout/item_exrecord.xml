@@ -12,6 +12,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/record_basic_icon"
         android:background="@drawable/border_exrecord"
         android:clipToOutline="true" />
 

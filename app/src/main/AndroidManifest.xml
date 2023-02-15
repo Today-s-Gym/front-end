@@ -32,23 +32,23 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".presentation.onboarding.SplashActivity"
+            android:name=".presentation.mypage.onboarding.SplashActivity"
             android:exported="true">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
+<!--                    <intent-filter>-->
+<!--                        <action android:name="android.intent.action.MAIN" />-->
 
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
+<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                    </intent-filter>-->
     </activity>
 <!--        <activity-->
 <!--            android:name=".util.CameraActivity"-->
@@ -73,12 +73,12 @@
                     android:scheme="kakaobc0622fd155cb0b0046afa5bfc9ad9ad"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.onboarding.KakaoLoginActivity">
+        <activity android:name=".presentation.mypage.onboarding.KakaoLoginActivity">
         </activity>
-        <activity android:name=".presentation.onboarding.SignUpNicknameActivity"
+        <activity android:name=".presentation.mypage.onboarding.SignUpNicknameActivity"
             android:exported="true">
         </activity>
-        <activity android:name=".presentation.onboarding.SignUpTypeActivity"
+        <activity android:name=".presentation.mypage.onboarding.SignUpTypeActivity"
             android:exported="true">
         </activity>
         <provider

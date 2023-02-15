@@ -3,9 +3,7 @@ package umc.standard.todaygym.data.api
 import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.*
-import umc.standard.todaygym.data.model.AddSignResponse
-import umc.standard.todaygym.data.model.SignRequest
-import umc.standard.todaygym.data.model.SignUpResponse
+import umc.standard.todaygym.data.model.*
 
 interface UserInterface {
     @POST("/oauth/kakao")
@@ -25,5 +23,10 @@ interface UserInterface {
     @PUT("/login/sports")
     fun addSports(
         @Query("categoryid")categoryId:Int):Call<AddSignResponse>
+
+    @GET("user/profile/{userId}")
+    fun yourProfile(
+        @Path("userId") userId : Int
+    ): Call<YourProfile>
 
 }

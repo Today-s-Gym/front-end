@@ -1,11 +1,14 @@
 package umc.standard.todaygym.presentation.community
 
+import android.R
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,16 +17,35 @@ import umc.standard.todaygym.data.model.TabNewData
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentTabNewBinding
 
+
 class TabNewFragment: Fragment() {
     private lateinit var viewBinding: FragmentTabNewBinding
     var data: TabNewData?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         viewBinding = FragmentTabNewBinding.inflate(layoutInflater)
-        request(0)
+
+
+        var i=0
+        request(i)
+        var mRecyclerView = viewBinding.recycler as RecyclerView
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    i++
+                    if(data?.result?.totalPages!! > i){
+                        request(i)
+                    }
+                }
+            }
+        })
         return viewBinding.root
 
     }

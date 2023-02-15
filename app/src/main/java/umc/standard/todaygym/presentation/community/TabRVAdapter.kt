@@ -9,6 +9,8 @@ import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.model.PostData
 import umc.standard.todaygym.data.model.TabNewData
@@ -19,10 +21,19 @@ class TabRVAdapter(private val dataList: List<TabNewData.Result.Content>):Recycl
     inner class DataViewHolder(private val viewBinding: ItemExrecordBinding):RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(data: TabNewData.Result.Content){
             viewBinding.tvExcontent.text = data.content
-            viewBinding.tvExdate.text = data.createdAt
-            Glide.with(itemView)
-                .load(data.imgUrl)
-                .into(viewBinding.imgExrecord)
+            viewBinding.tvExdate.text = data.createdTime
+            if(data.imgUrl!=""){
+                Glide.with(itemView)
+                    .load(data.imgUrl)
+                    .into(viewBinding.imgExrecord)
+            }
+            else{
+                Glide.with(itemView)
+                    .load(R.drawable.record_basic_icon)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                    .into(viewBinding.imgExrecord)
+
+            }
 
             val bundle = Bundle()
             viewBinding.btnChoose.setOnClickListener {

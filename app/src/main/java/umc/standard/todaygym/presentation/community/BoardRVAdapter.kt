@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +39,13 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
              if(data.likeCounts != 0){
                  tvHeart.visibility = View.VISIBLE
                  tvHeart.text = data.likeCounts.toString()
+             }
+
+             var bundle2 = Bundle()
+             //다른 프로필로 이동
+             imgAccount.setOnClickListener {
+                 bundle2.putInt("userId",data.writerId)
+                 itemView.findNavController().navigate(R.id.action_boardFragment_to_yourPageFragment,bundle2)
              }
 
              // 좋아요 누른 경우
@@ -98,16 +108,31 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
                  btnExrecord.visibility = View.VISIBLE
                  tvExdate.text = data.recordCreatedAt
                  tvExcontent.text = data.recordContent
-                 Glide.with(itemView).load(data.recordPhotoImgUrl).into(imgExrecord)
+                 if(data.recordPhotoImgUrl != "") {
+                     Glide.with(itemView)
+                         .load(data.recordPhotoImgUrl)
+                         .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                         .into(imgExrecord)
+                 }
+                 else{
+                     Glide.with(itemView)
+                         .load(R.drawable.record_basic_icon)
+                         .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                         .into(viewBinding.imgExrecord)
+                 }
              }
 
              if(data.postPhotoList.isEmpty()){
                  viewBinding.imgViewpager.visibility = View.GONE
              }
 
+
              Glide.with(itemView)
                  .load(data.writerAvatarImgUrl)
+                 .circleCrop()
                  .into(imgAccount)
+
+
 
          }
 
