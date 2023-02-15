@@ -105,6 +105,7 @@
 
     </RelativeLayout>
 
+
     <ImageView
         android:id="@+id/img_border2"
         android:layout_width="318dp"
@@ -125,6 +126,42 @@
         android:background="@drawable/border_post_glide"
         app:layout_constraintStart_toStartOf="@id/img_border2"
         android:layout_marginTop="18dp" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/img1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/img_border2"
+        android:background="@drawable/border_post_glide"
+        app:layout_constraintStart_toEndOf="@id/img_camera"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="11dp"/>
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/img2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/img_border2"
+        android:background="@drawable/border_post_glide"
+        app:layout_constraintStart_toEndOf="@id/img1"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="11dp"/>
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/img3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/img_border2"
+        android:background="@drawable/border_post_glide"
+        app:layout_constraintStart_toEndOf="@id/img2"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="11dp"/>
+
+
 
     <ImageView
         android:id="@+id/img_border3"
