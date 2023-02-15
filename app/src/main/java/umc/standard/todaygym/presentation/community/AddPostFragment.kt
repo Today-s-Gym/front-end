@@ -2,26 +2,22 @@ package umc.standard.todaygym.presentation.community
 
 
 import android.app.Activity
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
-import android.content.Context
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.graphics.TypefaceCompatUtil.getTempFile
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,17 +25,17 @@ import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
+import umc.standard.todaygym.databinding.BottomsheetSelectImageBinding
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
-import java.io.File
-import java.io.IOException
 
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
+    private val Image_Capture_Code = 1
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val imageUrl = it.data?.data
-//            viewBinding.imgCamera.setImageURI(imageUrl)
+            viewBinding.imgCamera.setImageURI(imageUrl)
         }
     }
 
@@ -52,6 +48,13 @@ class AddPostFragment: Fragment() {
 
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+        viewBinding.imgCamera.setOnClickListener{
+
+            activity?.supportFragmentManager?.let{
+                fragmentManager ->
+                context?.let { it1 -> showBottomSheet(it1) }
+            }
         }
 
 
@@ -97,7 +100,21 @@ class AddPostFragment: Fragment() {
 
         return viewBinding.root
     }
+    fun showBottomSheet(context: Context){
 
+        val dialog = BottomSheetDialog(context)
+        val dialogView = BottomsheetSelectImageBinding.inflate(LayoutInflater.from(context))
+
+        dialog.setContentView(dialogView.root)
+        dialogView.layoutCamera.setOnClickListener{
+            move_camera()
+        }
+        dialogView.layoutGallery.setOnClickListener{
+            move_gallery()
+        }
+        dialog.show()
+
+    }
 
 
     private fun request(requestAddPost: RequestAddPost){
@@ -127,7 +144,35 @@ class AddPostFragment: Fragment() {
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
         startForResult.launch(photoPickerIntent)
+    }
+    fun move_camera() {
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//            takePictureIntent.resolveActivity(packageManager)?.also {
+//                //찍은 사진을 File형식으로 변환
+//                val photoFile: File? = try {
+//                    createImageFile()
+//                } catch (ex: IOException) {
+//                    null
+//                }
+//                //File형식의 Uri를 Content형식의 Uri로 변환
+//                photoFile?.also {
+//                    val photoURI: Uri = FileProvider.getUriForFile(
+//                        this,
+//                        "com.example.sharelanguage.fileprovider",
+//                        it
+//                    )
+//                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+//                    resultLauncher.launch(takePictureIntent)
+//                }
+//            }
+//            //2번 -> 카메라
+//            picture_flag = 2
+//        }
+        var cameraPickerIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraPickerIntent.type = "image/*"
+        startActivityForResult(cameraPickerIntent, Image_Capture_Code)
 
     }
+
 
 }
