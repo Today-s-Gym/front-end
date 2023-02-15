@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -162,6 +164,12 @@ class PostRVAdapter(
                 tvCreateAt.text = data2.createdAt
                 tvTitle.text = data2.title
                 tvContent.text = data2.content
+
+                Glide.with(itemView)
+                    .load(data2.writerAvatarImgUrl)
+                    .circleCrop()
+                    .into(imgAccount)
+
                 if (data2.likeCounts != 0) {
                     tvHeart.visibility = View.VISIBLE
                     tvHeart.text = data2.likeCounts.toString()
@@ -178,9 +186,19 @@ class PostRVAdapter(
                     tvExdate.text = data2.recordCreatedAt
                     tvExcontent.text = data2.recordContent
                     if(data2.recordPhotoImgUrl!=""){
-                        Glide.with(itemView).load(data2.recordPhotoImgUrl).into(imgExrecord)
+                        Glide.with(itemView)
+                            .load(data2.recordPhotoImgUrl)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                            .into(imgExrecord)
+                    }
+                    else{
+                        Glide.with(itemView)
+                            .load(R.drawable.record_basic_icon)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                            .into(imgExrecord)
                     }
                 }
+
 
                 if (data2.postPhotoList.isEmpty()) {
                     imgViewpager.visibility = View.GONE

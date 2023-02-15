@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,7 +109,16 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
                  tvExdate.text = data.recordCreatedAt
                  tvExcontent.text = data.recordContent
                  if(data.recordPhotoImgUrl != "") {
-                     Glide.with(itemView).load(data.recordPhotoImgUrl).into(imgExrecord)
+                     Glide.with(itemView)
+                         .load(data.recordPhotoImgUrl)
+                         .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                         .into(imgExrecord)
+                 }
+                 else{
+                     Glide.with(itemView)
+                         .load(R.drawable.record_basic_icon)
+                         .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                         .into(viewBinding.imgExrecord)
                  }
              }
 
@@ -118,6 +129,7 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
 
              Glide.with(itemView)
                  .load(data.writerAvatarImgUrl)
+                 .circleCrop()
                  .into(imgAccount)
 
 

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -100,6 +102,13 @@ class EditPostFragment: Fragment() {
             if(imgUrl!=""){
                 Glide.with(this)
                     .load(imgUrl)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                    .into(viewBinding.imgExrecord)
+            }
+            else{
+                Glide.with(this)
+                    .load(R.drawable.record_basic_icon)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
                     .into(viewBinding.imgExrecord)
             }
 
