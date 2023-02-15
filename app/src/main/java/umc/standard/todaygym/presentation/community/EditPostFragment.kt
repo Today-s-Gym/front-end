@@ -83,7 +83,7 @@ class EditPostFragment: Fragment() {
             //공계
             else{
                 btnExrecord.setOnClickListener {
-                    findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
+                    findNavController().navigate(R.id.action_editPostFragment_to_addExFragment)
 
                 }
 
