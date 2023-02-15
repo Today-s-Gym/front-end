@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class AddPostFragment: Fragment() {
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == Activity.RESULT_OK){
             val imageUrl = it.data?.data
-//            viewBinding.imgCamera.setImageURI(imageUrl)
+            viewBinding.imgCamera.setImageURI(imageUrl)
         }
 }
 
@@ -155,7 +156,27 @@ class AddPostFragment: Fragment() {
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
         startForResult.launch(photoPickerIntent)
-
     }
+//    fun move_camera(){
+//        var camerPickerIntent = Intent(Intent.ACTION_IMAGE_CAPTURE)
+//        camerPickerIntent.resolveActivity(packageManager)?.also {
+//                //찍은 사진을 File형식으로 변환
+//                val photoFile: File? = try {
+//                    createImageFile()
+//                } catch (ex: IOException) {
+//                    null
+//                }
+//                //File형식의 Uri를 Content형식의 Uri로 변환
+//                photoFile?.also {
+//                    val photoURI: Uri = FileProvider.getUriForFile(
+//                        this,
+//                        "com.example.sharelanguage.fileprovider",
+//                        it
+//                    )
+//                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+//                    resultLauncher.launch(takePictureIntent)
+//                }
+//            }
+//    }
 
 }

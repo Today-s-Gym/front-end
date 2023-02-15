@@ -28,6 +28,7 @@
         android:layout_marginTop="50dp"
         >
         <TableRow
+            android:id="@+id/tr1_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -64,6 +65,7 @@
                 android:layout_marginEnd="100dp"/>
         </TableRow>
         <TableRow
+            android:id="@+id/tr2_type"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -103,7 +105,7 @@
 
         </TableRow>
         <TableRow
-
+            android:id="@+id/tr3_type"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,6 +144,7 @@
 
         </TableRow>
         <TableRow
+            android:id="@+id/tr4_type"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -180,6 +183,7 @@
 
         </TableRow>
         <TableRow
+            android:id="@+id/tr5_type"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
