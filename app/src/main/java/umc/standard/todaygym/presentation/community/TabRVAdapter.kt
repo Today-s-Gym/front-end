@@ -19,7 +19,7 @@ class TabRVAdapter(private val dataList: List<TabNewData.Result.Content>):Recycl
     inner class DataViewHolder(private val viewBinding: ItemExrecordBinding):RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(data: TabNewData.Result.Content){
             viewBinding.tvExcontent.text = data.content
-            viewBinding.tvExdate.text = data.createdAt
+            viewBinding.tvExdate.text = data.createdTime
             Glide.with(itemView)
                 .load(data.imgUrl)
                 .into(viewBinding.imgExrecord)
