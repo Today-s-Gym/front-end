@@ -26,6 +26,9 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="게시글 작성"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:gravity="center"
             android:paddingLeft="-34.5dp"
             android:textColor="@color/textBlack"/>
@@ -40,8 +43,10 @@
             android:background="@drawable/border_btn"
             android:gravity="center"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/textBlack"/>
+            android:textColor="@color/textBlack"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="900"/>
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -67,6 +72,9 @@
             android:layout_marginTop="22dp"
             android:textColor="@color/textBlack"
             android:hint="제목을 입력해주세요."
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_alignParentTop="true"
             android:textColorHint="@color/textGray"/>
 
@@ -87,6 +95,9 @@
             android:textColorHint="@color/textGray"
             android:layout_marginTop="12dp"
             android:textSize="14sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:imeOptions="actionDone"
             android:layout_below="@+id/img_border1"
             android:background="@android:color/transparent"
@@ -134,7 +145,10 @@
         app:layout_constraintStart_toStartOf="@id/img_border3"
         android:layout_marginTop="18dp"
         android:textColor="@color/textBlack"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:fontFamily="@font/actor"
+        android:includeFontPadding="false"
+        android:textFontWeight="400"/>
     <ImageButton
         android:id="@+id/btn_exrecord"
         android:layout_width="14dp"

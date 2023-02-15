@@ -7,33 +7,36 @@
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/img_back"
-            android:layout_marginStart="21dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_back"/>
+            android:layout_marginStart="21dp"
+            android:src="@drawable/arrow_back" />
 
         <TextView
             android:id="@+id/tv_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="게시글"
             android:gravity="center"
             android:paddingLeft="-34.5dp"
-            android:textColor="@color/textBlack"/>
+            android:text="게시글"
+            android:textColor="@color/textBlack"
+            android:textSize="20sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"/>
 
     </androidx.appcompat.widget.Toolbar>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_chat"
@@ -59,6 +62,9 @@
         android:hint="댓글을 남겨보세요."
         android:layout_marginBottom="30dp"
         android:textSize="14sp"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="400"
         android:paddingLeft="10dp"
         android:paddingRight="32dp"/>
 

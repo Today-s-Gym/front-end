@@ -12,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize = "16sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="700"
         android:textColor = "@color/black"
         android:text="접근 권한 안내" />
     <View
@@ -43,12 +45,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="앨범 접근"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:text="앨범 접근에 대한 설명"/>
     </LinearLayout>
     <LinearLayout
@@ -66,18 +74,25 @@
                 android:layout_height="20dp"
                 android:src="@drawable/photo_camera"
                 />
+
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:text="카메라"
                 android:textColor="@color/black"
-                android:text="카메라"/>
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="앨범 접근에 대한 설명"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"/>
     </LinearLayout>
     <TextView
         android:id="@+id/btn_permission_next"
@@ -87,9 +102,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인"
-        android:textFontWeight="900"
         android:textSize="22sp"
         android:textColor="@color/black"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="900"
         android:paddingVertical="10dp"
         android:background="@drawable/bt_background_main"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

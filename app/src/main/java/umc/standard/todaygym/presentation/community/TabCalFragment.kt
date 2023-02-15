@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import retrofit2.Call
@@ -90,6 +92,20 @@ class TabCalFragment: Fragment() {
                 // 서버에서 해당 월 기록 정보 받기
                 setMonthData(date.year, date.month)
             }
+            // 선택된 날짜와 다른 월이라면
+            if(selectedDate.year != date.year || selectedDate.month != date.month) {
+                // 오늘이 포함된 달이라면 오늘을 기본 선택으로 지정
+                if(date.year == today.year && date.month == today.month) {
+                    mycalendar.selectedDate = today
+                    selectedDate = today
+                    setPreview()
+                } else {
+                    // 월 변경 시 1일을 기본 선택으로 지정
+                    mycalendar.selectedDate = CalendarDay.from(date.year, date.month, date.day)
+                    selectedDate = CalendarDay.from(date.year, date.month, date.day)
+                    setPreview()
+                }
+            }
         }
     }
 
@@ -104,9 +120,15 @@ class TabCalFragment: Fragment() {
                     tvNorecord.visibility = View.INVISIBLE
                     tvRecorddate.text = "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}"
                     tvRecordcontent.text = record.content
-                    //
+                    // 이미지가 있는 경우 0번째 인덱스의 이미지 넣기
                     if(record.pictures.size > 0) {
-                        Glide.with(this@TabCalFragment).load(record.pictures[0]).into(ivRecordpicture)
+                        Glide.with(this@TabCalFragment).load(record.pictures[0])
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                            .into(ivRecordpicture)
+                    } else { // 이미지가 없는 경우 기본 기록 이미지로 대체
+                        Glide.with(this@TabCalFragment).load(R.drawable.record_basic_icon)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                            .into(ivRecordpicture)
                     }
                     break
                 }

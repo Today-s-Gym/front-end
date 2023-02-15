@@ -6,34 +6,37 @@
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/img_back"
-            android:layout_marginStart="21dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_back"/>
+            android:layout_marginStart="21dp"
+            android:src="@drawable/arrow_back" />
 
         <TextView
             android:id="@+id/tv_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="게시판 카테고리"
             android:gravity="center"
             android:paddingLeft="-34.5dp"
-            android:textColor="@color/textBlack"/>
+            android:text="게시판 카테고리"
+            android:textColor="@color/textBlack"
+            android:textSize="20sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"/>
 
     </androidx.appcompat.widget.Toolbar>
 
-    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,7 +95,9 @@
                 android:text="헬스"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,7 +106,9 @@
                 android:text="크로스핏"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,7 +117,9 @@
                 android:text="클라이밍"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
         </TableRow>
 
         <TableRow
@@ -160,7 +169,9 @@
                 android:text="가라데"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -169,7 +180,9 @@
                 android:text="태권도"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -178,7 +191,9 @@
                 android:textColor="@color/textBlack"
                 android:text="무에타이"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400"/>
         </TableRow>
 
         <TableRow
@@ -228,7 +243,9 @@
                 android:text="주짓수"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -237,7 +254,9 @@
                 android:text="절권도"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -246,7 +265,9 @@
                 android:text="우슈"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
         </TableRow>
 
         <TableRow
@@ -296,7 +317,9 @@
                 android:text="쿠도"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -305,7 +328,9 @@
                 android:text="프로레슬링"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -314,7 +339,9 @@
                 android:text="킥복싱"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
@@ -365,7 +392,9 @@
                 android:paddingBottom="39dp"
                 android:textColor="@color/textBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/noto_sans"
+                android:includeFontPadding="false"
+                android:textFontWeight="400" />
 
             <TextView
                 android:layout_width="wrap_content"
