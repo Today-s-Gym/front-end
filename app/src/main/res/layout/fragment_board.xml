@@ -27,6 +27,9 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="주짓수 게시판"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:gravity="center"
             android:paddingLeft="-34.5dp"
             android:textColor="@color/textBlack"/>

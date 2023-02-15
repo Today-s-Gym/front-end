@@ -22,7 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="약관 동의"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="700"
             android:textColor="@color/black"/>
         <View
             android:layout_width="0dp"
@@ -57,6 +60,9 @@
             android:text="약관에 전체 동의합니다"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="700"
             />
 
 
@@ -86,7 +92,9 @@
             android:layout_height="wrap_content"
             android:text="이용약관 (필수)"
             android:textColor="@color/black"
-            android:textFontWeight="700"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:textSize="14sp"
             />
         <View
@@ -119,6 +127,9 @@
             android:layout_height="wrap_content"
             android:text="개인정보 수집 및 이용 (필수)"
             android:textSize="14sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_marginStart="8dp"
             android:textColor="@color/black"
 
@@ -152,6 +163,9 @@
             android:layout_height="wrap_content"
             android:text="마케팅 정보 수신 (선택)"
             android:textSize="14sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_marginStart="8dp"
             android:textColor="@color/black"
 
@@ -179,7 +193,9 @@
         android:text="다음으로"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:fontWeight="900"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="900"
         android:background="@drawable/bt_background_main"
         />
 

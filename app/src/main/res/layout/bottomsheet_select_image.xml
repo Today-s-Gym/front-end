@@ -10,6 +10,9 @@
         android:layout_gravity="center"
         android:text="사진가져오기"
         android:textSize="20sp"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="700"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"/>
@@ -30,6 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="촬영해서 첨부하기"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:textColor="@color/black"/>
     </LinearLayout>
     <View
@@ -54,6 +60,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="갤러리에서 가져오기"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:textColor="@color/black"/>
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

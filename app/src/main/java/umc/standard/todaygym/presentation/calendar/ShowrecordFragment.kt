@@ -45,7 +45,7 @@ class ShowrecordFragment : Fragment() {
 
             // 사용자 정보 넣기
             tvUsernickname.text = "벡스"
-            ivUseravarta.setImageResource(R.drawable.logo)
+            ivUseravarta.setImageResource(R.drawable.charac3)
 
             // 2. 상단바 기능 구현
             // 뒤로가기 버튼

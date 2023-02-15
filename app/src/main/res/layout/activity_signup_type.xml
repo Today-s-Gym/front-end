@@ -241,11 +241,11 @@
         android:paddingVertical="10dp"
         android:layout_height="wrap_content"
         android:text="선택 완료"
-        android:textFontWeight="900"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:fontFamily="@font/noto_sans"
         android:includeFontPadding="false"
+        android:textFontWeight="900"
         android:textColor="@color/black"
         android:background="@drawable/bt_background_transparent"
         />

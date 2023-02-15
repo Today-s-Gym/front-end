@@ -15,9 +15,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Level"
+        android:text="LEVEL"
         android:textSize="24sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/noto_sans"
+        android:textFontWeight="900"
         android:textColor="@color/black"
         android:layout_marginBottom="18dp"
         />
@@ -64,6 +65,9 @@
             android:layout_height="wrap_content"
             android:text="(3-4회 기록)"
             android:textSize="18sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="500"
             android:layout_gravity="center"
 
             />
@@ -91,6 +95,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="(5-9회 기록)"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="500"
             android:textSize="18sp"
             android:layout_gravity="center"
 
@@ -119,6 +126,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="(10-14회 기록)"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="500"
         android:textSize="18sp"
         android:layout_gravity="center"
 
@@ -147,6 +157,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="(15-20회기록)"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="500"
             android:textSize="18sp"
             android:layout_gravity="center"
             />
@@ -177,6 +190,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="To be continued"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="500"
             android:textSize="18sp"
             android:layout_gravity="center"
 
