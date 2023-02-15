@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_postFragment_to_editPostFragment"
             app:destination="@id/editPostFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_yourPageFragment"
+            app:destination="@id/yourPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -114,6 +117,10 @@
             android:id="@+id/action_editPostFragment_to_addExFragment"
             app:destination="@id/addExFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/yourPageFragment"
+        android:name="umc.standard.todaygym.presentation.mypage.YourPageFragment"
+        android:label="YourPageFragment" />
 
 
 </navigation>

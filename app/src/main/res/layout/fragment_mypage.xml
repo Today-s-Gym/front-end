@@ -14,6 +14,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_marginStart="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_back"/>
+
         <TextView
             android:id="@+id/tv_toolbar"
             android:layout_width="wrap_content"
@@ -23,6 +30,7 @@
             android:layout_gravity="center"
             android:textColor="@color/textBlack"/>
         <ImageButton
+            android:id="@+id/btn_setting"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_baseline_settings_24"
@@ -101,6 +109,7 @@
             app:layout_constraintStart_toStartOf="parent"
             />
         <TextView
+            android:id="@+id/tv_profile_introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="주짓수짱이 될거야"
@@ -111,6 +120,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View
+        android:id="@+id/border"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="center_horizontal"
@@ -169,6 +179,7 @@
                 android:paddingHorizontal="11dp"
                 android:paddingVertical="10dp">
                 <TextView
+                    android:id="@+id/tv_thisMonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="13회"
@@ -195,6 +206,7 @@
 
                 >
                 <TextView
+                    android:id="@+id/tv_upgrade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -217,6 +229,7 @@
                 android:paddingHorizontal="11dp"
                 android:paddingVertical="10dp">
                 <TextView
+                    android:id="@+id/tv_cumulative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="101회"
@@ -247,6 +260,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="20dp"
         />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_account"
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="비공개 계정입니다."
+        android:background="@drawable/rectangle_radius20"
+        android:backgroundTint="#F6F6F6"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:paddingStart="43dp"
+        android:layout_marginTop="21dp"/>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/img_unlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/unlock"
+        app:layout_constraintTop_toTopOf="@+id/tv_account"
+        app:layout_constraintStart_toStartOf="@+id/tv_account"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="17dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

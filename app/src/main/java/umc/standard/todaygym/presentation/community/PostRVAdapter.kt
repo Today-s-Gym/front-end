@@ -227,6 +227,13 @@ class PostRVAdapter(
                     }
 
                 }
+
+                var bundle2 = Bundle()
+                //다른 프로필로 이동
+                imgAccount.setOnClickListener {
+                    bundle2.putInt("userId",data.getPostRes.writerId)
+                    itemView.findNavController().navigate(R.id.action_postFragment_to_yourPageFragment,bundle2)
+                }
             }
 
         }
