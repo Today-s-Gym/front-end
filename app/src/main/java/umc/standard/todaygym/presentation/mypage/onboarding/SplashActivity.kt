@@ -1,4 +1,4 @@
-package umc.standard.todaygym.presentation.onboarding
+package umc.standard.todaygym.presentation.mypage.onboarding
 
 import android.content.Intent
 import android.os.Bundle

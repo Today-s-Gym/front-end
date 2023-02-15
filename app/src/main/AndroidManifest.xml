@@ -37,7 +37,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".presentation.onboarding.SplashActivity"
+            android:name=".presentation.mypage.onboarding.SplashActivity"
             android:exported="true">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN" />
@@ -68,7 +68,7 @@
                     android:scheme="kakaobc0622fd155cb0b0046afa5bfc9ad9ad"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.onboarding.KakaoLoginActivity">
+        <activity android:name=".presentation.mypage.onboarding.KakaoLoginActivity">
         </activity>
     </application>
 

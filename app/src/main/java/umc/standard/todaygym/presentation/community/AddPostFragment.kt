@@ -39,6 +39,7 @@ class AddPostFragment: Fragment() {
 
 
         var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
+//        if(recordId ==null) recordId = 0
         viewBinding.btnAdd.setOnClickListener {
             requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),recordId)
             request(requestAddPost)

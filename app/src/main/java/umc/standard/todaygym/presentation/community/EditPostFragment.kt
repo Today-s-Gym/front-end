@@ -33,7 +33,25 @@ class EditPostFragment: Fragment() {
             findNavController().popBackStack()
         }
 
+        //이 recordId는 addEx에서 가져옴
         var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
+
+        //수정하기 누르면 recordId까지 줘야 함 - 혹시나 recordId가 없으면 0을 줘야함
+        if(recordId==null){
+            recordId = arguments?.getInt("editRecordId")
+        }
+
+        //만약 처음부터 record가 없었다면 recordId=0이다.
+        if (recordId == 0) {
+            viewBinding.viewExrecord.visibility = View.GONE
+
+        //하지만 있다면 기록을 넣어줘야 하지
+        } else {
+            viewBinding.tvExdate.text = arguments?.getString("editExAt")
+            viewBinding.tvExcontent.text = arguments?.getString("editExContent")
+            Glide.with(this).load(arguments?.getString("editExImg")).into(viewBinding.imgExrecord)
+        }
+
         viewBinding.btnAdd.setOnClickListener {
             editPost = EditPost(arguments?.getInt("editCategoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),
                 listOf(""),recordId)
@@ -45,8 +63,6 @@ class EditPostFragment: Fragment() {
 
         viewBinding.editTitle.setText(arguments?.getString("editTitle"))
         viewBinding.editContent.setText(arguments?.getString("editContent"))
-        
-        viewBinding.viewExrecord.visibility=View.GONE
 
         viewBinding.btnExrecord.setOnClickListener {
             findNavController().navigate(R.id.action_editPostFragment_to_addExFragment)
