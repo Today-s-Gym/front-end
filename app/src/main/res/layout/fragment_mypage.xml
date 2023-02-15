@@ -20,6 +20,9 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="프로필"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_gravity="center"
             android:textColor="@color/textBlack"/>
         <ImageButton
@@ -64,6 +67,9 @@
             android:id="@+id/tv_mypage_profile"
             android:text="오늘의 짐"
             android:textSize= "22sp"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile"
@@ -93,6 +99,9 @@
             android:text="주짓수"
             android:textSize="13sp"
             android:textAlignment="textStart"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bt_background_dark_grey"
@@ -104,6 +113,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="주짓수짱이 될거야"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             app:layout_constraintTop_toBottomOf="@+id/tv_profile_type"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="19dp"
@@ -139,6 +151,9 @@
             android:text="나의 기록"
             android:textSize="16sp"
             android:textAlignment="textStart"
+            android:fontFamily="@font/noto_sans"
+            android:includeFontPadding="false"
+            android:textFontWeight="400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/iv_mypage_profile_record_icon"
@@ -173,6 +188,9 @@
                     android:layout_height="wrap_content"
                     android:text="13회"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/noto_sans"
+                    android:includeFontPadding="false"
+                    android:textFontWeight="400"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
                     />
@@ -180,6 +198,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이번 달"
+                    android:fontFamily="@font/noto_sans"
+                    android:includeFontPadding="false"
+                    android:textFontWeight="400"
                     app:layout_constraintStart_toStartOf="parent"
                     android:textSize="13sp"
                     android:layout_gravity="center"/>
@@ -194,19 +215,25 @@
                 android:paddingVertical="10dp"
 
                 >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="2회"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                   />
+                    android:text="2회"
+                    android:fontFamily="@font/noto_sans"
+                    android:includeFontPadding="false"
+                    android:textFontWeight="400"
+                    android:textColor="@color/black" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="업그레이드까지"
                     android:textSize="13sp"
+                    android:fontFamily="@font/noto_sans"
+                    android:includeFontPadding="false"
+                    android:textFontWeight="400"
                     android:layout_gravity="center"
                    />
             </LinearLayout>
@@ -221,6 +248,9 @@
                     android:layout_height="wrap_content"
                     android:text="101회"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/noto_sans"
+                    android:includeFontPadding="false"
+                    android:textFontWeight="400"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"/>
                 <TextView
@@ -228,6 +258,9 @@
                     android:layout_height="wrap_content"
                     android:text="누적"
                     android:textSize="13sp"
+                    android:fontFamily="@font/noto_sans"
+                    android:includeFontPadding="false"
+                    android:textFontWeight="400"
                     android:layout_gravity="center"
                    />
             </LinearLayout>
@@ -237,6 +270,9 @@
     <TextView
         android:id="@+id/btn_profile_to_post"
         android:text="내 게시글 보러가기"
+        android:fontFamily="@font/actor"
+        android:includeFontPadding="false"
+        android:textFontWeight="600"
         android:background="@drawable/bt_background_main"
         android:paddingHorizontal="23dp"
         android:paddingVertical="10dp"
