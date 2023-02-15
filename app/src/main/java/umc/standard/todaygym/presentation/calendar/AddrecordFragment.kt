@@ -19,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
@@ -29,7 +30,8 @@ import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
-import java.io.*
+import java.io.File
+import java.net.URL
 import java.text.DecimalFormat
 
 
@@ -62,7 +64,7 @@ class AddrecordFragment : Fragment() {
             }
             // 서버에서 사용자 정보 받아서 넣기(sharedPreference에서 받아오기)
             tvUsernickname.text = "벡스"
-            ivUseravarta.setImageResource(R.drawable.logo)
+            ivUseravarta.setImageResource(R.drawable.charac3)
 
             // 2. 상단바 기능 구현
             // 상단 날짜 표시
@@ -95,6 +97,7 @@ class AddrecordFragment : Fragment() {
                         addRecord(3)
                     } else {
                         addRecord(4)
+                        Log.d("test","${recordData}")
                     }
                     findNavController().apply {
                         previousBackStackEntry?.savedStateHandle?.set("ShowRecord", recordData)
@@ -208,7 +211,6 @@ class AddrecordFragment : Fragment() {
         var imageFile = arrayListOf<MultipartBody.Part>()
         for(image in recordData.pictures) {
             val path = Uri.parse(image).path
-            // val path = createCopyAndReturnRealPath(Uri.parse(image))
             val mp = MultipartBody.Part.createFormData("image", File(path).name, File(path).asRequestBody("image/*".toMediaTypeOrNull()))
             imageFile.add(mp)
         }
@@ -251,27 +253,5 @@ class AddrecordFragment : Fragment() {
             }
 
         })
-    }
-    // 이미지 uri를 절대 경로로 바꾸고 이미지
-    fun createCopyAndReturnRealPath(uri: Uri) :String? {
-        val context = requireContext()
-        val contentResolver = context.contentResolver ?: return null
-
-        // Create file path inside app's data dir
-        val filePath = (context.applicationInfo.dataDir + File.separator
-                + System.currentTimeMillis())
-        val file = File(filePath)
-        try {
-            val inputStream = contentResolver.openInputStream(uri) ?: return null
-            val outputStream: OutputStream = FileOutputStream(file)
-            val buf = ByteArray(1024)
-            var len: Int
-            while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
-            outputStream.close()
-            inputStream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return file.getAbsolutePath()
     }
 }

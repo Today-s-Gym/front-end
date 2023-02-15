@@ -75,7 +75,7 @@ class CalendarFragment: Fragment() {
             mycalendar = calendarview
             // 캘린더 Title 연. 월 형식으로 변경
             mycalendar.setTitleFormatter(MyTitleFormatter())
-7
+
             // 3. 서버에서 선택된 월에 대한 기록 데이터 받기
             // 선택된 월에 대한 기록 데이터 받기
             setMonthData(selectedDate.year, selectedDate.month)
@@ -97,10 +97,17 @@ class CalendarFragment: Fragment() {
             }
             // 선택된 날짜와 다른 월이라면
             if(selectedDate.year != date.year || selectedDate.month != date.month) {
-                // 월 변경 시 1일을 기본 선택으로 지정
-                mycalendar.selectedDate = CalendarDay.from(date.year, date.month, 1)
-                selectedDate = CalendarDay.from(date.year, date.month, 1)
-                setPreview()
+                // 오늘이 포함된 달이라면 오늘을 기본 선택으로 지정
+                if(date.year == today.year && date.month == today.month) {
+                    mycalendar.selectedDate = today
+                    selectedDate = today
+                    setPreview()
+                } else {
+                    // 월 변경 시 1일을 기본 선택으로 지정
+                    mycalendar.selectedDate = CalendarDay.from(date.year, date.month, date.day)
+                    selectedDate = CalendarDay.from(date.year, date.month, date.day)
+                    setPreview()
+                }
             }
         }
     }
@@ -178,10 +185,8 @@ class CalendarFragment: Fragment() {
                             mycalendar.addDecorator(HasRecordDayDecorator(this@CalendarFragment, CalendarDay.from(year.toInt(),month.toInt(),day.toInt())))
                         }
                         userRecords = tempRecords
-
-                        Log.d("test","${selectedDate}/${(activity as MainActivity).selectedDate}")
                         // 캘린더 선택된 날짜(최초에는 오늘)로 선택
-                        mycalendar.setDateSelected(selectedDate, true)
+                        mycalendar.selectedDate = selectedDate
                         // 선택된 날짜에 대한 미리보기 화면 구성
                         setPreview()
                     } else {

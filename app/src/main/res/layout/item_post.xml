@@ -21,15 +21,17 @@
         android:id="@+id/tv_nickname"
         android:layout_width="236dp"
         android:layout_height="wrap_content"
-        android:text="닉네임 1"
-        android:textColor="@color/textBlack"
-        android:textStyle="bold"
-        android:textSize="14dp"
+        android:layout_marginStart="8dp"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
-        app:layout_constraintTop_toTopOf="@id/img_account"
+        android:text="닉네임 1"
+        android:textColor="@color/textBlack"
+        android:textSize="14dp"
+        android:fontFamily="@font/noto_sans"
+        android:includeFontPadding="false"
+        android:textFontWeight="900"
         app:layout_constraintStart_toEndOf="@+id/img_account"
-        android:layout_marginLeft="10dp" />
+        app:layout_constraintTop_toTopOf="@id/img_account" />
 
     <TextView
         android:id="@+id/tv_content"
