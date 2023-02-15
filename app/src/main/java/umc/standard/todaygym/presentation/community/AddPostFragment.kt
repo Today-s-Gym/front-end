@@ -12,26 +12,31 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
+import umc.standard.todaygym.data.model.Lock
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.BottomsheetSelectImageBinding
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
+import java.io.File
+import java.io.IOException
 
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
-    private val Image_Capture_Code = 1
+    var data : Lock? = null
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val imageUrl = it.data?.data
@@ -45,6 +50,29 @@ class AddPostFragment: Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         viewBinding = FragmentAddPostBinding.inflate(layoutInflater)
+
+        viewBinding.apply {
+            //비공계
+            if(data?.result?.locked == true){
+                tvAdd.setTextColor(909090)
+                btnExrecord.setImageResource(R.drawable.question_mark)
+                btnExrecord.setOnClickListener {
+                    tvLock.visibility = View.VISIBLE
+                }
+
+
+            }
+            //공계
+            else{
+                btnExrecord.setOnClickListener {
+                    findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
+
+                }
+
+
+            }
+        }
+
 
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
@@ -67,22 +95,27 @@ class AddPostFragment: Fragment() {
         }
 
 
-        viewBinding.viewExrecord.visibility=View.GONE
+//        viewBinding.viewExrecord.visibility=View.GONE
 
-        viewBinding.btnExrecord.setOnClickListener {
-            findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
-
-
-        }
 
         val navController = findNavController()
         if(navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true){
             viewBinding.tvExcontent.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("content")
             viewBinding.tvExdate.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("data")
             var imgUrl = navController.currentBackStackEntry?.savedStateHandle?.get<String>("url")
-            Glide.with(this)
-                .load(imgUrl)
-                .into(viewBinding.imgExrecord)
+            if(imgUrl != ""){
+                Glide.with(this)
+                    .load(imgUrl)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                    .into(viewBinding.imgExrecord)
+            }
+            else{
+                Glide.with(this)
+                    .load(R.drawable.record_basic_icon)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                    .into(viewBinding.imgExrecord)
+            }
+
             viewBinding.viewExrecord.visibility = View.VISIBLE
         }
 
@@ -170,9 +203,27 @@ class AddPostFragment: Fragment() {
 //        }
         var cameraPickerIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraPickerIntent.type = "image/*"
-        startActivityForResult(cameraPickerIntent, Image_Capture_Code)
+//        startActivityForResult(cameraPickerIntent, Image_Capture_Code)
 
     }
 
+    private fun requestLock(){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.getLock()
+        call?.enqueue(object : Callback<Lock> {
+            override fun onResponse(call: Call<Lock>, response: Response<Lock>) {
+                if(response.isSuccessful){
+                    data = response.body()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Lock>, t: Throwable) {
+
+            }
+
+        })
+    }
 
 }

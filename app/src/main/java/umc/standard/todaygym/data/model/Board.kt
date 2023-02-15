@@ -20,6 +20,7 @@ data class BoardData(
         val recordId: Int,
         val recordPhotoImgUrl: String,
         val title: String,
+        val writerId:Int,
         val writerAvatarImgUrl: String,
         val writerNickName: String
     )

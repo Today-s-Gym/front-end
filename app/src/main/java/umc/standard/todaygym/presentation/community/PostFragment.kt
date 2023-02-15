@@ -55,7 +55,6 @@ class PostFragment: Fragment() {
                 }
             }
             override fun onFailure(call: Call<PostData>, t: Throwable) {
-                TODO("Not yet implemented")
             }
 
         })
@@ -110,7 +109,7 @@ class PostFragment: Fragment() {
                 }
             }
             override fun onFailure(call: Call<AddChat>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }

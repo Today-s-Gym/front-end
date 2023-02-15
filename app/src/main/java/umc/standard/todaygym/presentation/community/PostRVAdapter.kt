@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -114,6 +116,10 @@ class PostRVAdapter(
                     bundle.putInt("editPostId",data.getPostRes.postId)
                     bundle.putString("editTitle",viewBinding.tvTitle.text.toString())
                     bundle.putString("editContent",viewBinding.tvContent.text.toString())
+                    bundle.putInt("editRecordId",data.getPostRes.recordId)
+                    bundle.putString("editExContent",data.getPostRes.recordContent)
+                    bundle.putString("editExAt",data.getPostRes.recordCreatedAt)
+                    bundle.putString("editExImg",data.getPostRes.recordPhotoImgUrl)
                     dialog.dismiss()
                     itemView.findNavController().navigate(R.id.action_postFragment_to_editPostFragment,bundle)
 
@@ -158,6 +164,12 @@ class PostRVAdapter(
                 tvCreateAt.text = data2.createdAt
                 tvTitle.text = data2.title
                 tvContent.text = data2.content
+
+                Glide.with(itemView)
+                    .load(data2.writerAvatarImgUrl)
+                    .circleCrop()
+                    .into(imgAccount)
+
                 if (data2.likeCounts != 0) {
                     tvHeart.visibility = View.VISIBLE
                     tvHeart.text = data2.likeCounts.toString()
@@ -173,8 +185,20 @@ class PostRVAdapter(
                 } else {
                     tvExdate.text = data2.recordCreatedAt
                     tvExcontent.text = data2.recordContent
-                    Glide.with(itemView).load(data2.recordPhotoImgUrl).into(imgExrecord)
+                    if(data2.recordPhotoImgUrl!=""){
+                        Glide.with(itemView)
+                            .load(data2.recordPhotoImgUrl)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                            .into(imgExrecord)
+                    }
+                    else{
+                        Glide.with(itemView)
+                            .load(R.drawable.record_basic_icon)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                            .into(imgExrecord)
+                    }
                 }
+
 
                 if (data2.postPhotoList.isEmpty()) {
                     imgViewpager.visibility = View.GONE
@@ -222,6 +246,13 @@ class PostRVAdapter(
                         requestHeart(data2.postId)
                     }
 
+                }
+
+                var bundle2 = Bundle()
+                //다른 프로필로 이동
+                imgAccount.setOnClickListener {
+                    bundle2.putInt("userId",data.getPostRes.writerId)
+                    itemView.findNavController().navigate(R.id.action_postFragment_to_yourPageFragment,bundle2)
                 }
             }
 
