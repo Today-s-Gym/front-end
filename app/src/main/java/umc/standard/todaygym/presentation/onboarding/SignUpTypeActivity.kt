@@ -45,34 +45,24 @@ class SignUpTypeActivity:AppCompatActivity(){
             }
 
         })
-
-        val tabLayout = binding.layoutType as TabLayout
-        tabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                selectType = categoryList.indexOf(tab?.text)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                selectType = -1
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                selectType = categoryList.indexOf(tab?.text)
-            }
-
-        })
-
+//
+//        val tableLayout = binding.layoutType
+//
+//        tableLayout.setOnClickListener{it.text
+//
+//        }
 
         binding.btSingupNickname.setOnClickListener{
             val userInterface: UserInterface? = RetrofitClient.getClient()?.create(UserInterface::class.java)
-            val call = userInterface?.addSports(categoryId =selectType)
+            //우선 정적인값으로 고정..
+            val call = userInterface?.addSports(categoryId =0)
             call?.enqueue(object: Callback<AddSignResponse>{
                 override fun onResponse(
                     call: Call<AddSignResponse>,
                     response: Response<AddSignResponse>
                 ) {
-                    val Intent = Intent(this@SignUpTypeActivity, MainActivity::class.java)
-                    startActivity(Intent)
+                    val intent = Intent(this@SignUpTypeActivity, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
 

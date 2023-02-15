@@ -35,15 +35,13 @@ import java.io.IOException
 
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
-    private lateinit var requestAddPost: RequestAddPost
-    private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val imageUrl = it.data?.data
+    private lateinit var requestAddPost : RequestAddPost
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val imageUrl = it.data?.data
 //            viewBinding.imgCamera.setImageURI(imageUrl)
-            }
         }
-
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,27 +53,18 @@ class AddPostFragment: Fragment() {
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        var recordId =
-            findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
 
-        requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),recordId)
 
+        var recordId = findNavController().currentBackStackEntry?.savedStateHandle?.get<Int>("recordId")
         viewBinding.btnAdd.setOnClickListener {
-            requestAddPost = RequestAddPost(
-                arguments?.getInt("categoryId")!!,
-                viewBinding.editTitle.text.toString(),
-                viewBinding.editContent.text.toString(),
-                recordId
-            )
+            requestAddPost = RequestAddPost(arguments?.getInt("categoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),recordId)
             request(requestAddPost)
-            findNavController().popBackStack(R.id.boardFragment, false)
+            findNavController().popBackStack(R.id.boardFragment,false)
 
         }
-        viewBinding.imgCamera.setOnClickListener {
-            move_gallery()
-        }
 
-        viewBinding.viewExrecord.visibility = View.GONE
+
+        viewBinding.viewExrecord.visibility=View.GONE
 
         viewBinding.btnExrecord.setOnClickListener {
             findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
@@ -84,13 +73,10 @@ class AddPostFragment: Fragment() {
         }
 
         val navController = findNavController()
-        if (navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true) {
-            viewBinding.tvExcontent.text =
-                navController.currentBackStackEntry?.savedStateHandle?.get<String>("content")
-            viewBinding.tvExdate.text =
-                navController.currentBackStackEntry?.savedStateHandle?.get<String>("data")
-            var imgUrl =
-                navController.currentBackStackEntry?.savedStateHandle?.get<String>("url")
+        if(navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true){
+            viewBinding.tvExcontent.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("content")
+            viewBinding.tvExdate.text = navController.currentBackStackEntry?.savedStateHandle?.get<String>("data")
+            var imgUrl = navController.currentBackStackEntry?.savedStateHandle?.get<String>("url")
             Glide.with(this)
                 .load(imgUrl)
                 .into(viewBinding.imgExrecord)
@@ -100,7 +86,7 @@ class AddPostFragment: Fragment() {
 
 
         viewBinding.btnDelete.setOnClickListener {
-            viewBinding.viewExrecord.visibility = View.GONE
+            viewBinding.viewExrecord.visibility=View.GONE
             viewBinding.tvExcontent.text = null
             viewBinding.tvExdate.text = null
             Glide.with(this)
@@ -113,9 +99,8 @@ class AddPostFragment: Fragment() {
     }
 
 
-    private fun request(requestAddPost: RequestAddPost) {
-//        val requestFile = RequestBody.create(MultipartBody.FORM,"")
-//        val body = MultipartBody.Part.createFormData("image", "", requestFile)
+
+    private fun request(requestAddPost: RequestAddPost){
         val communityInterface: CommunityService? =
             RetrofitClient.getClient()?.create(CommunityService::class.java)
         val call = communityInterface?.addPost(requestAddPost)
@@ -125,10 +110,8 @@ class AddPostFragment: Fragment() {
                 call: Call<RequestAddPost>,
                 response: Response<RequestAddPost>,
             ) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful){
                     var data = response.body()
-
-
                 }
 
             }
@@ -144,5 +127,7 @@ class AddPostFragment: Fragment() {
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
         startForResult.launch(photoPickerIntent)
+
     }
+
 }
