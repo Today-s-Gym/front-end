@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.*
 import umc.standard.todaygym.data.model.AddSignResponse
+import umc.standard.todaygym.data.model.MyPageResponse
 import umc.standard.todaygym.data.model.SignRequest
 import umc.standard.todaygym.data.model.SignUpResponse
 
@@ -25,5 +26,9 @@ interface UserInterface {
     @PUT("/login/sports")
     fun addSports(
         @Query("categoryid")categoryId:Int):Call<AddSignResponse>
+
+    @GET("/user/mypage")
+    fun getMyPage():Call<MyPageResponse>
+
 
 }

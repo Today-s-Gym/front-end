@@ -22,3 +22,15 @@ data class AddSignResponse(
     @SerializedName("code")val code:Int,
     @SerializedName("message")val msg:String,
 )
+data class MyPageResponse(
+    @SerializedName("avatarImgUrl")val avatarImgeUrl:String,
+    @SerializedName("nickname")val nickName:String,
+    @SerializedName("categoryName")val categoryName:String,
+    @SerializedName("introduce")val introduce:String,
+    @SerializedName("userRecordCount")val userRecordCount:Int,
+    @SerializedName("remainUpgradeCount")val remainUpgradeCount:Int,
+    @SerializedName("cumulativeCount")val cumulativeCount:Int,
+    @SerializedName("locked")val locked:Boolean,
+
+
+)

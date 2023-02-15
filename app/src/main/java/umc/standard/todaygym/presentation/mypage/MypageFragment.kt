@@ -40,13 +40,10 @@ class MypageFragment: Fragment() {
 
         binding.ivMypageProfile.setOnClickListener{
             showDialog()
-
         }
         binding.btnProfileToPost.setOnClickListener{
            //내 게시글 보러가기
             navBoard()
-
-
         }
 
         return binding.root
@@ -65,6 +62,5 @@ class MypageFragment: Fragment() {
     private fun navBoard(){
         bundle.putString("category","주짓수")
         findNavController().navigate(umc.standard.todaygym.R.id.action_mypageFragment_to_boardFragment)
-
     }
 }
