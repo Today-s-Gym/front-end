@@ -1,5 +1,6 @@
 package umc.standard.todaygym.presentation.calendar
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
 import umc.standard.todaygym.R
@@ -26,6 +30,7 @@ import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
+import java.io.File
 import java.net.URL
 import java.text.DecimalFormat
 
@@ -59,7 +64,7 @@ class AddrecordFragment : Fragment() {
             }
             // 서버에서 사용자 정보 받아서 넣기(sharedPreference에서 받아오기)
             tvUsernickname.text = "벡스"
-            ivUseravarta.setImageResource(R.drawable.logo)
+            ivUseravarta.setImageResource(R.drawable.charac3)
 
             // 2. 상단바 기능 구현
             // 상단 날짜 표시
@@ -205,9 +210,9 @@ class AddrecordFragment : Fragment() {
         // 이미지 uri
         var imageFile = arrayListOf<MultipartBody.Part>()
         for(image in recordData.pictures) {
-            // val path = Uri.parse(image).path
-            // val mp = MultipartBody.Part.createFormData("image", File(path).name, File(path).asRequestBody("image/*".toMediaTypeOrNull()))
-            // imageFile.add(mp)
+            val path = Uri.parse(image).path
+            val mp = MultipartBody.Part.createFormData("image", File(path).name, File(path).asRequestBody("image/*".toMediaTypeOrNull()))
+            imageFile.add(mp)
         }
 
         var call : Call<RecordResponse>?
