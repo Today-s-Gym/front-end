@@ -1,6 +1,7 @@
 package umc.standard.todaygym.presentation.mypage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,51 +35,36 @@ class YourPageFragment: Fragment() {
         viewBinding = FragmentMypageBinding.inflate(layoutInflater)
         viewBinding.imgBack.setOnClickListener {
                         findNavController().popBackStack()
-                    }
+        }
 
         var userId = arguments?.getInt("userId")
         if (userId != null) {
             yourProfile(userId)
-        }
-        viewBinding.apply {
-            var data2 = data?.result
-            btnSetting.setImageResource(R.drawable.more_vert)
-            if (data2?.locked == false){
-                Glide.with(this@YourPageFragment).load(data2.avatarImgUrl).into(ivMypageProfile)
-                tvMypageProfile.text = data2.nickname
-                tvProfileType.text = data2.categoryName
-                tvProfileIntroduce.text = data2.introduce
-                tvThisMonth.text = data2.userRecordCount.thisMonthRecord.toString() + " 회"
-                tvUpgrade.text = data2.userRecordCount.remainUpgradeCount.toString() + " 회"
-                tvCumulative.text = data2.userRecordCount.cumulativeCount.toString()  + " 회"
-                btnProfileToPost.text = "캘린더 보러가기"
-            }
-            else {
-                layoutProfileRecord.visibility = View.GONE
-                btnProfileToPost.visibility = View.GONE
-                tvAccount.visibility = View.VISIBLE
-                imgUnlock.visibility = View.VISIBLE
-            }
 
-            var dialog = context?.let { it1 -> BottomSheetDialog(it1) }
-            var bottomSheetView = DialogBottomYoursBinding.inflate(LayoutInflater.from(context))
-            dialog?.setContentView(bottomSheetView.root)
+            viewBinding.apply {
 
-            btnSetting.setOnClickListener {
-                dialog?.show()
-                bottomSheetView.groupEdit.visibility = View.GONE
-                bottomSheetView.apply {
-                    groupEdit.visibility = View.GONE
-                    tvUser.text = "신고하기"
-                    tvUser.setOnClickListener {
-                        if (userId != null) {
-                            reportUser(userId)
+                var dialog = context?.let { it1 -> BottomSheetDialog(it1) }
+                var bottomSheetView = DialogBottomYoursBinding.inflate(LayoutInflater.from(context))
+                dialog?.setContentView(bottomSheetView.root)
+
+                btnSetting.setOnClickListener {
+                    dialog?.show()
+                    bottomSheetView.groupEdit.visibility = View.GONE
+                    bottomSheetView.apply {
+                        groupEdit.visibility = View.GONE
+                        tvUser.text = "신고하기"
+                        tvUser.setOnClickListener {
+                            if (userId != null) {
+                                reportUser(userId)
+                            }
+                            dialog?.dismiss()
                         }
-                        dialog?.dismiss()
                     }
                 }
             }
         }
+
+
 
         return viewBinding.root
     }
@@ -89,9 +75,38 @@ class YourPageFragment: Fragment() {
         val call = userInterface?.yourProfile(userId)
         call?.enqueue(object : Callback<YourProfile> {
             override fun onResponse(call: Call<YourProfile>, response: Response<YourProfile>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     data = response.body()
 
+                    viewBinding.apply {
+                        var data2 = data?.result
+                        btnSetting.setImageResource(R.drawable.more_vert)
+                        ivMypageProfilePrivate.visibility = View.GONE
+                        //공개 계정
+                        Log.d("lock", data2?.locked.toString())
+                        if (data2?.locked == false) {
+                            Glide.with(this@YourPageFragment).load(data2.avatarImgUrl)
+                                .into(ivMypageProfile)
+                            tvMypageProfile.text = data2.nickname
+                            tvProfileType.text = data2.categoryName
+                            tvProfileIntroduce.text = data2.introduce
+                            tvThisMonth.text =
+                                data2.userRecordCount.thisMonthRecord.toString() + " 회"
+                            tvUpgrade.text =
+                                data2.userRecordCount.remainUpgradeCount.toString() + " 회"
+                            tvCumulative.text =
+                                data2.userRecordCount.cumulativeCount.toString() + " 회"
+                            btnProfileToPost.text = "캘린더 보러가기"
+                        }
+                        //비공개 계정
+                        else {
+                            layoutProfileRecord.visibility = View.GONE
+                            btnProfileToPost.visibility = View.GONE
+                            tvAccount.visibility = View.VISIBLE
+                            imgUnlock.visibility = View.VISIBLE
+                        }
+
+                    }
                 }
             }
             override fun onFailure(call: Call<YourProfile>, t: Throwable) {
@@ -119,6 +134,5 @@ class YourPageFragment: Fragment() {
 
         })
     }
-
 
 }

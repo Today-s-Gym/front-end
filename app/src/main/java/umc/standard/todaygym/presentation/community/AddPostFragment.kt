@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.TypefaceCompatUtil.getTempFile
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -27,6 +28,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
+import umc.standard.todaygym.data.model.BoardData
+import umc.standard.todaygym.data.model.Lock
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
@@ -36,6 +39,7 @@ import java.io.IOException
 class AddPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var requestAddPost : RequestAddPost
+    var data : Lock? = null
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val imageUrl = it.data?.data
@@ -49,6 +53,29 @@ class AddPostFragment: Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         viewBinding = FragmentAddPostBinding.inflate(layoutInflater)
+
+        viewBinding.apply {
+            //비공계
+            if(data?.result?.locked == true){
+                tvAdd.setTextColor(909090)
+                btnExrecord.setImageResource(R.drawable.question_mark)
+                btnExrecord.setOnClickListener {
+                    tvLock.visibility = View.VISIBLE
+                }
+
+
+            }
+            //공계
+            else{
+                btnExrecord.setOnClickListener {
+                    findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
+
+                }
+
+
+            }
+        }
+
 
         viewBinding.imgBack.setOnClickListener {
             findNavController().popBackStack()
@@ -64,13 +91,8 @@ class AddPostFragment: Fragment() {
         }
 
 
-        viewBinding.viewExrecord.visibility=View.GONE
+//        viewBinding.viewExrecord.visibility=View.GONE
 
-        viewBinding.btnExrecord.setOnClickListener {
-            findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
-
-
-        }
 
         val navController = findNavController()
         if(navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true){
@@ -128,6 +150,25 @@ class AddPostFragment: Fragment() {
         photoPickerIntent.type = "image/*"
         startForResult.launch(photoPickerIntent)
 
+    }
+
+    private fun requestLock(){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.getLock()
+        call?.enqueue(object : Callback<Lock> {
+            override fun onResponse(call: Call<Lock>, response: Response<Lock>) {
+                if(response.isSuccessful){
+                    data = response.body()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Lock>, t: Throwable) {
+
+            }
+
+        })
     }
 
 }

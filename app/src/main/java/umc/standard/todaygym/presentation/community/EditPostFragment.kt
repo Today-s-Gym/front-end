@@ -14,6 +14,7 @@ import retrofit2.Response
 import umc.standard.todaygym.R
 import umc.standard.todaygym.data.api.CommunityService
 import umc.standard.todaygym.data.model.EditPost
+import umc.standard.todaygym.data.model.Lock
 import umc.standard.todaygym.data.model.RequestAddPost
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddPostBinding
@@ -21,7 +22,7 @@ import umc.standard.todaygym.databinding.FragmentAddPostBinding
 class EditPostFragment: Fragment() {
     private lateinit var viewBinding: FragmentAddPostBinding
     private lateinit var editPost: EditPost
-
+    var data : Lock? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,12 +48,16 @@ class EditPostFragment: Fragment() {
 
         //하지만 있다면 기록을 넣어줘야 하지
         } else {
+            viewBinding.viewExrecord.visibility = View.VISIBLE
             viewBinding.tvExdate.text = arguments?.getString("editExAt")
             viewBinding.tvExcontent.text = arguments?.getString("editExContent")
             Glide.with(this).load(arguments?.getString("editExImg")).into(viewBinding.imgExrecord)
         }
 
         viewBinding.btnAdd.setOnClickListener {
+            if(recordId==0){
+                recordId = null
+            }
             editPost = EditPost(arguments?.getInt("editCategoryId")!!,viewBinding.editTitle.text.toString(), viewBinding.editContent.text.toString(),
                 listOf(""),recordId)
             requestEditPost(arguments?.getInt("editPostId")!!,editPost)
@@ -64,10 +69,28 @@ class EditPostFragment: Fragment() {
         viewBinding.editTitle.setText(arguments?.getString("editTitle"))
         viewBinding.editContent.setText(arguments?.getString("editContent"))
 
-        viewBinding.btnExrecord.setOnClickListener {
-            findNavController().navigate(R.id.action_editPostFragment_to_addExFragment)
+        viewBinding.apply {
+            //비공계
+            if(data?.result?.locked == true){
+                tvAdd.setTextColor(909090)
+                btnExrecord.setImageResource(R.drawable.question_mark)
+                btnExrecord.setOnClickListener {
+                    tvLock.visibility = View.VISIBLE
+                }
 
+
+            }
+            //공계
+            else{
+                btnExrecord.setOnClickListener {
+                    findNavController().navigate(R.id.action_addPostFragment_to_addExFragment)
+
+                }
+
+
+            }
         }
+
 
         val navController = findNavController()
         if(navController?.currentBackStackEntry?.savedStateHandle?.contains("content") == true){
@@ -115,6 +138,25 @@ class EditPostFragment: Fragment() {
             }
 
             override fun onFailure(call: Call<EditPost>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+    private fun requestLock(){
+        val communityInterface: CommunityService? =
+            RetrofitClient.getClient()?.create(CommunityService::class.java)
+        val call = communityInterface?.getLock()
+        call?.enqueue(object : Callback<Lock> {
+            override fun onResponse(call: Call<Lock>, response: Response<Lock>) {
+                if(response.isSuccessful){
+                    data = response.body()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Lock>, t: Throwable) {
 
             }
 

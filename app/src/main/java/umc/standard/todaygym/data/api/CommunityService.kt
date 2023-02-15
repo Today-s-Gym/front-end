@@ -86,5 +86,9 @@ interface CommunityService {
         @Part("postPostReq") editPost: EditPost
     ) :Call<EditPost>
 
+    @GET("user/check-locked")
+    fun getLock(
+    ): Call<Lock>
+
 
 }

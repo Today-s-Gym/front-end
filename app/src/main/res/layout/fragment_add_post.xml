@@ -201,13 +201,14 @@
         android:textColor="@color/textBlack"/>
     
     <TextView
+        android:id="@+id/tv_lock"
+        android:visibility="gone"
         android:layout_width="318dp"
         android:layout_height="wrap_content"
         android:text="비공개 계정일 경우에 게시글 작성 및 수정은 첨부가 불가능 합니다."
         android:textSize="12sp"
         android:textColor="@color/black"
-        android:background="@drawable/rectangle_radius20"
-        android:backgroundTint="@color/btngrey"
+        android:background="@drawable/border_post"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:paddingStart="14dp"

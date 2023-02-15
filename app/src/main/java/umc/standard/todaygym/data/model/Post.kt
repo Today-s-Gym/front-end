@@ -79,3 +79,14 @@ data class EditPost(
     val postPhotos: List<String>,
     val recordId: Int?
 )
+
+data class Lock(
+    val code: Int,
+    val isSuccess: Boolean,
+    val message: String,
+    val result: Result
+) {
+    data class Result(
+        val locked: Boolean
+    )
+}

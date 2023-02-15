@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -36,6 +37,13 @@ class BoardRVAdapter(private val dataList: List<BoardData.Result>,var categoryID
              if(data.likeCounts != 0){
                  tvHeart.visibility = View.VISIBLE
                  tvHeart.text = data.likeCounts.toString()
+             }
+
+             var bundle2 = Bundle()
+             //다른 프로필로 이동
+             imgAccount.setOnClickListener {
+                 bundle2.putInt("userId",data.writerId)
+                 itemView.findNavController().navigate(R.id.action_boardFragment_to_yourPageFragment,bundle2)
              }
 
              // 좋아요 누른 경우

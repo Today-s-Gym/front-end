@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_boardFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_boardFragment_to_yourPageFragment"
+            app:destination="@id/yourPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
