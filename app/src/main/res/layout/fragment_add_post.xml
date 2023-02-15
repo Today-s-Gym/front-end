@@ -137,8 +137,8 @@
         android:textSize="16sp"/>
     <ImageButton
         android:id="@+id/btn_exrecord"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/add"
         android:backgroundTint="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/tv_add"
@@ -199,6 +199,23 @@
         android:gravity="center"
         android:textSize="13sp"
         android:textColor="@color/textBlack"/>
+    
+    <TextView
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:text="비공개 계정일 경우에 게시글 작성 및 수정은 첨부가 불가능 합니다."
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:background="@drawable/rectangle_radius20"
+        android:backgroundTint="@color/btngrey"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/img_exrecord"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
 
 
 
