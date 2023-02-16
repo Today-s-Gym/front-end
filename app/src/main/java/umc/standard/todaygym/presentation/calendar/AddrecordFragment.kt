@@ -30,6 +30,8 @@ import umc.standard.todaygym.data.model.RecordResponse
 import umc.standard.todaygym.data.model.Tag
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentAddrecordBinding
+import umc.standard.todaygym.util.APIPreferences
+import umc.standard.todaygym.util.SharePreferences
 import java.io.File
 import java.net.URL
 import java.text.DecimalFormat
@@ -63,7 +65,9 @@ class AddrecordFragment : Fragment() {
                 recordData = arguments?.getSerializable("recordData") as Record
             }
             // 서버에서 사용자 정보 받아서 넣기(sharedPreference에서 받아오기)
-            tvUsernickname.text = "벡스"
+            var stirng = SharePreferences.prefs.getSharedPreference(
+                APIPreferences.SHARED_PREFERENCE_NAME_NICKNAME,"")
+            tvUsernickname.text = stirng
             ivUseravarta.setImageResource(R.drawable.charac3)
 
             // 2. 상단바 기능 구현

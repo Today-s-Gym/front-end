@@ -25,6 +25,9 @@ import umc.standard.todaygym.data.model.BoardData
 import umc.standard.todaygym.data.model.MyPageResponse
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentMypageBinding
+import umc.standard.todaygym.util.APIPreferences
+import umc.standard.todaygym.util.SharePreferences
+import umc.standard.todaygym.util.SharePreferences.Companion.prefs
 
 
 class MypageFragment: Fragment() {
@@ -46,6 +49,7 @@ class MypageFragment: Fragment() {
         val params : WindowManager.LayoutParams? = dialog.window?.attributes;
         params?.width = WindowManager.LayoutParams.MATCH_PARENT
         params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+
         if (params != null) {
             dialog.window?.setLayout(params.width,params.height)
         }
@@ -57,6 +61,9 @@ class MypageFragment: Fragment() {
            //내 게시글 보러가기
             navBoard()
         }
+        var stirng = prefs.getSharedPreference(
+            APIPreferences.SHARED_PREFERENCE_NAME_NICKNAME,"")
+        binding.tvMypageProfile.text =stirng
 
         return binding.root
     }
