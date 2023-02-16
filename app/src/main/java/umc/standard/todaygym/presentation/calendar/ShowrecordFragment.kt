@@ -21,6 +21,8 @@ import umc.standard.todaygym.data.model.Record
 import umc.standard.todaygym.data.model.DeleteRecord
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.FragmentShowrecordBinding
+import umc.standard.todaygym.util.APIPreferences.SHARED_PREFERENCE_NAME_NICKNAME
+import umc.standard.todaygym.util.SharePreferences.Companion.prefs
 import java.text.DecimalFormat
 
 class ShowrecordFragment : Fragment() {
@@ -42,9 +44,10 @@ class ShowrecordFragment : Fragment() {
         binding.apply {
             // 1. 넘겨받은 값 변수에 넣기
             recordData = arguments?.getSerializable("recordData") as Record
-
+            var stirng = prefs.getSharedPreference(
+                SHARED_PREFERENCE_NAME_NICKNAME,"")
             // 사용자 정보 넣기
-            tvUsernickname.text = "벡스"
+            tvUsernickname.text = stirng
             ivUseravarta.setImageResource(R.drawable.charac3)
 
             // 2. 상단바 기능 구현
