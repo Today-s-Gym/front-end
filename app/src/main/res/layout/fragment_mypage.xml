@@ -223,9 +223,7 @@
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:paddingHorizontal="11dp"
-                android:paddingVertical="10dp"
-
-                >
+                android:paddingVertical="10dp">
 
                 <TextView
                     android:id="@+id/tv_upgrade"

@@ -17,9 +17,10 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"/>
     <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="15dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/layout_camera"
+        android:paddingTop="30dp"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
@@ -43,9 +44,10 @@
         android:layout_gravity="center_horizontal"
         android:background="#D9D9D9" />
     <LinearLayout
-        android:layout_marginBottom= "30dp"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/layout_gallery"
+        android:paddingBottom="30dp"
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView

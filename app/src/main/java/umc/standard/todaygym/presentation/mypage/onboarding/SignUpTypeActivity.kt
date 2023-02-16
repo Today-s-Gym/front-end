@@ -55,7 +55,7 @@ class SignUpTypeActivity:AppCompatActivity(){
         binding.btSingupNickname.setOnClickListener{
             val userInterface: UserInterface? = RetrofitClient.getClient()?.create(UserInterface::class.java)
             //우선 정적인값으로 고정..
-            val call = userInterface?.addSports(categoryId =0)
+            val call = userInterface?.addSports(categoryId =5)
             call?.enqueue(object: Callback<AddSignResponse>{
                 override fun onResponse(
                     call: Call<AddSignResponse>,
