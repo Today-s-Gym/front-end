@@ -63,4 +63,5 @@ object APIPreferences{
     val SHARED_PREFERENCE_NAME_NICKNAME :String = "nickname"
     val SHARED_PREFERENCE_NAME_TYPE :String = "exerciseType"
     val SHARED_PREFERENCE_NAME_PROFILEID :String = "profileId"
+    val SHARED_PREFERENCE_NAME_STATUS:String = "statusMsg"
 }

@@ -63,8 +63,10 @@ class MypageFragment: Fragment() {
         }
         var stirng = prefs.getSharedPreference(
             APIPreferences.SHARED_PREFERENCE_NAME_NICKNAME,"")
+        var msg = prefs.getSharedPreference(
+            APIPreferences.SHARED_PREFERENCE_NAME_NICKNAME,"")
         binding.tvMypageProfile.text =stirng
-
+        binding.tvProfileIntroduce.text =msg
         return binding.root
     }
     fun getData(){

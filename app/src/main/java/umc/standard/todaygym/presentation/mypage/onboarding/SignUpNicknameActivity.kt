@@ -17,6 +17,7 @@ import umc.standard.todaygym.data.model.AddSignResponse
 import umc.standard.todaygym.data.util.RetrofitClient
 import umc.standard.todaygym.databinding.ActivitySignupNicknameBinding
 import umc.standard.todaygym.util.APIPreferences.SHARED_PREFERENCE_NAME_NICKNAME
+import umc.standard.todaygym.util.APIPreferences.SHARED_PREFERENCE_NAME_STATUS
 import umc.standard.todaygym.util.SharePreferences.Companion.prefs
 
 class SignUpNicknameActivity:AppCompatActivity(){
@@ -78,7 +79,9 @@ class SignUpNicknameActivity:AppCompatActivity(){
                 prefs.putSharedPreference(
                     SHARED_PREFERENCE_NAME_NICKNAME,
                     binding.etSignupNickname.text.toString())
-
+                prefs.putSharedPreference(
+                    SHARED_PREFERENCE_NAME_STATUS,
+                    binding.etSignupStatusMsg.text.toString())
             }
         }
 
