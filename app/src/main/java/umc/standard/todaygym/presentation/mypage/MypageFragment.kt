@@ -32,10 +32,6 @@ class MypageFragment: Fragment() {
     private lateinit var bundle: Bundle
     private lateinit var dialog: Dialog
     var data: MyPageResponse? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getData()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +39,8 @@ class MypageFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageBinding.inflate(layoutInflater)
-
+        bundle = Bundle()
+        getData()
         dialog = Dialog(requireContext())
         dialog.setContentView(umc.standard.todaygym.R.layout.dialog_avatar_level)
         val params : WindowManager.LayoutParams? = dialog.window?.attributes;
@@ -73,6 +70,23 @@ class MypageFragment: Fragment() {
                 response: Response<MyPageResponse>
             ) {
                 data = response.body()
+//                binding.apply {
+//                    tvMypageProfile.text = data?.nickName
+//                    Glide.with(this@MypageFragment)
+//                        .load(data?.avatarImgeUrl)
+//                        .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+//                        .into(binding.ivMypageProfile)
+//                    tvProfileType.text = data?.categoryName
+//                    tvProfileIntroduce.text = data?.introduce
+//                    tvThisMonth.text = data?.userRecordCount?.thisMonthRecord.toString()
+//                    tvUpgrade.text = data?.userRecordCount?.remainUpgradeCount.toString()
+//                    tvCumulative.text = data?.userRecordCount?.cumulativeCount.toString()
+//                    if(data?.locked == true){
+//                        ivMypageProfilePrivate.visibility = View.GONE
+//                    }else{
+//                        ivMypageProfilePrivate.visibility = View.VISIBLE
+//                    }
+//                }
             }
 
             override fun onFailure(call: Call<MyPageResponse>, t: Throwable) {
@@ -80,28 +94,13 @@ class MypageFragment: Fragment() {
             }
 
         })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d("view","그려진다");
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            tvMypageProfile.text = data?.nickName
-            Glide.with(this@MypageFragment)
-                .load(data?.avatarImgeUrl)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
-                .into(binding.ivMypageProfile)
-            tvProfileType.text = data?.categoryName
-            tvProfileIntroduce.text = data?.introduce
-            tvThisMonth.text = data?.userRecordCount?.thisMonthRecord.toString()
-            tvUpgrade.text = data?.userRecordCount?.remainUpgradeCount.toString()
-            tvCumulative.text = data?.userRecordCount?.cumulativeCount.toString()
-            if(data?.locked == true){
-                ivMypageProfilePrivate.visibility = View.GONE
-            }else{
-                ivMypageProfilePrivate.visibility = View.VISIBLE
-            }
-        }
+
     }
     private fun showDialog() {
         dialog.show() // 다이얼로그 띄우기
@@ -113,6 +112,27 @@ class MypageFragment: Fragment() {
             dialog.dismiss()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        binding.apply {
+//            tvMypageProfile.text = data?.nickName
+//            Glide.with(this@MypageFragment)
+//                .load(data?.avatarImgeUrl)
+//                .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+//                .into(binding.ivMypageProfile)
+//            tvProfileType.text = data?.categoryName
+//            tvProfileIntroduce.text = data?.introduce
+//            tvThisMonth.text = data?.userRecordCount?.thisMonthRecord.toString()
+//            tvUpgrade.text = data?.userRecordCount?.remainUpgradeCount.toString()
+//            tvCumulative.text = data?.userRecordCount?.cumulativeCount.toString()
+//            if(data?.locked == true){
+//                ivMypageProfilePrivate.visibility = View.GONE
+//            }else{
+//                ivMypageProfilePrivate.visibility = View.VISIBLE
+//            }
+//        }
     }
     private fun navBoard(){
         bundle.putString("category","주짓수")
