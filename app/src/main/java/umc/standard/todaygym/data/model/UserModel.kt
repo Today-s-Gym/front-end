@@ -27,10 +27,11 @@ data class MyPageResponse(
     @SerializedName("nickname")val nickName:String,
     @SerializedName("categoryName")val categoryName:String,
     @SerializedName("introduce")val introduce:String,
-    @SerializedName("userRecordCount")val userRecordCount:Int,
+    @SerializedName("userRecordCount")val userRecordCount:UserRecordCount,
+    @SerializedName("locked")val locked:Boolean,
+)
+data class UserRecordCount(
+    @SerializedName("thisMonthRecord")val thisMonthRecord:Int,
     @SerializedName("remainUpgradeCount")val remainUpgradeCount:Int,
     @SerializedName("cumulativeCount")val cumulativeCount:Int,
-    @SerializedName("locked")val locked:Boolean,
-
-
 )

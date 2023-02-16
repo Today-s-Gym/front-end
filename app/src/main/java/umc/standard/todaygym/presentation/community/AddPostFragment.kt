@@ -43,7 +43,6 @@ class AddPostFragment: Fragment() {
             viewBinding.imgCamera.setImageURI(imageUrl)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,8 +58,6 @@ class AddPostFragment: Fragment() {
                 btnExrecord.setOnClickListener {
                     tvLock.visibility = View.VISIBLE
                 }
-
-
             }
             //공계
             else{
